@@ -75,6 +75,9 @@ public class App extends Application {
 
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+    // check which room button was clicked and switch to the corresponding scene
+    // TO-DO: Do the loading of fxml files in platform run later? Doesn't make a visual difference
+    // but at least buttons won't freeze
     switch (roomButtonId) {
       case "clueSceneBtn":
         System.out.println("Switching to clue scene");
