@@ -22,6 +22,10 @@ public class RoomController {
   @FXML private Rectangle rectPerson3;
   @FXML private Rectangle rectWaitress;
   @FXML private Button btnGuess;
+  @FXML private Button clueSceneBtn;
+  @FXML private Button leadScientistSceneButton;
+  @FXML private Button labTechnicianSceneButton;
+  @FXML private Button scholarSceneButton;
 
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
@@ -80,5 +84,11 @@ public class RoomController {
   @FXML
   private void handleGuessClick(ActionEvent event) throws IOException {
     context.handleGuessClick();
+  }
+
+  @FXML
+  private void handleRoomTransition(MouseEvent event) throws IOException {
+    Button clickedRoomButton = (Button) event.getSource();
+    context.handleRoomTransition(event, clickedRoomButton.getId());
   }
 }

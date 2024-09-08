@@ -56,4 +56,21 @@ public class GameStarted implements GameState {
     TextToSpeech.speak("Make a guess, click on the " + context.getProfessionToGuess());
     context.setState(context.getGuessingState());
   }
+
+  public void handleRoomTransition(MouseEvent event, String buttonId) {
+    switch (buttonId) {
+      case "clueSceneBtn":
+        System.out.println("Switching to clue scene");
+        return;
+      case "leadScientistSceneButton":
+        System.out.println("Switching to lead scientist scene");
+        return;
+      case "labTechnicianSceneButton":
+        System.out.println("Switching to lab technician scene");
+        return;
+      case "scholarSceneButton":
+        System.out.println("Switching to scholar scene");
+        return;
+    }
+  }
 }

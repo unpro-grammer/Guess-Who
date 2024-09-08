@@ -14,14 +14,14 @@
          </image>
       </ImageView>
       <Rectangle fx:id="rectCashier" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="73.0" layoutX="222.0" layoutY="262.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="38.0" />
-      <Rectangle fx:id="rectPerson1" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="128.0" layoutX="105.0" layoutY="291.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="109.0" />
-      <Rectangle fx:id="rectPerson3" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="135.0" layoutX="587.0" layoutY="284.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="91.0" />
+      <Rectangle fx:id="rectPerson1" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="63.0" layoutX="108.0" layoutY="363.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="57.0" />
+      <Rectangle fx:id="rectPerson3" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="68.0" layoutX="597.0" layoutY="409.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="57.0" />
       <Rectangle fx:id="rectWaitress" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="251.0" layoutX="463.0" layoutY="237.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="52.0" />
-      <Rectangle fx:id="rectPerson2" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="171.0" layoutX="368.0" layoutY="305.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="77.0" />
+      <Rectangle fx:id="rectPerson2" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="67.0" layoutX="259.0" layoutY="358.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="57.0" />
       <Button fx:id="btnGuess" layoutX="338.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleGuessClick" prefHeight="38.0" prefWidth="125.0" text="Make a Guess" />
-      <Button layoutX="696.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" text="C" />
-      <Button layoutX="733.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" text="LS" />
-      <Button layoutX="696.0" layoutY="46.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" text="LT" />
-      <Button layoutX="733.0" layoutY="46.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" text="S" />
+      <Button fx:id="clueSceneBtn" layoutX="696.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="C" />
+      <Button fx:id="leadScientistSceneButton" layoutX="733.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="LS" />
+      <Button fx:id="labTechnicianSceneButton" layoutX="696.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="LT" />
+      <Button fx:id="scholarSceneButton" layoutX="733.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="S" />
    </children>
 </Pane>
