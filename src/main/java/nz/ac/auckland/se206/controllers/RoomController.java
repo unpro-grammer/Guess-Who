@@ -4,7 +4,6 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
@@ -22,8 +21,11 @@ public class RoomController {
   @FXML private Rectangle rectPerson2;
   @FXML private Rectangle rectPerson3;
   @FXML private Rectangle rectWaitress;
-  @FXML private Label lblProfession;
   @FXML private Button btnGuess;
+  @FXML private Button clueSceneBtn;
+  @FXML private Button leadScientistSceneButton;
+  @FXML private Button labTechnicianSceneButton;
+  @FXML private Button scholarSceneButton;
 
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
@@ -36,11 +38,9 @@ public class RoomController {
   public void initialize() {
     if (isFirstTimeInit) {
       TextToSpeech.speak(
-          "Chat with the three customers, and guess who is the "
-              + context.getProfessionToGuess());
+          "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
       isFirstTimeInit = false;
     }
-    lblProfession.setText(context.getProfessionToGuess());
   }
 
   /**
@@ -84,5 +84,11 @@ public class RoomController {
   @FXML
   private void handleGuessClick(ActionEvent event) throws IOException {
     context.handleGuessClick();
+  }
+
+  @FXML
+  private void handleRoomTransition(MouseEvent event) throws IOException {
+    Button clickedRoomButton = (Button) event.getSource();
+    context.handleRoomTransition(event, clickedRoomButton.getId());
   }
 }

@@ -56,4 +56,8 @@ public class GameStarted implements GameState {
     TextToSpeech.speak("Make a guess, click on the " + context.getProfessionToGuess());
     context.setState(context.getGuessingState());
   }
+
+  public void handleRoomTransition(MouseEvent event, String buttonId) {
+    App.switchRoom(event, buttonId);
+  }
 }

@@ -71,6 +71,56 @@ public class App extends Application {
     stage.show();
   }
 
+  public static void switchRoom(MouseEvent event, String roomButtonId) {
+
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+    // check which room button was clicked and switch to the corresponding scene
+    // TO-DO: Do the loading of fxml files in platform run later? Doesn't make a visual difference
+    // but at least buttons won't freeze
+    switch (roomButtonId) {
+      case "clueSceneBtn":
+        System.out.println("Switching to clue scene");
+        try {
+          Parent clueScene = loadFxml("room");
+          scene = new Scene(clueScene);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        break;
+      case "leadScientistSceneButton":
+        System.out.println("Switching to lead scientist scene");
+        try {
+          Parent leadScientistScene = loadFxml("leadscientist");
+          scene = new Scene(leadScientistScene);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        break;
+      case "labTechnicianSceneButton":
+        System.out.println("Switching to lab technician scene");
+        try {
+          Parent labTechnicianScene = loadFxml("labtechnician");
+          scene = new Scene(labTechnicianScene);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        break;
+      case "scholarSceneButton":
+        System.out.println("Switching to scholar scene");
+        try {
+          Parent scholar = loadFxml("scholar");
+          scene = new Scene(scholar);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        break;
+    }
+
+    stage.setScene(scene);
+    stage.show();
+  }
+
   /**
    * This method is invoked when the application starts. It loads and shows the "room" scene.
    *
