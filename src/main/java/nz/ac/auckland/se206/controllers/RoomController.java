@@ -70,7 +70,7 @@ public class RoomController {
    * @throws IOException if there is an I/O error
    */
   @FXML
-  private void handleRectangleClick(MouseEvent event) throws IOException {
+  protected void handleRectangleClick(MouseEvent event) throws IOException {
     Rectangle clickedRectangle = (Rectangle) event.getSource();
     context.handleRectangleClick(event, clickedRectangle.getId());
   }
@@ -82,12 +82,12 @@ public class RoomController {
    * @throws IOException if there is an I/O error
    */
   @FXML
-  private void handleGuessClick(ActionEvent event) throws IOException {
+  protected void handleGuessClick(ActionEvent event) throws IOException {
     context.handleGuessClick();
   }
 
   @FXML
-  private void handleRoomTransition(MouseEvent event) throws IOException {
+  protected void handleRoomTransition(MouseEvent event) throws IOException {
     Button clickedRoomButton = (Button) event.getSource();
     context.handleRoomTransition(event, clickedRoomButton.getId());
   }
