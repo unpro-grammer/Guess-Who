@@ -82,8 +82,7 @@ public class App extends Application {
       case "clueSceneBtn":
         System.out.println("Switching to clue scene");
         try {
-          Parent clueScene = loadFxml("room");
-          scene = new Scene(clueScene);
+          setRoot("room");
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -91,8 +90,7 @@ public class App extends Application {
       case "leadScientistSceneButton":
         System.out.println("Switching to lead scientist scene");
         try {
-          Parent leadScientistScene = loadFxml("leadscientist");
-          scene = new Scene(leadScientistScene);
+          setRoot("leadscientist");
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -100,8 +98,7 @@ public class App extends Application {
       case "labTechnicianSceneButton":
         System.out.println("Switching to lab technician scene");
         try {
-          Parent labTechnicianScene = loadFxml("labtechnician");
-          scene = new Scene(labTechnicianScene);
+          setRoot("labtechnician");
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -109,8 +106,7 @@ public class App extends Application {
       case "scholarSceneButton":
         System.out.println("Switching to scholar scene");
         try {
-          Parent scholar = loadFxml("scholar");
-          scene = new Scene(scholar);
+          setRoot("scholar");
         } catch (IOException e) {
           e.printStackTrace();
         }
