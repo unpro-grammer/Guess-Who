@@ -19,5 +19,11 @@ public class GuessingController {
   private void confirmGuessing(ActionEvent event) throws IOException {}
 
   @FXML
-  private void selectSuspect(MouseEvent event) throws IOException {}
+  private void selectSuspect(MouseEvent event) throws IOException {
+    leadScientist.getStyleClass().remove("highlight");
+    labTechnician.getStyleClass().remove("highlight");
+    scholar.getStyleClass().remove("highlight");
+    Rectangle selected = (Rectangle) event.getSource();
+    selected.getStyleClass().add("highlight");
+  }
 }
