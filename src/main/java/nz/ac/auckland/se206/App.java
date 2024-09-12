@@ -1,14 +1,17 @@
 package nz.ac.auckland.se206;
 
 import java.io.IOException;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 
@@ -125,12 +128,39 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    Parent root = loadFxml("room");
+    Parent root = loadFxml("home");
     scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
     stage.setOnCloseRequest(event -> handleWindowClose(event));
     root.requestFocus();
+  }
+
+  public static void actuallyStart() throws IOException {
+    Parent clueRoot = loadFxml("room");
+
+    StackPane stackPane = new StackPane(scene.getRoot(), clueRoot);
+
+    clueRoot.setOpacity(0);
+
+    // Fade homescreen out
+    FadeTransition fadeHome = new FadeTransition(Duration.millis(200), scene.getRoot());
+    scene.setRoot(stackPane);
+    fadeHome.setFromValue(1);
+    fadeHome.setToValue(0);
+
+    fadeHome.setOnFinished(
+        event -> {
+          stackPane.getChildren().remove(0);
+
+          // Fade clue room in
+          FadeTransition fadeClue = new FadeTransition(Duration.millis(200), clueRoot);
+          fadeClue.setFromValue(0);
+          fadeClue.setToValue(1);
+          fadeClue.play();
+        });
+
+    fadeHome.play();
   }
 
   private void handleWindowClose(WindowEvent event) {
