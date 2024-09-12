@@ -80,7 +80,7 @@ public class App extends Application {
 
     // checks which room button was clicked and switches to the corresponding scene
     // TO-DO: Do the loading of fxml files in platform run later? Doesn't make a visual difference
-    // but at least buttons won't freeze
+    // but at least buttons won't freeze.
     try {
       switch (roomButtonId) {
         case "clueSceneBtn":
