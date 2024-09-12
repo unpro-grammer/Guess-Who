@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
+import nz.ac.auckland.se206.App;
 
 public class GuessingController {
   @FXML Rectangle leadScientist;
@@ -16,7 +17,9 @@ public class GuessingController {
   @FXML Button confimGuessingButton;
 
   @FXML
-  private void confirmGuessing(ActionEvent event) throws IOException {}
+  private void confirmGuessing(ActionEvent event) throws IOException {
+    App.setRoot("gameover");
+  }
 
   @FXML
   private void selectSuspect(MouseEvent event) throws IOException {
