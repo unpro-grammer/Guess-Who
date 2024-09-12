@@ -132,8 +132,9 @@ public class App extends Application {
     clueRoot.setOpacity(0);
 
     // Fade homescreen out
-    FadeTransition fadeHome = new FadeTransition(Duration.millis(200), scene.getRoot());
+    FadeTransition fadeHome = new FadeTransition(Duration.millis(300), scene.getRoot());
     scene.setRoot(stackPane);
+    stackPane.setStyle("-fx-background-color: #c5c7e1;");
     fadeHome.setFromValue(1);
     fadeHome.setToValue(0);
 
@@ -142,7 +143,7 @@ public class App extends Application {
           stackPane.getChildren().remove(0);
 
           // Fade clue room in
-          FadeTransition fadeClue = new FadeTransition(Duration.millis(200), clueRoot);
+          FadeTransition fadeClue = new FadeTransition(Duration.millis(300), clueRoot);
           fadeClue.setFromValue(0);
           fadeClue.setToValue(1);
           fadeClue.play();
