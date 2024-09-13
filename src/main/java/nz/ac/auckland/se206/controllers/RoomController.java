@@ -21,6 +21,9 @@ public class RoomController {
   @FXML private Rectangle rectPerson2;
   @FXML private Rectangle rectPerson3;
   @FXML private Rectangle rectWaitress;
+  @FXML private Rectangle rectLabTechnician;
+  @FXML private Rectangle rectScholar;
+  @FXML private Rectangle rectLeadScientist;
   @FXML private Button btnGuess;
   @FXML private Button clueSceneBtn;
   @FXML private Button leadScientistSceneButton;

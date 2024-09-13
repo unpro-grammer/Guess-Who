@@ -71,6 +71,7 @@ public class App extends Application {
    */
   public static void showChatbox(MouseEvent event, String profession) throws IOException {
     // cache chat node and controller
+    System.out.println("Showing chat box");
     if (chatView == null) {
       FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/chat.fxml"));
       chatView = loader.load();
@@ -84,6 +85,7 @@ public class App extends Application {
       AnchorPane mainPane = (AnchorPane) root;
       AnchorPane chatPane = (AnchorPane) mainPane.lookup("#chatPane");
       if (chatPane != null) {
+        System.out.println("Chat pane found");
         chatPane.getChildren().clear();
         chatPane.getChildren().add(chatView);
         chatPane.setVisible(true);

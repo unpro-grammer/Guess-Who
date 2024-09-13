@@ -98,6 +98,7 @@ public class ChatController {
     return PromptEngineering.getPrompt(promptSource, map);
   }
 
+  // sound effect, not yet used
   public void playHmm() {
     Media hmmSound = new Media(App.class.getResource("/sounds/hmmm.mp3").toExternalForm());
     mediaPlayerChat = new MediaPlayer(hmmSound);
@@ -175,7 +176,7 @@ public class ChatController {
     try {
       // handle GUI methods via main application thread, but at any point it's free
       // Platform.runLater(() -> roomController.showHmm(profession)); // ADD SOUNDFX LATER
-      playHmm();
+      // playHmm();
       System.out.println(profession);
       ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
       Choice result = chatCompletionResult.getChoices().iterator().next();

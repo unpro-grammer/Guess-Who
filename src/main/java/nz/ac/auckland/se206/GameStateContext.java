@@ -32,7 +32,6 @@ public class GameStateContext {
     gameState = gameStartedState;
     System.out.println(gameState);
     rectanglesToProfession = new HashMap<>();
-    rectanglesToProfession.put("rectSecurityGuard", "Security Guard");
     rectanglesToProfession.put("rectLabTechnician", "Lab Technician");
     rectanglesToProfession.put("rectScholar", "Scholar");
     rectanglesToProfession.put("rectLeadScientist", "Lead Scientist");
