@@ -1,0 +1,14 @@
+Rectangle:hover {
+  opacity: 0.2;
+  -fx-opacity: 0.2;
+}
+
+.transparent {
+  opacity: 0;
+  -fx-opacity: 0;
+}
+
+.highlight {
+  opacity: 0.5;
+  -fx-opacity: 0.5;
+}
