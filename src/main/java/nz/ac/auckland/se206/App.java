@@ -8,11 +8,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
+import nz.ac.auckland.se206.controllers.RoomController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 
 /**
@@ -22,6 +25,11 @@ import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 public class App extends Application {
 
   private static Scene scene;
+  private static Stage stageWindow;
+  private static Parent chatView = null;
+  private static ChatController chatController = null;
+  private static RoomController roomController = null;
+  private static MediaPlayer mediaPlayer;
 
   /**
    * The main method that launches the JavaFX application.
@@ -61,17 +69,38 @@ public class App extends Application {
    * @param profession the profession to set in the chat controller
    * @throws IOException if the FXML file is not found
    */
-  public static void openChat(MouseEvent event, String profession) throws IOException {
-    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/chat.fxml"));
-    Parent root = loader.load();
+  public static void showChatbox(MouseEvent event, String profession) throws IOException {
+    // cache chat node and controller
+    if (chatView == null) {
+      FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/chat.fxml"));
+      chatView = loader.load();
+      chatController = loader.getController();
+    }
 
-    ChatController chatController = loader.getController();
     chatController.setProfession(profession);
 
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    Parent root = scene.getRoot();
+    if (root instanceof AnchorPane) {
+      AnchorPane mainPane = (AnchorPane) root;
+      AnchorPane chatPane = (AnchorPane) mainPane.lookup("#chatPane");
+      if (chatPane != null) {
+        chatPane.getChildren().clear();
+        chatPane.getChildren().add(chatView);
+        chatPane.setVisible(true);
+      }
+    }
+  }
+
+  public static void hideChat() throws IOException {
+    Parent root = scene.getRoot();
+    if (root instanceof AnchorPane) {
+      AnchorPane mainPane = (AnchorPane) root;
+      AnchorPane chatPane = (AnchorPane) mainPane.lookup("#chatPane");
+      if (chatPane != null) {
+        chatPane.getChildren().clear();
+        chatPane.setVisible(false);
+      }
+    }
   }
 
   public static void switchRoom(MouseEvent event, String roomButtonId) {
