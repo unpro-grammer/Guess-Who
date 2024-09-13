@@ -94,7 +94,7 @@ public class ChatController {
         promptSource = "chat.txt";
         break;
     }
-    System.out.println(promptSource);
+    System.out.println("Prompt source is " + promptSource);
     return PromptEngineering.getPrompt(promptSource, map);
   }
 

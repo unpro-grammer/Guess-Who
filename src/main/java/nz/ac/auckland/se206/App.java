@@ -83,6 +83,7 @@ public class App extends Application {
     Parent root = scene.getRoot();
     if (root instanceof AnchorPane) {
       AnchorPane mainPane = (AnchorPane) root;
+      // chatPane is the space in each fxml file where the chat view will be displayed
       AnchorPane chatPane = (AnchorPane) mainPane.lookup("#chatPane");
       if (chatPane != null) {
         System.out.println("Chat pane found");
