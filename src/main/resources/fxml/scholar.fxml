@@ -3,10 +3,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<Pane fx:id="scholar" focusTraversable="true" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" prefHeight="599.0" prefWidth="789.0" style="-fx-background-color: #A9A9A9;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ScholarController">
+<AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ScholarController">
    <children>
       <ImageView fitHeight="605.0" fitWidth="818.0" layoutY="-4.0" preserveRatio="true">
          <image>
@@ -19,5 +19,6 @@
       <Button fx:id="leadScientistSceneButton" layoutX="733.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="LS" />
       <Button fx:id="labTechnicianSceneButton" layoutX="696.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="LT" />
       <Button fx:id="scholarSceneButton" layoutX="733.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="S" />
+      <AnchorPane fx:id="chatPane" layoutX="5.0" layoutY="442.0" prefHeight="132.0" prefWidth="779.0" />
    </children>
-</Pane>
+</AnchorPane>
