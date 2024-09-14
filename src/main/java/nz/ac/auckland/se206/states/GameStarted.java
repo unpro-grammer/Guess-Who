@@ -90,6 +90,7 @@ public class GameStarted implements GameState {
    */
   @Override
   public void handleGuessClick() throws IOException {
+
     if (!checkEnoughClues()) {
       if (!guessCluesWarned) {
         FreeTextToSpeech.speak("You need to explore further before making a guess.");
@@ -107,6 +108,9 @@ public class GameStarted implements GameState {
     }
     // disable guess button
     FreeTextToSpeech.speak("Make a guess, click on the culprit");
+
+    App.setRoot("guessing");
+
     context.setState(context.getGuessingState());
   }
 
