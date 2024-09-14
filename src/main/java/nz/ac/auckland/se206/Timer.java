@@ -13,7 +13,7 @@ public class Timer {
     this.timerLabel = timerLabel;
   }
 
-  private void startTimer() {
+  public void startTimer() {
     Task<Void> timerTask =
         new Task<Void>() {
           @Override
@@ -42,7 +42,7 @@ public class Timer {
     return String.format("%02d:%02d", minutes, remainingSeconds);
   }
 
-  private void handleTimeOver() {
+  public void handleTimeOver() {
     // Define what happens when the timer reaches 0
     System.out.println("Time's up!");
   }
