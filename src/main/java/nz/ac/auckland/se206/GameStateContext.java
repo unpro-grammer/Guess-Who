@@ -153,4 +153,10 @@ public class GameStateContext {
   public void handleGuessClick() throws IOException {
     gameState.handleGuessClick();
   }
+
+  public void handleRoomTransition(MouseEvent event, String buttonId) {
+    if (gameState instanceof GameStarted) {
+      gameStartedState.handleRoomTransition(event, buttonId);
+    }
+  }
 }

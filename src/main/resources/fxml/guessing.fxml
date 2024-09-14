@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="818.0" stylesheets="@/css/guessingStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.GuessingController">
+   <children>
+      <ImageView fitHeight="186.0" fitWidth="178.0" layoutX="91.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="170.0" fitWidth="179.0" layoutX="535.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="178.0" fitWidth="177.0" layoutX="321.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="leadScientist" arcHeight="5.0" arcWidth="5.0" fill="RED" height="165.0" layoutX="105.0" layoutY="94.0" onMouseClicked="#selectSuspect" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="153.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Rectangle>
+      <TextArea fx:id="explainationField" layoutX="78.0" layoutY="314.0" prefHeight="208.0" prefWidth="654.0" promptText="Why is he/she the thieft?">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextArea>
+      <Rectangle fx:id="labTechnician" arcHeight="5.0" arcWidth="5.0" fill="RED" height="165.0" layoutX="332.0" layoutY="93.0" onMouseClicked="#selectSuspect" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="153.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Rectangle>
+      <Rectangle fx:id="scholar" arcHeight="5.0" arcWidth="5.0" fill="RED" height="165.0" layoutX="549.0" layoutY="92.0" onMouseClicked="#selectSuspect" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="153.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Rectangle>
+      <Text layoutX="108.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Who's the thief?" textAlignment="CENTER" underline="true" wrappingWidth="596.8747253417969">
+         <font>
+            <Font size="53.0" />
+         </font>
+      </Text>
+      <Button fx:id="confimGuessingButton" layoutX="313.0" layoutY="533.0" mnemonicParsing="false" onAction="#confirmGuessing" prefHeight="53.0" prefWidth="183.0" text="Confirm">
+         <font>
+            <Font size="29.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>

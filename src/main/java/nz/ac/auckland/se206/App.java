@@ -1,14 +1,17 @@
 package nz.ac.auckland.se206;
 
 import java.io.IOException;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 
@@ -71,6 +74,40 @@ public class App extends Application {
     stage.show();
   }
 
+  public static void switchRoom(MouseEvent event, String roomButtonId) {
+
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+    // checks which room button was clicked and switches to the corresponding scene
+    // TO-DO: Do the loading of fxml files in platform run later? Doesn't make a visual difference
+    // but at least buttons won't freeze.
+    try {
+      switch (roomButtonId) {
+        case "clueSceneBtn":
+          System.out.println("Switching to clue scene");
+          setRoot("room");
+          break;
+        case "leadScientistSceneButton":
+          System.out.println("Switching to lead scientist scene");
+          setRoot("leadscientist");
+          break;
+        case "labTechnicianSceneButton":
+          System.out.println("Switching to lab technician scene");
+          setRoot("labtechnician");
+          break;
+        case "scholarSceneButton":
+          System.out.println("Switching to scholar scene");
+          setRoot("scholar");
+          break;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    stage.setScene(scene);
+    stage.show();
+  }
+
   /**
    * This method is invoked when the application starts. It loads and shows the "room" scene.
    *
@@ -79,12 +116,40 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    Parent root = loadFxml("room");
+    Parent root = loadFxml("home");
     scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
     stage.setOnCloseRequest(event -> handleWindowClose(event));
     root.requestFocus();
+  }
+
+  public static void actuallyStart() throws IOException {
+    Parent clueRoot = loadFxml("room");
+
+    StackPane stackPane = new StackPane(scene.getRoot(), clueRoot);
+
+    clueRoot.setOpacity(0);
+
+    // Fade homescreen out
+    FadeTransition fadeHome = new FadeTransition(Duration.millis(300), scene.getRoot());
+    scene.setRoot(stackPane);
+    stackPane.setStyle("-fx-background-color: #c5c7e1;");
+    fadeHome.setFromValue(1);
+    fadeHome.setToValue(0);
+
+    fadeHome.setOnFinished(
+        event -> {
+          stackPane.getChildren().remove(0);
+
+          // Fade clue room in
+          FadeTransition fadeClue = new FadeTransition(Duration.millis(300), clueRoot);
+          fadeClue.setFromValue(0);
+          fadeClue.setToValue(1);
+          fadeClue.play();
+        });
+
+    fadeHome.play();
   }
 
   private void handleWindowClose(WindowEvent event) {
