@@ -108,6 +108,14 @@ public class App extends Application {
     stage.show();
   }
 
+  public static boolean gameResult(String suspectName) {
+    if (suspectName.equals("Scholar")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * This method is invoked when the application starts. It loads and shows the "room" scene.
    *
