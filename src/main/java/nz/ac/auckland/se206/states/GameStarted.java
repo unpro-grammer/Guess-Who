@@ -91,21 +91,21 @@ public class GameStarted implements GameState {
   @Override
   public void handleGuessClick() throws IOException {
 
-    // if (!checkEnoughClues()) {
-    //   if (!guessCluesWarned) {
-    //     FreeTextToSpeech.speak("You need to explore further before making a guess.");
-    //     guessCluesWarned = true;
-    //   }
-    //   return;
-    // }
-    // if (!ChatController.hasTalked()) {
-    //   if (!guessChatWarned) {
-    //     FreeTextToSpeech.speak("You need to chat with at least one suspect before making a guess.");
-    //     guessChatWarned = true;
-    //   }
+    if (!checkEnoughClues()) {
+      if (!guessCluesWarned) {
+        FreeTextToSpeech.speak("You need to explore further before making a guess.");
+        guessCluesWarned = true;
+      }
+      return;
+    }
+    if (!ChatController.hasTalked()) {
+      if (!guessChatWarned) {
+        FreeTextToSpeech.speak("You need to chat with at least one suspect before making a guess.");
+        guessChatWarned = true;
+      }
 
-    //   return;
-    // }
+      return;
+    }
     // disable guess button
     FreeTextToSpeech.speak("Make a guess, click on the culprit");
 
