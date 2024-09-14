@@ -53,7 +53,6 @@ public class GameStarted implements GameState {
    */
   @Override
   public void handleGuessClick() throws IOException {
-    TextToSpeech.speak("Make a guess, click on the " + context.getProfessionToGuess());
     App.setRoot("gameover");
     context.setState(context.getGuessingState());
   }
