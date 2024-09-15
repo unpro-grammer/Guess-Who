@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
@@ -16,11 +17,6 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
  */
 public class RoomController {
 
-  @FXML private Rectangle rectCashier;
-  @FXML private Rectangle rectPerson1;
-  @FXML private Rectangle rectPerson2;
-  @FXML private Rectangle rectPerson3;
-  @FXML private Rectangle rectWaitress;
   @FXML private Rectangle rectLabTechnician;
   @FXML private Rectangle rectScholar;
   @FXML private Rectangle rectLeadScientist;
@@ -29,6 +25,8 @@ public class RoomController {
   @FXML private Button leadScientistSceneButton;
   @FXML private Button labTechnicianSceneButton;
   @FXML private Button scholarSceneButton;
+  @FXML private ImageView openLocker;
+  @FXML private Rectangle rectLocker;
 
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
@@ -44,6 +42,7 @@ public class RoomController {
           "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
       isFirstTimeInit = false;
     }
+    hideOpen();
   }
 
   /**
@@ -93,5 +92,15 @@ public class RoomController {
   protected void handleRoomTransition(MouseEvent event) throws IOException {
     Button clickedRoomButton = (Button) event.getSource();
     context.handleRoomTransition(event, clickedRoomButton.getId());
+  }
+
+  @FXML
+  protected void showOpen() {
+    openLocker.setVisible(true);
+  }
+
+  @FXML
+  protected void hideOpen() {
+    openLocker.setVisible(false);
   }
 }
