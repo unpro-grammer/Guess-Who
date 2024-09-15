@@ -96,11 +96,15 @@ public class RoomController {
 
   @FXML
   protected void showOpen() {
-    openLocker.setVisible(true);
+    if (openLocker != null) {
+      openLocker.setVisible(true);
+    }
   }
 
   @FXML
   protected void hideOpen() {
-    openLocker.setVisible(false);
+    if (openLocker != null) {
+      openLocker.setVisible(false);
+    }
   }
 }
