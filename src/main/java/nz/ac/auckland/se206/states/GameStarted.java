@@ -100,7 +100,8 @@ public class GameStarted implements GameState {
     // }
     // if (!ChatController.hasTalked()) {
     //   if (!guessChatWarned) {
-    //     FreeTextToSpeech.speak("You need to chat with at least one suspect before making a guess.");
+    //     FreeTextToSpeech.speak("You need to chat with at least one suspect before making a
+    // guess.");
     //     guessChatWarned = true;
     //   }
 
