@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.states;
 
 import java.io.IOException;
 import javafx.scene.input.MouseEvent;
+import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
@@ -55,5 +56,6 @@ public class Guessing implements GameState {
   @Override
   public void handleGuessClick() throws IOException {
     TextToSpeech.speak("You have already guessed!");
+    App.setRoot("gameover");
   }
 }
