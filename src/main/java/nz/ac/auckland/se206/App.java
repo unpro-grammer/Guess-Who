@@ -9,11 +9,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
+import nz.ac.auckland.se206.controllers.RoomController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 
 /**
@@ -23,6 +26,11 @@ import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 public class App extends Application {
   private static Timer timer = new Timer(null, 60);
   private static Scene scene;
+  private static Stage stageWindow;
+  private static Parent chatView = null;
+  private static ChatController chatController = null;
+  private static RoomController roomController = null;
+  private static MediaPlayer mediaPlayer;
 
   /**
    * The main method that launches the JavaFX application.
@@ -70,17 +78,69 @@ public class App extends Application {
    * @param profession the profession to set in the chat controller
    * @throws IOException if the FXML file is not found
    */
-  public static void openChat(MouseEvent event, String profession) throws IOException {
-    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/chat.fxml"));
-    Parent root = loader.load();
+  public static void showChatbox(MouseEvent event, String profession) throws IOException {
+    // cache chat node and controller
+    System.out.println("Showing chat box");
+    if (chatView == null) {
+      FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/chat.fxml"));
+      chatView = loader.load();
+      chatController = loader.getController();
+    }
 
-    ChatController chatController = loader.getController();
     chatController.setProfession(profession);
 
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    Parent root = scene.getRoot();
+    if (root instanceof AnchorPane) {
+      AnchorPane mainPane = (AnchorPane) root;
+
+      // chatPane is the space in each fxml file where the chat view will be displayed
+      AnchorPane chatPane = (AnchorPane) mainPane.lookup("#chatPane");
+      if (chatPane != null) {
+        System.out.println("Chat pane found");
+        chatPane.getChildren().clear();
+        chatPane.getChildren().add(chatView);
+        chatPane.setVisible(true);
+      }
+
+      // find characters in scene by id and hide them
+      Node leadscientistChar = mainPane.lookup("#leadscientist");
+      Node labtechnicianChar = mainPane.lookup("#labtechnician");
+      Node scholarChar = mainPane.lookup("#scholar");
+      hideCharacter(leadscientistChar);
+      hideCharacter(labtechnicianChar);
+      hideCharacter(scholarChar);
+    }
+  }
+
+  private static void hideCharacter(Node character) {
+    if (character != null) {
+      character.setVisible(false);
+    }
+  }
+
+  private static void showCharacter(Node character) {
+    if (character != null) {
+      character.setVisible(true);
+    }
+  }
+
+  public static void hideChat() throws IOException {
+    Parent root = scene.getRoot();
+    if (root instanceof AnchorPane) {
+      AnchorPane mainPane = (AnchorPane) root;
+      AnchorPane chatPane = (AnchorPane) mainPane.lookup("#chatPane");
+      if (chatPane != null) {
+        chatPane.getChildren().clear();
+        chatPane.setVisible(false);
+      }
+
+      Node leadscientistChar = mainPane.lookup("#leadscientist");
+      Node labtechnicianChar = mainPane.lookup("#labtechnician");
+      Node scholarChar = mainPane.lookup("#scholar");
+      showCharacter(leadscientistChar);
+      showCharacter(labtechnicianChar);
+      showCharacter(scholarChar);
+    }
   }
 
   public static void switchRoom(MouseEvent event, String roomButtonId) {
@@ -115,6 +175,14 @@ public class App extends Application {
 
     stage.setScene(scene);
     stage.show();
+  }
+
+  public static boolean gameResult(String suspectName) {
+    if (suspectName.equals("Scholar")) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
