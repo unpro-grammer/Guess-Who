@@ -19,9 +19,7 @@ public class LabTechnicianController extends RoomController {
   public void showTurned() {
     if (!App.isChatOpen()) {
       labtechnician.setVisible(false);
-      System.out.println("labtechnician hide");
       labtechnicianturned.setVisible(true);
-      System.out.println("labtechnicianturned show");
     }
   }
 
@@ -29,9 +27,7 @@ public class LabTechnicianController extends RoomController {
   public void hideTurned() {
     if (!App.isChatOpen()) {
       labtechnician.setVisible(true);
-      System.out.println("labtechnician show");
       labtechnicianturned.setVisible(false);
-      System.out.println("labtechnicianturned hide");
     }
   }
 
