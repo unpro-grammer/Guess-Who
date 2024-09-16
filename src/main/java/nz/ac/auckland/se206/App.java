@@ -83,6 +83,7 @@ public class App extends Application {
     Parent root = scene.getRoot();
     if (root instanceof AnchorPane) {
       AnchorPane mainPane = (AnchorPane) root;
+
       // chatPane is the space in each fxml file where the chat view will be displayed
       AnchorPane chatPane = (AnchorPane) mainPane.lookup("#chatPane");
       if (chatPane != null) {
@@ -91,6 +92,26 @@ public class App extends Application {
         chatPane.getChildren().add(chatView);
         chatPane.setVisible(true);
       }
+
+      // find characters in scene by id and hide them
+      Node leadscientistChar = mainPane.lookup("#leadscientist");
+      Node labtechnicianChar = mainPane.lookup("#labtechnician");
+      Node scholarChar = mainPane.lookup("#scholar");
+      hideCharacter(leadscientistChar);
+      hideCharacter(labtechnicianChar);
+      hideCharacter(scholarChar);
+    }
+  }
+
+  private static void hideCharacter(Node character) {
+    if (character != null) {
+      character.setVisible(false);
+    }
+  }
+
+  private static void showCharacter(Node character) {
+    if (character != null) {
+      character.setVisible(true);
     }
   }
 
@@ -103,6 +124,13 @@ public class App extends Application {
         chatPane.getChildren().clear();
         chatPane.setVisible(false);
       }
+
+      Node leadscientistChar = mainPane.lookup("#leadscientist");
+      Node labtechnicianChar = mainPane.lookup("#labtechnician");
+      Node scholarChar = mainPane.lookup("#scholar");
+      showCharacter(leadscientistChar);
+      showCharacter(labtechnicianChar);
+      showCharacter(scholarChar);
     }
   }
 
