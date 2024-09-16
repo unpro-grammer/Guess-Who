@@ -48,7 +48,9 @@ public class App extends Application {
         "leadscientist",
         "labtechnician",
         "scholar",
-        "leadscientistturned"
+        "leadscientistturned",
+        "labtechnicianturned",
+        "scholarturned"
       };
   private static boolean isChatOpen = false;
 
