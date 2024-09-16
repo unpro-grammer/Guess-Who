@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="599.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.LockerClueController">
+   <children>
+      <ImageView fitHeight="605.0" fitWidth="818.0" layoutY="-4.0" preserveRatio="true">
+         <image>
+            <Image url="@../images/lockerbackground.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnExit" layoutX="644.0" layoutY="28.0" mnemonicParsing="false" onAction="#onExitClue" prefHeight="38.0" prefWidth="103.0" text="BACK" />
+      <ImageView fx:id="shoes" fitHeight="90.0" fitWidth="200.0" layoutX="306.0" layoutY="395.0">
+         <image>
+            <Image url="@../images/leathershoes.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="takeaway1" fitHeight="64.0" fitWidth="200.0" layoutX="248.0" layoutY="429.0">
+         <image>
+            <Image url="@../images/takeaway1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="trash" fitHeight="200.0" fitWidth="176.0" layoutX="318.0" layoutY="310.0">
+         <image>
+            <Image url="@../images/trashbag.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chinesetakeaway" fitHeight="200.0" fitWidth="173.0" layoutX="220.0" layoutY="334.0">
+         <image>
+            <Image url="@../images/chinesetakeaway.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bottle" fitHeight="200.0" fitWidth="79.0" layoutX="437.0" layoutY="345.0">
+         <image>
+            <Image url="@../images/waterbottle.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
