@@ -42,7 +42,6 @@ public class GameStarted implements GameState {
         TextToSpeech.speak("Hi, let me know when you are ready to order!");
         return;
     }
-    // Open chat with the selected character
     App.openChat(event, context.getProfession(rectangleId));
   }
 
@@ -58,33 +57,7 @@ public class GameStarted implements GameState {
     context.setState(context.getGuessingState());
   }
 
-  /**
-   * Handles the transition between different rooms in the game based on the button clicked.
-   *
-   * @param event the mouse event triggered by clicking a room transition button
-   * @param buttonId the ID of the clicked button representing the room transition
-   */
   public void handleRoomTransition(MouseEvent event, String buttonId) {
-    try {
-      switch (buttonId) {
-        case "leadScientistSceneButton":
-          // Transition to Lead Scientist Room
-          App.switchRoom(event, "leadScientist.fxml");
-          break;
-        case "labTechnicianSceneButton":
-          // Transition to Lab Technician Room
-          App.switchRoom(event, "labTechnician.fxml");
-          break;
-        case "scholarSceneButton":
-          // Transition to Scholar Room
-          App.switchRoom(event, "scholar.fxml");
-          break;
-        default:
-          // Handle other cases or unknown transitions
-          TextToSpeech.speak("Room transition not available.");
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    App.switchRoom(event, buttonId);
   }
 }
