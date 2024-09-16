@@ -5,23 +5,30 @@ import javafx.concurrent.Task;
 import javafx.scene.control.Label;
 
 public class Timer {
-  private static final int TIMER_DURATION = 60; // Example duration in seconds
   private Thread timerThread;
-  final Label timerLabel;
+  private int currentTime; // To store the current time
+  private Label timerLabel;
 
-  public Timer(Label timerLabel) {
+  public Timer(Label timerLabel, int duration) {
+    this.timerLabel = timerLabel;
+    this.currentTime = duration; // Initialize currentTime with the full duration
+  }
+
+  public void setLabel(Label timerLabel) {
     this.timerLabel = timerLabel;
   }
 
+  // Modify this method to avoid re-initializing currentTime inside the task
   public void startTimer() {
     Task<Void> timerTask =
         new Task<Void>() {
+
           @Override
           protected Void call() throws Exception {
-            for (int i = TIMER_DURATION; i >= 0; i--) {
-              final int currentTime = i;
+            while (currentTime >= 0) { // Use class-level currentTime
               Platform.runLater(() -> timerLabel.setText(formatTime(currentTime)));
               Thread.sleep(1000); // Sleep for 1 second
+              currentTime--; // Decrement the class-level currentTime
             }
 
             // Action to be performed when the timer reaches 0
@@ -45,5 +52,15 @@ public class Timer {
   public void handleTimeOver() {
     // Define what happens when the timer reaches 0
     System.out.println("Time's up!");
+  }
+
+  // Method to return the current time on the timer
+  public int getCurrentTime() {
+    return currentTime;
+  }
+
+  // Method to set the current time on the timer
+  public void setCurrentTime(int currentTime) {
+    this.currentTime = currentTime;
   }
 }

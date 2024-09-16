@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
+import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.Timer;
 import nz.ac.auckland.se206.speech.TextToSpeech;
@@ -31,7 +32,7 @@ public class RoomController {
 
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
-  private Timer timer;
+  protected Timer timer;
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
@@ -43,10 +44,8 @@ public class RoomController {
       TextToSpeech.speak(
           "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
       isFirstTimeInit = false;
-
-      // Initialize the Timer here after the FXML has been loaded and the timerLabel is not null
-      timer = new Timer(timerLabel);
-      timer.startTimer();
+      App.getTimer().setLabel(timerLabel);
+      App.getTimer().startTimer();
     }
   }
 

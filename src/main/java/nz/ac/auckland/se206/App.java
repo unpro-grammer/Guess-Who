@@ -20,7 +20,7 @@ import nz.ac.auckland.se206.speech.FreeTextToSpeech;
  * application.
  */
 public class App extends Application {
-
+  private static Timer timer = new Timer(null, 60);
   private static Scene scene;
 
   /**
@@ -30,6 +30,10 @@ public class App extends Application {
    */
   public static void main(final String[] args) {
     launch();
+  }
+
+  public static Timer getTimer() {
+    return timer;
   }
 
   /**
