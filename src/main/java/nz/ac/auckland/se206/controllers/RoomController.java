@@ -47,6 +47,7 @@ public class RoomController {
       App.getTimer().setLabel(timerLabel);
       App.getTimer().startTimer();
     }
+    App.getTimer().setLabel(timerLabel);
   }
 
   /**
