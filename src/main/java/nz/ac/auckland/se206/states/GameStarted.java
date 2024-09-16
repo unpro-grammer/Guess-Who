@@ -17,8 +17,6 @@ public class GameStarted implements GameState {
 
   private final GameStateContext context;
   private HashSet<String> cluesExplored = new HashSet<>();
-  private boolean security1Said = false;
-  private boolean security2Said = false;
   private boolean guessCluesWarned = false;
   private boolean guessChatWarned = false;
 
@@ -43,16 +41,16 @@ public class GameStarted implements GameState {
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
     // Transition to chat view or provide an introduction based on the clicked rectangle
     switch (rectangleId) {
-      case "rectBriefcase":
-        // App.showClue("zoomedbriefcase"); // ADD CLUE
-        cluesExplored.add("Briefcase");
+      case "rectLocker":
+        // App.showClue("zoomedLocker"); // ADD CLUE
+        cluesExplored.add("Locker");
         return; // actually make a popup to give hint
-      case "rectBag":
+      case "rectBagClue":
         // App.showClue("zoomedbag"); // ADD CLUE
         cluesExplored.add("Bag");
         return;
-      case "rectChemical":
-        // App.showClue("zoomedchemical"); // ADD CLUE
+      case "rectChemicalClue":
+        App.setRoot("chemicalClue");
         cluesExplored.add("Chemical");
         return;
       // case objects
