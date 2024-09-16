@@ -42,7 +42,7 @@ public class GameStarted implements GameState {
     // Transition to chat view or provide an introduction based on the clicked rectangle
     switch (rectangleId) {
       case "rectLocker":
-        // App.showClue("zoomedLocker"); // ADD CLUE
+        App.setRoot("lockerclue");
         cluesExplored.add("Locker");
         return; // actually make a popup to give hint
       case "rectBagClue":
