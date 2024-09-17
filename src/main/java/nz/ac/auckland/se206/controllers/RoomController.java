@@ -32,6 +32,7 @@ public class RoomController {
 
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
+  private static RoomController ctrl;
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
@@ -44,6 +45,11 @@ public class RoomController {
           "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
       isFirstTimeInit = false;
     }
+    ctrl = this;
+  }
+
+  public static RoomController getRoomController() {
+    return ctrl;
   }
 
   /**
@@ -93,5 +99,21 @@ public class RoomController {
   protected void handleRoomTransition(MouseEvent event) throws IOException {
     Button clickedRoomButton = (Button) event.getSource();
     context.handleRoomTransition(event, clickedRoomButton.getId());
+  }
+
+  public void disableRoom() {
+  btnGuess.setDisable(true);
+   clueSceneBtn.setDisable(true);
+   leadScientistSceneButton.setDisable(true);
+   labTechnicianSceneButton.setDisable(true);
+   scholarSceneButton.setDisable(true);
+  }
+
+  public void enableRoom() {
+  btnGuess.setDisable(false);
+   clueSceneBtn.setDisable(false);
+   leadScientistSceneButton.setDisable(false);
+   labTechnicianSceneButton.setDisable(false);
+   scholarSceneButton.setDisable(false);
   }
 }
