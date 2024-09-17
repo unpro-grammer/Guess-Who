@@ -174,6 +174,7 @@ public class ChatController {
   private ChatMessage runGpt(ChatMessage msg, boolean first) throws ApiProxyException {
     // FreeTextToSpeech.stop();
     RoomController.getRoomController().disableRoom();
+    RoomController.getRoomController().disableSuspects();
     disbaleChatButton();
     chatCompletionRequest.addMessage(msg);
     try {
@@ -189,6 +190,7 @@ public class ChatController {
         FreeTextToSpeech.speak(result.getChatMessage().getContent());
       }
       RoomController.getRoomController().enableRoom();
+      RoomController.getRoomController().enableSuspects();
       enableChatButton();
       // Platform.runLater(() -> roomController.hideHmm(profession)); // SOUNDFX LATER
       return result.getChatMessage();

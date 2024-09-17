@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.speech.TextToSpeech;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * Controller class for the room view. Handles user interactions within the room where the user can
@@ -29,6 +30,7 @@ public class RoomController {
   @FXML private Button leadScientistSceneButton;
   @FXML private Button labTechnicianSceneButton;
   @FXML private Button scholarSceneButton;
+  @FXML private AnchorPane anchor;
 
   private static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
@@ -102,18 +104,42 @@ public class RoomController {
   }
 
   public void disableRoom() {
-  btnGuess.setDisable(true);
-  clueSceneBtn.setDisable(true);
-  leadScientistSceneButton.setDisable(true);
-  labTechnicianSceneButton.setDisable(true);
-  scholarSceneButton.setDisable(true);
+    btnGuess.setDisable(true);
+    clueSceneBtn.setDisable(true);
+    leadScientistSceneButton.setDisable(true);
+    labTechnicianSceneButton.setDisable(true);
+    scholarSceneButton.setDisable(true);
   }
 
   public void enableRoom() {
-  btnGuess.setDisable(false);
-  clueSceneBtn.setDisable(false);
-  leadScientistSceneButton.setDisable(false);
-  labTechnicianSceneButton.setDisable(false);
-  scholarSceneButton.setDisable(false);
+    btnGuess.setDisable(false);
+    clueSceneBtn.setDisable(false);
+    leadScientistSceneButton.setDisable(false);
+    labTechnicianSceneButton.setDisable(false);
+    scholarSceneButton.setDisable(false);
+  }
+
+  public void disableSuspects() {
+    if (anchor.getChildren().contains(rectLabTechnician)) {
+      rectLabTechnician.setDisable(true);
+    }
+    if (anchor.getChildren().contains(rectScholar)) {
+      rectScholar.setDisable(true);
+    }
+    if (anchor.getChildren().contains(rectLeadScientist)) {
+      rectLeadScientist.setDisable(true);
+    }
+  }
+
+  public void enableSuspects() {
+    if (anchor.getChildren().contains(rectLabTechnician)) {
+      rectLabTechnician.setDisable(false);
+    }
+    if (anchor.getChildren().contains(rectScholar)) {
+      rectScholar.setDisable(false);
+    }
+    if (anchor.getChildren().contains(rectLeadScientist)) {
+      rectLeadScientist.setDisable(false);
+    }
   }
 }
