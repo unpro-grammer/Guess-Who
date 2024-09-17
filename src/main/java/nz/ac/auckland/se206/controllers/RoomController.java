@@ -103,17 +103,17 @@ public class RoomController {
 
   public void disableRoom() {
   btnGuess.setDisable(true);
-   clueSceneBtn.setDisable(true);
-   leadScientistSceneButton.setDisable(true);
-   labTechnicianSceneButton.setDisable(true);
-   scholarSceneButton.setDisable(true);
+  clueSceneBtn.setDisable(true);
+  leadScientistSceneButton.setDisable(true);
+  labTechnicianSceneButton.setDisable(true);
+  scholarSceneButton.setDisable(true);
   }
 
   public void enableRoom() {
   btnGuess.setDisable(false);
-   clueSceneBtn.setDisable(false);
-   leadScientistSceneButton.setDisable(false);
-   labTechnicianSceneButton.setDisable(false);
-   scholarSceneButton.setDisable(false);
+  clueSceneBtn.setDisable(false);
+  leadScientistSceneButton.setDisable(false);
+  labTechnicianSceneButton.setDisable(false);
+  scholarSceneButton.setDisable(false);
   }
 }

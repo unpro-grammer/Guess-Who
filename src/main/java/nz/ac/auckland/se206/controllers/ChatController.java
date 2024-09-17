@@ -43,6 +43,7 @@ public class ChatController {
   @FXML private TextArea txtaChat;
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
+  @FXML private Button btnBack;
 
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
@@ -172,6 +173,8 @@ public class ChatController {
    */
   private ChatMessage runGpt(ChatMessage msg, boolean first) throws ApiProxyException {
     // FreeTextToSpeech.stop();
+    RoomController.getRoomController().disableRoom();
+    disbaleChatButton();
     chatCompletionRequest.addMessage(msg);
     try {
       // handle GUI methods via main application thread, but at any point it's free
@@ -185,6 +188,8 @@ public class ChatController {
       if (first) {
         FreeTextToSpeech.speak(result.getChatMessage().getContent());
       }
+      RoomController.getRoomController().enableRoom();
+      enableChatButton();
       // Platform.runLater(() -> roomController.hideHmm(profession)); // SOUNDFX LATER
       return result.getChatMessage();
     } catch (ApiProxyException e) {
@@ -240,5 +245,17 @@ public class ChatController {
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
     // FreeTextToSpeech.stop();
     App.hideChat();
+  }
+
+  private void disbaleChatButton() {
+    txtInput.setDisable(true);
+    btnSend.setDisable(true);
+    btnBack.setDisable(true);
+  }
+
+  private void enableChatButton() {
+    txtInput.setDisable(false);
+    btnSend.setDisable(false);
+    btnBack.setDisable(false);
   }
 }
