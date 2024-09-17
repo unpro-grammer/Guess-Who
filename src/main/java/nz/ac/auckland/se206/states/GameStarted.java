@@ -46,7 +46,7 @@ public class GameStarted implements GameState {
         cluesExplored.add("Locker");
         return; // actually make a popup to give hint
       case "rectBagClue":
-        // App.showClue("zoomedbag"); // ADD CLUE
+        App.setRoot("bagclue");
         cluesExplored.add("Bag");
         return;
       case "rectChemicalClue":
