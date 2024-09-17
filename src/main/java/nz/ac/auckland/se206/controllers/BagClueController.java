@@ -11,11 +11,14 @@ public class BagClueController {
   @FXML private ImageView bagzipper;
   @FXML private Rectangle rectZipper;
   @FXML private Rectangle clickInto;
+  @FXML private ImageView zoomedBagStuff;
 
   private double yOffset = 0;
 
   @FXML
   private void initialize() {
+
+    zoomedBagStuff.setVisible(false);
 
     // clicking into not available until dragged
     clickInto.setVisible(false);
@@ -53,7 +56,12 @@ public class BagClueController {
 
   @FXML
   private void onOpenBag() throws IOException {
-    // open up pieces of paper of clues
+    zoomedBagStuff.setVisible(true);
+  }
+
+  @FXML
+  private void closeBagStuff() {
+    zoomedBagStuff.setVisible(false);
   }
 
   @FXML

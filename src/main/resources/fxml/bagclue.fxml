@@ -35,5 +35,13 @@
          </cursor>
       </Rectangle>
       <Button fx:id="btnExit" layoutX="644.0" layoutY="28.0" mnemonicParsing="false" onAction="#onExitClue" prefHeight="38.0" prefWidth="103.0" text="BACK" />
+      <ImageView fx:id="zoomedBagStuff" fitHeight="605.0" fitWidth="792.0" onMouseClicked="#closeBagStuff">
+         <image>
+            <Image url="@../images/thinginbag.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
 </AnchorPane>
