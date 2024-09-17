@@ -14,6 +14,8 @@ public class LockerClueController {
   @FXML private ImageView bottle;
   @FXML private ImageView shoes;
 
+  @FXML private ImageView zoomedShoes;
+
   @FXML private Rectangle rectTrash;
   @FXML private Rectangle rectTakeaway1;
   @FXML private Rectangle rectChineseTakeaway;
@@ -33,6 +35,17 @@ public class LockerClueController {
     setDrag(chinesetakeaway, rectChineseTakeaway);
     setDrag(bottle, rectBottle);
     setDrag(shoes, rectShoes);
+    zoomedShoes.setVisible(false);
+  }
+
+  @FXML
+  private void zoomOnShoes() {
+    zoomedShoes.setVisible(true);
+  }
+
+  @FXML
+  private void closeShoes() {
+    zoomedShoes.setVisible(false);
   }
 
   private void setDrag(ImageView image, Rectangle rectSelection) {

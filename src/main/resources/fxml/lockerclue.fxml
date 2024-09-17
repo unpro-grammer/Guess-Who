@@ -25,7 +25,7 @@
             <Image url="@../images/leathershoes.png" />
          </image>
       </ImageView>
-      <Rectangle fx:id="rectShoes" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="64.0" layoutX="314.0" layoutY="413.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="161.0">
+      <Rectangle fx:id="rectShoes" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="64.0" layoutX="314.0" layoutY="413.0" onMouseClicked="#zoomOnShoes" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="161.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -70,5 +70,13 @@
             <Cursor fx:constant="MOVE" />
          </cursor>
       </Rectangle>
+      <ImageView fx:id="zoomedShoes" fitHeight="601.0" fitWidth="792.0" onMouseClicked="#closeShoes">
+         <image>
+            <Image url="@../images/shoeoverlay.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
 </AnchorPane>
