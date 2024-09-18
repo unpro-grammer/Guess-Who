@@ -55,6 +55,7 @@ public class GameOverController {
     playAgainButton1.setVisible(false);
     playAgainButton2.setVisible(false);
     outOfTime.setVisible(false);
+    App.pauseGuessTimer();
 
     switch (App.getUserGuess()) {
       case "Lead Scientist":

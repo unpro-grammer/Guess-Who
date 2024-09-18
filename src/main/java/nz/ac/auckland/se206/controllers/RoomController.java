@@ -35,7 +35,7 @@ public class RoomController {
   @FXML private AnchorPane anchor;
 
   protected static boolean isFirstTimeInit = true;
-  private static GameStateContext context = new GameStateContext();
+  private static GameStateContext context = App.getContext();
   protected Timer timer;
   private static RoomController ctrl;
 

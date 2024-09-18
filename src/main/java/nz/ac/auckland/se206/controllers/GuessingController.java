@@ -25,6 +25,7 @@ public class GuessingController {
 
   @FXML
   void initialize() {
+    App.pauseGameTimer();
     timer = App.startGuessTimer();
     timer.setLabel(timerLabel);
     timer.startTimer();
