@@ -20,7 +20,6 @@ import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.prompts.PromptEngineering;
-import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 
 /**
  * Controller class for the chat view. Handles user interactions and communication with the GPT
@@ -31,7 +30,23 @@ public class ChatController {
   private static Map<String, Boolean> firstInteraction = new HashMap<>();
   private static boolean talked = false;
   private static RoomController roomController;
+  private static Map<String, StringBuilder> chatHistories = new HashMap<>();
 
+  private String profession;
+  private String filePath;
+  private String name = "Speaker";
+  private Boolean first;
+  private MediaPlayer mediaPlayerChat;
+
+  @FXML private TextArea txtaChat;
+  @FXML private TextField txtInput;
+  @FXML private Button btnSend;
+
+  private ChatCompletionRequest chatCompletionRequest;
+  private Task<Void> fetchChatTask;
+  private Task<Void> runGptTask;
+
+  // Static Methods
   public static boolean hasTalked() {
     return talked;
   }
@@ -40,25 +55,7 @@ public class ChatController {
     roomController = roomContrl;
   }
 
-  @FXML private TextArea txtaChat;
-  @FXML private TextField txtInput;
-  @FXML private Button btnSend;
-
-  private ChatCompletionRequest chatCompletionRequest;
-  private String profession;
-  private String promptSource;
-  private String name = "Speaker";
-  private Task<Void> fetchChatTask;
-  private Task<Void> runGptTask;
-
-  private Boolean first;
-  private MediaPlayer mediaPlayerChat;
-
-  /**
-   * Initializes the chat view.
-   *
-   * @throws ApiProxyException if there is an error communicating with the API proxy
-   */
+  // Initializer Method
   @FXML
   public void initialize() throws ApiProxyException {
     System.out.println("Chat initialized");
@@ -68,50 +65,7 @@ public class ChatController {
     // Any required initialization code can be placed here
   }
 
-  /**
-   * Generates the system prompt based on the profession.
-   *
-   * @return the system prompt string
-   */
-  private String getSystemPrompt() {
-    Map<String, String> map = new HashMap<>();
-    map.put("profession", profession);
-    first = firstInteraction.get(profession);
-    switch (profession) {
-      case "Lab Technician":
-        promptSource = first ? "lab_technician.txt" : "lab_technician_2.txt";
-        firstInteraction.put("Lab Technician", false);
-        break;
-      case "Lead Scientist":
-        promptSource = first ? "lead_scientist.txt" : "lead_scientist_2.txt";
-        firstInteraction.put("Lead Scientist", false);
-        break;
-      case "Scholar":
-        promptSource = first ? "scholar.txt" : "scholar_2.txt";
-        firstInteraction.put("Scholar", false);
-        break;
-      default:
-        promptSource = "chat.txt";
-        break;
-    }
-    System.out.println("Prompt source is " + promptSource);
-    return PromptEngineering.getPrompt(promptSource, map);
-  }
-
-  // sound effect, not yet used
-  public void playHmm() {
-    Media hmmSound = new Media(App.class.getResource("/sounds/hmmm.mp3").toExternalForm());
-    mediaPlayerChat = new MediaPlayer(hmmSound);
-    // set volume
-    mediaPlayerChat.setVolume(0.8);
-
-    System.out.println(mediaPlayerChat);
-
-    Platform.runLater(
-        () -> {
-          mediaPlayerChat.play();
-        });
-  }
+  // Chat Functionality Methods
 
   /**
    * Sets the profession for the chat context and initializes the ChatCompletionRequest.
@@ -122,7 +76,8 @@ public class ChatController {
     System.out.println("Setting profession");
     updateChatTexts();
     this.profession = profession;
-    // begin new task to retrieve generated text via api
+    initializeFilePath();
+
     fetchChatTask =
         new Task<Void>() {
           @Override
@@ -149,18 +104,84 @@ public class ChatController {
     backgroundChatThread.start();
   }
 
+  private void initializeFilePath() {
+    switch (profession) {
+      case "Lab Technician":
+        filePath = "src/main/resources/prompts/lab_technician_2.txt";
+        break;
+      case "Lead Scientist":
+        filePath = "src/main/resources/prompts/lead_scientist_2.txt";
+        break;
+      case "Scholar":
+        filePath = "src/main/resources/prompts/scholar_2.txt";
+        break;
+      default:
+        filePath = "src/main/resources/prompts/chat_2.txt";
+        break;
+    }
+  }
+
+  /**
+   * Generates the system prompt based on the profession.
+   *
+   * @return the system prompt string
+   */
+  private String getSystemPrompt() {
+    Map<String, String> map = new HashMap<>();
+    map.put("profession", profession);
+    String firstFile, secondFile;
+
+    switch (profession) {
+      case "Lab Technician":
+        firstFile = "lab_technician.txt";
+        secondFile = "lab_technician_2.txt";
+        break;
+      case "Lead Scientist":
+        firstFile = "lead_scientist.txt";
+        secondFile = "lead_scientist_2.txt";
+        break;
+      case "Scholar":
+        firstFile = "scholar.txt";
+        secondFile = "scholar_2.txt";
+        break;
+      default:
+        firstFile = "chat.txt";
+        secondFile = null; // Only one file to read for default case
+        break;
+    }
+
+    return PromptEngineering.getPrompt(sumPromptFiles(firstFile, secondFile), map);
+  }
+
+  private String sumPromptFiles(String firstFile, String secondFile) {
+    String firstContent = PromptEngineering.getPrompt(firstFile, new HashMap<>());
+    String secondContent =
+        secondFile != null ? PromptEngineering.getPrompt(secondFile, new HashMap<>()) : "";
+    return firstContent + secondContent;
+  }
+
+  // Sound Effects Methods
+  public void playHmm() {
+    Media hmmSound = new Media(App.class.getResource("/sounds/hmmm.mp3").toExternalForm());
+    mediaPlayerChat = new MediaPlayer(hmmSound);
+    mediaPlayerChat.setVolume(0.8);
+    Platform.runLater(() -> mediaPlayerChat.play());
+  }
+
+  // Chat Handling Methods
+
   /**
    * Appends a chat message to the chat text area.
    *
    * @param msg the chat message to append
    */
   private void appendChatMessage(ChatMessage msg) {
-    if (msg.getRole().equals("assistant")) {
-      name = profession;
-    } else {
-      name = "You";
-    }
-    txtaChat.appendText(name + ": " + msg.getContent() + "\n\n");
+    name = msg.getRole().equals("assistant") ? profession : "You";
+    String messageText = name + ": " + msg.getContent() + "\n\n";
+    txtaChat.appendText(messageText);
+    StringBuilder history = chatHistories.getOrDefault(profession, new StringBuilder());
+    history.append(messageText);
+    chatHistories.put(profession, history);
   }
 
   /**
@@ -171,27 +192,21 @@ public class ChatController {
    * @throws ApiProxyException if there is an error communicating with the API proxy
    */
   private ChatMessage runGpt(ChatMessage msg, boolean first) throws ApiProxyException {
-    // FreeTextToSpeech.stop();
     chatCompletionRequest.addMessage(msg);
     try {
-      // handle GUI methods via main application thread, but at any point it's free
-      // Platform.runLater(() -> roomController.showHmm(profession)); // ADD SOUNDFX LATER
-      // playHmm();
-      System.out.println(profession);
       ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
       Choice result = chatCompletionResult.getChoices().iterator().next();
       chatCompletionRequest.addMessage(result.getChatMessage());
       appendChatMessage(result.getChatMessage());
-      if (first) {
-        FreeTextToSpeech.speak(result.getChatMessage().getContent());
-      }
-      // Platform.runLater(() -> roomController.hideHmm(profession)); // SOUNDFX LATER
+      App.appendToFile(profession + ": " + result.getChatMessage().getContent(), filePath);
       return result.getChatMessage();
     } catch (ApiProxyException e) {
       e.printStackTrace();
       return null;
     }
   }
+
+  // Event Handlers
 
   /**
    * Sends a message to the GPT model.
@@ -204,13 +219,12 @@ public class ChatController {
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
     updateChatTexts();
     String message = txtInput.getText().trim();
-    if (message.isEmpty()) {
-      return;
-    }
+    if (message.isEmpty()) return;
     txtInput.clear();
     ChatMessage msg = new ChatMessage("user", message);
     appendChatMessage(msg);
     talked = true;
+
     runGptTask =
         new Task<Void>() {
           @Override
@@ -225,10 +239,6 @@ public class ChatController {
     backgroundGptThread.start();
   }
 
-  private void updateChatTexts() {
-    txtaChat.clear();
-  }
-
   /**
    * Navigates back to the previous view.
    *
@@ -238,7 +248,18 @@ public class ChatController {
    */
   @FXML
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
-    // FreeTextToSpeech.stop();
     App.hideChat();
+  }
+
+  private void updateChatTexts() {
+    txtaChat.clear();
+  }
+
+  private void loadChatHistory(String profession) {
+    txtaChat.clear();
+    StringBuilder history = chatHistories.get(profession);
+    if (history != null) {
+      txtaChat.appendText(history.toString());
+    }
   }
 }
