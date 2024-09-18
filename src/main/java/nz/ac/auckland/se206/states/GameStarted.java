@@ -1,10 +1,13 @@
 package nz.ac.auckland.se206.states;
 
 import java.io.IOException;
+import java.util.HashSet;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
-import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.controllers.ChatController;
+import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 
 /**
  * The GameStarted state of the game. Handles the initial interactions when the game starts,
@@ -13,6 +16,11 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
 public class GameStarted implements GameState {
 
   private final GameStateContext context;
+  private HashSet<String> cluesExplored = new HashSet<>();
+  private boolean security1Said = false;
+  private boolean security2Said = false;
+  private boolean guessCluesWarned = false;
+  private boolean guessChatWarned = false;
 
   /**
    * Constructs a new GameStarted state with the given game state context.
@@ -35,14 +43,43 @@ public class GameStarted implements GameState {
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
     // Transition to chat view or provide an introduction based on the clicked rectangle
     switch (rectangleId) {
-      case "rectCashier":
-        TextToSpeech.speak("Welcome to my cafe!");
+      case "rectSecurityGuard":
+        System.out.println("Security Guard");
+        if (!cluesExplored.contains("Chemical")) {
+          if (!security1Said) {
+            FreeTextToSpeech.speak(
+                "I will try to help, although it may be hard to recall the events of that"
+                    + " day without something to jog my memory.");
+          }
+          security1Said = true;
+        } else {
+          if (!security2Said) {
+            FreeTextToSpeech.speak(
+                "Ah, the flask? I remember the chemical had spilled over the table"
+                    + " that day. Usually the lab is spotless.");
+          }
+          security2Said = true;
+        }
         return;
-      case "rectWaitress":
-        TextToSpeech.speak("Hi, let me know when you are ready to order!");
+      case "rectBriefcase":
+        // App.showClue("zoomedbriefcase"); // ADD CLUE
+        cluesExplored.add("Briefcase");
+        return; // actually make a popup to give hint
+      case "rectBag":
+        // App.showClue("zoomedbag"); // ADD CLUE
+        cluesExplored.add("Bag");
         return;
+      case "rectChemical":
+        // App.showClue("zoomedchemical"); // ADD CLUE
+        cluesExplored.add("Chemical");
+        return;
+      // case objects
+      case "rectLabTechnician":
+      case "rectLeadScientist":
+      case "rectScholar":
+        break;
     }
-    App.openChat(event, context.getProfession(rectangleId));
+    App.showChatbox(event, context.getProfession(rectangleId));
   }
 
   /**
@@ -53,8 +90,54 @@ public class GameStarted implements GameState {
    */
   @Override
   public void handleGuessClick() throws IOException {
+
+    // if (!checkEnoughClues()) {
+    //   if (!guessCluesWarned) {
+    //     FreeTextToSpeech.speak("You need to explore further before making a guess.");
+    //     guessCluesWarned = true;
+    //   }
+    //   return;
+    // }
+    // if (!ChatController.hasTalked()) {
+    //   if (!guessChatWarned) {
+    //     FreeTextToSpeech.speak("You need to chat with at least one suspect before making a
+    // guess.");
+    //     guessChatWarned = true;
+    //   }
+
+    //   return;
+    // }
+    // disable guess button
+    FreeTextToSpeech.speak("Make a guess, click on the culprit");
+
     App.setRoot("guessing");
+
     context.setState(context.getGuessingState());
+  }
+
+  public boolean handleGuess(Button button) {
+    if (canGuess()) {
+      try {
+        App.hideChat();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      // disable guess button
+      button.setDisable(true);
+      return true;
+    }
+    return false;
+  }
+
+  private boolean checkEnoughClues() {
+    if (cluesExplored.size() >= 1) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean canGuess() {
+    return checkEnoughClues() && ChatController.hasTalked();
   }
 
   public void handleRoomTransition(MouseEvent event, String buttonId) {
