@@ -4,11 +4,14 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
+import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
+import nz.ac.auckland.se206.Timer;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /**
@@ -17,6 +20,7 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
  */
 public class RoomController {
 
+  @FXML private Label timerLabel;
   @FXML private Rectangle rectLabTechnician;
   @FXML private Rectangle rectScholar;
   @FXML private Rectangle rectLeadScientist;
@@ -28,8 +32,9 @@ public class RoomController {
   @FXML private ImageView openLocker;
   @FXML private Rectangle rectLocker;
 
-  private static boolean isFirstTimeInit = true;
+  protected static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
+  protected Timer timer;
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
@@ -41,8 +46,11 @@ public class RoomController {
       TextToSpeech.speak(
           "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
       isFirstTimeInit = false;
+      App.getTimer().setLabel(timerLabel);
+      App.getTimer().startTimer();
     }
     hideOpen();
+    App.getTimer().setLabel(timerLabel);
   }
 
   /**
