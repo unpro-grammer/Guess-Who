@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.application.Platform;
@@ -35,13 +36,13 @@ public class ChatController {
   private static Map<String, StringBuilder> chatHistories = new HashMap<>();
   private static boolean talked = false;
   private static RoomController roomController;
-
+  private ArrayList<String> chatTexts = new ArrayList<>();
   private String profession;
   private String filePath;
   private String name = "Speaker";
   private Boolean first;
   private MediaPlayer mediaPlayerChat;
-
+  private int displayedChat;
   @FXML private TextArea txtaChat;
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
@@ -258,6 +259,8 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
+    if (displayedChat==0) {
+    // txtaChat.isDisable()=true;
     updateChatTexts();
     String message = txtInput.getText().trim();
     if (message.isEmpty()) {
@@ -280,10 +283,24 @@ public class ChatController {
     Thread backgroundGptThread = new Thread(runGptTask);
     backgroundGptThread.setDaemon(true);
     backgroundGptThread.start();
-  }
+  }else{
+    this.displayedChat+=1;
+    txtaChat.setText(chatTexts.get(chatTexts.size()+displayedChat));
+  }}
 
   private void updateChatTexts() {
+    chatTexts.add(txtaChat.getText());
     txtaChat.clear();
+  }
+
+  @FXML
+  private void onLastClicked(ActionEvent event) {
+    if (chatTexts.size() > 0) {
+      this.displayedChat-=1;
+      txtaChat.setText(chatTexts.get(chatTexts.size() +displayedChat));
+      
+      // txtaChat.disableProperty()=false;
+    }
   }
 
   /**
