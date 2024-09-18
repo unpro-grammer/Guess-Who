@@ -125,6 +125,8 @@ public class ChatController {
     System.out.println("Setting profession");
     updateChatTexts();
     this.profession = profession;
+    ChatMessage initialStartup = new ChatMessage("assistant", "...");
+    appendChatMessage(initialStartup);
     // begin new task to retrieve generated text via api
     fetchChatTask =
         new Task<Void>() {
@@ -207,11 +209,11 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
-    updateChatTexts();
     String message = txtInput.getText().trim();
     if (message.isEmpty()) {
       return;
     }
+    updateChatTexts();
     txtInput.clear();
     ChatMessage msg = new ChatMessage("user", message);
     appendChatMessage(msg);
