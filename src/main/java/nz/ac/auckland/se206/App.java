@@ -24,7 +24,7 @@ import nz.ac.auckland.se206.speech.FreeTextToSpeech;
  * application.
  */
 public class App extends Application {
-  private static Timer timer = new Timer(null, 60);
+  private static Timer timer = new Timer(null, 300);
   private static Scene scene;
   private static Stage stageWindow;
   private static Parent chatView = null;

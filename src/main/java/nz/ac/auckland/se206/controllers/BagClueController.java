@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
-public class BagClueController {
+public class BagClueController extends ClueController {
 
   @FXML private ImageView bagzipper;
   @FXML private Rectangle rectZipper;
@@ -16,7 +16,9 @@ public class BagClueController {
   private double yOffset = 0;
 
   @FXML
-  private void initialize() {
+  @Override
+  protected void initialize() {
+    super.initialize();
 
     zoomedBagStuff.setVisible(false);
 

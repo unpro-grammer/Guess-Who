@@ -21,7 +21,7 @@
       <Button fx:id="labTechnicianSceneButton" layoutX="696.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="LT" />
       <Button fx:id="scholarSceneButton" layoutX="733.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="S" />
 
-      <Label fx:id="timerLabel" alignment="CENTER" layoutX="37.0" layoutY="25.0" prefHeight="46.0" prefWidth="131.0" />
+      <Label fx:id="timerLabel" alignment="CENTER" layoutX="36.0" layoutY="23.0" prefHeight="47.0" prefWidth="133.0" text="Label" textAlignment="CENTER" />
 
       <AnchorPane fx:id="chatPane" layoutX="6.0" layoutY="432.0" prefHeight="132.0" prefWidth="779.0" />
       <ImageView fx:id="labtechnician" fitHeight="311.0" fitWidth="202.0" layoutX="265.0" layoutY="203.0">

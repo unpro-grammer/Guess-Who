@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
-public class LockerClueController {
+public class LockerClueController extends ClueController {
 
   @FXML private ImageView trash;
   @FXML private ImageView takeaway1;
@@ -28,7 +28,9 @@ public class LockerClueController {
   private ImageView currentImage;
 
   @FXML
-  private void initialize() {
+  @Override
+  protected void initialize() {
+    super.initialize();
     // pair images with their rectangles which handle drag
     setDrag(trash, rectTrash);
     setDrag(takeaway1, rectTakeaway1);
