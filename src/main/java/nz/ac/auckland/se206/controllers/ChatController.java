@@ -1,6 +1,11 @@
 package nz.ac.auckland.se206.controllers;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.application.Platform;
@@ -19,7 +24,6 @@ import nz.ac.auckland.apiproxy.chat.openai.Choice;
 import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
-import nz.ac.auckland.se206.prompts.PromptEngineering;
 
 /**
  * Controller class for the chat view. Handles user interactions and communication with the GPT
@@ -28,9 +32,9 @@ import nz.ac.auckland.se206.prompts.PromptEngineering;
 public class ChatController {
 
   private static Map<String, Boolean> firstInteraction = new HashMap<>();
+  private static Map<String, StringBuilder> chatHistories = new HashMap<>();
   private static boolean talked = false;
   private static RoomController roomController;
-  private static Map<String, StringBuilder> chatHistories = new HashMap<>();
 
   private String profession;
   private String filePath;
@@ -62,7 +66,6 @@ public class ChatController {
     firstInteraction.put("Lab Technician", true);
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
-    // Any required initialization code can be placed here
   }
 
   // Chat Functionality Methods
@@ -73,11 +76,11 @@ public class ChatController {
    * @param profession the profession to set
    */
   public void setProfession(String profession) {
+
     System.out.println("Setting profession");
     updateChatTexts();
     this.profession = profession;
     initializeFilePath();
-
     fetchChatTask =
         new Task<Void>() {
           @Override
@@ -91,7 +94,7 @@ public class ChatController {
                       .setTemperature(0.2)
                       .setTopP(0.5)
                       .setMaxTokens(100);
-              runGpt(new ChatMessage("system", getSystemPrompt()), first);
+              runGpt(new ChatMessage("system", getSystemPrompt()));
             } catch (ApiProxyException e) {
               e.printStackTrace();
             }
@@ -146,18 +149,42 @@ public class ChatController {
         break;
       default:
         firstFile = "chat.txt";
-        secondFile = null; // Only one file to read for default case
+        secondFile = null;
         break;
     }
 
-    return PromptEngineering.getPrompt(sumPromptFiles(firstFile, secondFile), map);
+    return readTextFile("src/main/resources/prompts/" + firstFile)
+        + "\n\n"
+        + readTextFile("src/main/resources/prompts/" + secondFile);
   }
 
-  private String sumPromptFiles(String firstFile, String secondFile) {
-    String firstContent = PromptEngineering.getPrompt(firstFile, new HashMap<>());
-    String secondContent =
-        secondFile != null ? PromptEngineering.getPrompt(secondFile, new HashMap<>()) : "";
-    return firstContent + secondContent;
+  public static String readTextFile(String filePath) {
+    StringBuilder content = new StringBuilder();
+    BufferedReader reader = null;
+
+    try {
+      // Initialize reader to read the file
+      reader = new BufferedReader(new FileReader(filePath));
+
+      String line;
+      // Read each line and append it to the content StringBuilder
+      while ((line = reader.readLine()) != null) {
+        content.append(line).append(System.lineSeparator());
+      }
+
+    } catch (IOException e) {
+      e.printStackTrace(); // Handle any file read errors
+    } finally {
+      try {
+        if (reader != null) {
+          reader.close(); // Close the reader
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+    return content.toString(); // Return the file content as a string
   }
 
   // Sound Effects Methods
@@ -178,6 +205,7 @@ public class ChatController {
   private void appendChatMessage(ChatMessage msg) {
     name = msg.getRole().equals("assistant") ? profession : "You";
     String messageText = name + ": " + msg.getContent() + "\n\n";
+    saveChatToFile(messageText);
     txtaChat.appendText(messageText);
     StringBuilder history = chatHistories.getOrDefault(profession, new StringBuilder());
     history.append(messageText);
@@ -191,18 +219,31 @@ public class ChatController {
    * @return the response chat message
    * @throws ApiProxyException if there is an error communicating with the API proxy
    */
-  private ChatMessage runGpt(ChatMessage msg, boolean first) throws ApiProxyException {
+  private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
     chatCompletionRequest.addMessage(msg);
     try {
       ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
       Choice result = chatCompletionResult.getChoices().iterator().next();
       chatCompletionRequest.addMessage(result.getChatMessage());
       appendChatMessage(result.getChatMessage());
-      App.appendToFile(profession + ": " + result.getChatMessage().getContent(), filePath);
+
       return result.getChatMessage();
     } catch (ApiProxyException e) {
       e.printStackTrace();
       return null;
+    }
+  }
+
+  // Save chat history to file
+  private void saveChatToFile(String chatContent) {
+    try {
+      Files.writeString(
+          Paths.get(filePath),
+          chatContent + "\n",
+          StandardOpenOption.CREATE,
+          StandardOpenOption.APPEND);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
@@ -219,17 +260,19 @@ public class ChatController {
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
     updateChatTexts();
     String message = txtInput.getText().trim();
-    if (message.isEmpty()) return;
+    if (message.isEmpty()) {
+      return;
+    }
     txtInput.clear();
     ChatMessage msg = new ChatMessage("user", message);
+
     appendChatMessage(msg);
     talked = true;
-
     runGptTask =
         new Task<Void>() {
           @Override
           protected Void call() throws Exception {
-            runGpt(msg, false);
+            runGpt(msg);
             return null;
           }
         };
@@ -237,6 +280,10 @@ public class ChatController {
     Thread backgroundGptThread = new Thread(runGptTask);
     backgroundGptThread.setDaemon(true);
     backgroundGptThread.start();
+  }
+
+  private void updateChatTexts() {
+    txtaChat.clear();
   }
 
   /**
@@ -249,17 +296,5 @@ public class ChatController {
   @FXML
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
     App.hideChat();
-  }
-
-  private void updateChatTexts() {
-    txtaChat.clear();
-  }
-
-  private void loadChatHistory(String profession) {
-    txtaChat.clear();
-    StringBuilder history = chatHistories.get(profession);
-    if (history != null) {
-      txtaChat.appendText(history.toString());
-    }
   }
 }

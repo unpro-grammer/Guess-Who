@@ -46,6 +46,11 @@ public class App extends Application {
     replaceFileContent(
         "src/main/resources/prompts/emptyfile.txt",
         "src/main/resources/prompts/lab_technician_2.txt");
+    replaceFileContent(
+        "src/main/resources/prompts/emptyfile.txt",
+        "src/main/resources/prompts/lead_scientist_2.txt");
+    replaceFileContent(
+        "src/main/resources/prompts/emptyfile.txt", "src/main/resources/prompts/scholar_2.txt");
     launch();
   }
 
