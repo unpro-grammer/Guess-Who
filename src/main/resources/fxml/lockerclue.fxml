@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane prefHeight="599.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.LockerClueController">
+   <children>
+      <ImageView fitHeight="605.0" fitWidth="818.0" layoutY="-4.0" preserveRatio="true">
+         <image>
+            <Image url="@../images/lockerbackground.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnExit" layoutX="644.0" layoutY="28.0" mnemonicParsing="false" onAction="#onExitClue" prefHeight="38.0" prefWidth="103.0" text="BACK" />
+      <Rectangle fx:id="rectBoundary" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="139.0" layoutX="527.0" layoutY="408.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="252.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Rectangle>
+      <ImageView fx:id="shoes" fitHeight="90.0" fitWidth="200.0" layoutX="306.0" layoutY="395.0">
+         <image>
+            <Image url="@../images/leathershoes.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="rectShoes" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="64.0" layoutX="314.0" layoutY="413.0" onMouseClicked="#zoomOnShoes" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="161.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Rectangle>
+      <ImageView fx:id="takeaway1" fitHeight="64.0" fitWidth="200.0" layoutX="248.0" layoutY="429.0">
+         <image>
+            <Image url="@../images/takeaway1.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="rectTakeaway1" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="52.0" layoutX="261.0" layoutY="437.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="173.0">
+         <cursor>
+            <Cursor fx:constant="MOVE" />
+         </cursor>
+      </Rectangle>
+      <ImageView fx:id="trash" fitHeight="200.0" fitWidth="176.0" layoutX="304.0" layoutY="313.0">
+         <image>
+            <Image url="@../images/trashbag.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="rectTrash" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="146.0" layoutX="318.0" layoutY="360.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="149.0">
+         <cursor>
+            <Cursor fx:constant="MOVE" />
+         </cursor>
+      </Rectangle>
+      <ImageView fx:id="chinesetakeaway" fitHeight="200.0" fitWidth="173.0" layoutX="204.0" layoutY="337.0">
+         <image>
+            <Image url="@../images/chinesetakeaway.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="rectChineseTakeaway" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="182.0" layoutX="222.0" layoutY="346.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="138.0">
+         <cursor>
+            <Cursor fx:constant="MOVE" />
+         </cursor>
+      </Rectangle>
+      <ImageView fx:id="bottle" fitHeight="200.0" fitWidth="79.0" layoutX="458.0" layoutY="347.0">
+         <image>
+            <Image url="@../images/waterbottle.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="rectBottle" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="182.0" layoutX="463.0" layoutY="356.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="71.0">
+         <cursor>
+            <Cursor fx:constant="MOVE" />
+         </cursor>
+      </Rectangle>
+      <ImageView fx:id="zoomedShoes" fitHeight="601.0" fitWidth="792.0" onMouseClicked="#closeShoes">
+         <image>
+            <Image url="@../images/shoeoverlay.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label fx:id="timerLabel" alignment="CENTER" layoutX="36.0" layoutY="23.0" prefHeight="47.0" prefWidth="133.0" text="Label" textAlignment="CENTER" />
+   </children>
+</AnchorPane>

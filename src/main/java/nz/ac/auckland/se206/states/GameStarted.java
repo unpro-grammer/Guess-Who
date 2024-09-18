@@ -17,8 +17,6 @@ public class GameStarted implements GameState {
 
   private final GameStateContext context;
   private HashSet<String> cluesExplored = new HashSet<>();
-  private boolean security1Said = false;
-  private boolean security2Said = false;
   private boolean guessCluesWarned = false;
   private boolean guessChatWarned = false;
 
@@ -43,34 +41,16 @@ public class GameStarted implements GameState {
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
     // Transition to chat view or provide an introduction based on the clicked rectangle
     switch (rectangleId) {
-      case "rectSecurityGuard":
-        System.out.println("Security Guard");
-        if (!cluesExplored.contains("Chemical")) {
-          if (!security1Said) {
-            FreeTextToSpeech.speak(
-                "I will try to help, although it may be hard to recall the events of that"
-                    + " day without something to jog my memory.");
-          }
-          security1Said = true;
-        } else {
-          if (!security2Said) {
-            FreeTextToSpeech.speak(
-                "Ah, the flask? I remember the chemical had spilled over the table"
-                    + " that day. Usually the lab is spotless.");
-          }
-          security2Said = true;
-        }
-        return;
-      case "rectBriefcase":
-        // App.showClue("zoomedbriefcase"); // ADD CLUE
-        cluesExplored.add("Briefcase");
+      case "rectLocker":
+        App.setRoot("lockerclue");
+        cluesExplored.add("Locker");
         return; // actually make a popup to give hint
-      case "rectBag":
-        // App.showClue("zoomedbag"); // ADD CLUE
+      case "rectBagClue":
+        App.setRoot("bagclue");
         cluesExplored.add("Bag");
         return;
-      case "rectChemical":
-        // App.showClue("zoomedchemical"); // ADD CLUE
+      case "rectChemicalClue":
+        App.setRoot("chemicalClue");
         cluesExplored.add("Chemical");
         return;
       // case objects

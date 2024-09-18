@@ -5,8 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
@@ -18,12 +20,8 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
  * chat with customers and guess their profession.
  */
 public class RoomController {
+
   @FXML private Label timerLabel;
-  @FXML private Rectangle rectCashier;
-  @FXML private Rectangle rectPerson1;
-  @FXML private Rectangle rectPerson2;
-  @FXML private Rectangle rectPerson3;
-  @FXML private Rectangle rectWaitress;
   @FXML private Rectangle rectLabTechnician;
   @FXML private Rectangle rectScholar;
   @FXML private Rectangle rectLeadScientist;
@@ -32,10 +30,14 @@ public class RoomController {
   @FXML private Button leadScientistSceneButton;
   @FXML private Button labTechnicianSceneButton;
   @FXML private Button scholarSceneButton;
+  @FXML private ImageView openLocker;
+  @FXML private Rectangle rectLocker;
+  @FXML private AnchorPane anchor;
 
-  private static boolean isFirstTimeInit = true;
+  protected static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
   protected Timer timer;
+  private static RoomController ctrl;
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
@@ -50,7 +52,13 @@ public class RoomController {
       App.getTimer().setLabel(timerLabel);
       App.getTimer().startTimer();
     }
+    hideOpen();
     App.getTimer().setLabel(timerLabel);
+    ctrl = this;
+  }
+
+  public static RoomController getRoomController() {
+    return ctrl;
   }
 
   /**
@@ -100,5 +108,59 @@ public class RoomController {
   protected void handleRoomTransition(MouseEvent event) throws IOException {
     Button clickedRoomButton = (Button) event.getSource();
     context.handleRoomTransition(event, clickedRoomButton.getId());
+  }
+
+  @FXML
+  protected void showOpen() {
+    if (openLocker != null) {
+      openLocker.setVisible(true);
+    }
+  }
+
+  @FXML
+  protected void hideOpen() {
+    if (openLocker != null) {
+      openLocker.setVisible(false);
+    }
+  }
+
+  public void disableRoom() {
+    btnGuess.setVisible(false);
+    clueSceneBtn.setVisible(false);
+    leadScientistSceneButton.setVisible(false);
+    labTechnicianSceneButton.setVisible(false);
+    scholarSceneButton.setVisible(false);
+  }
+
+  public void enableRoom() {
+    btnGuess.setVisible(true);
+    clueSceneBtn.setVisible(true);
+    leadScientistSceneButton.setVisible(true);
+    labTechnicianSceneButton.setVisible(true);
+    scholarSceneButton.setVisible(true);
+  }
+
+  public void disableSuspects() {
+    if (anchor.getChildren().contains(rectLabTechnician)) {
+      rectLabTechnician.setDisable(true);
+    }
+    if (anchor.getChildren().contains(rectScholar)) {
+      rectScholar.setDisable(true);
+    }
+    if (anchor.getChildren().contains(rectLeadScientist)) {
+      rectLeadScientist.setDisable(true);
+    }
+  }
+
+  public void enableSuspects() {
+    if (anchor.getChildren().contains(rectLabTechnician)) {
+      rectLabTechnician.setDisable(false);
+    }
+    if (anchor.getChildren().contains(rectScholar)) {
+      rectScholar.setDisable(false);
+    }
+    if (anchor.getChildren().contains(rectLeadScientist)) {
+      rectLeadScientist.setDisable(false);
+    }
   }
 }

@@ -14,6 +14,6 @@
          </font></TextArea>
     <TextField fx:id="txtInput" layoutX="101.0" layoutY="131.0" prefHeight="26.0" prefWidth="487.0" style="-fx-background-color: #FFFFFF;" />
     <Button fx:id="btnSend" layoutX="597.0" layoutY="131.0" mnemonicParsing="false" onAction="#onSendMessage" text="Send" />
-    <Button layoutX="653.0" layoutY="131.0" mnemonicParsing="false" onAction="#onGoBack" text="Go Back" />
+    <Button fx:id="btnBack" layoutX="653.0" layoutY="131.0" mnemonicParsing="false" onAction="#onGoBack" text="Go Back" />
   </children>
 </AnchorPane>

@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
@@ -43,6 +44,8 @@ public class ChatController {
   @FXML private TextArea txtaChat;
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
+  @FXML private Button btnBack;
+  @FXML private AnchorPane anchor;
 
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
@@ -122,6 +125,8 @@ public class ChatController {
     System.out.println("Setting profession");
     updateChatTexts();
     this.profession = profession;
+    ChatMessage initialStartup = new ChatMessage("assistant", "...");
+    appendChatMessage(initialStartup);
     // begin new task to retrieve generated text via api
     fetchChatTask =
         new Task<Void>() {
@@ -172,6 +177,7 @@ public class ChatController {
    */
   private ChatMessage runGpt(ChatMessage msg, boolean first) throws ApiProxyException {
     // FreeTextToSpeech.stop();
+    disableInteraction();
     chatCompletionRequest.addMessage(msg);
     try {
       // handle GUI methods via main application thread, but at any point it's free
@@ -185,6 +191,7 @@ public class ChatController {
       if (first) {
         FreeTextToSpeech.speak(result.getChatMessage().getContent());
       }
+      enableInteraction();
       // Platform.runLater(() -> roomController.hideHmm(profession)); // SOUNDFX LATER
       return result.getChatMessage();
     } catch (ApiProxyException e) {
@@ -202,11 +209,11 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
-    updateChatTexts();
     String message = txtInput.getText().trim();
     if (message.isEmpty()) {
       return;
     }
+    updateChatTexts();
     txtInput.clear();
     ChatMessage msg = new ChatMessage("user", message);
     appendChatMessage(msg);
@@ -240,5 +247,28 @@ public class ChatController {
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
     // FreeTextToSpeech.stop();
     App.hideChat();
+    enableInteraction();
+  }
+
+  private void disbaleChatButton() {
+    // txtInput.setDisable(true);
+    btnSend.setDisable(true);
+  }
+
+  private void enableChatButton() {
+    // txtInput.setDisable(false);
+    btnSend.setDisable(false);
+  }
+
+  private void disableInteraction() {
+    RoomController.getRoomController().disableRoom();
+    RoomController.getRoomController().disableSuspects();
+    disbaleChatButton();
+  }
+
+  private void enableInteraction() {
+    RoomController.getRoomController().enableRoom();
+    RoomController.getRoomController().enableSuspects();
+    enableChatButton();
   }
 }

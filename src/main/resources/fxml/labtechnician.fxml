@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="599.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.LabTechnicianController">
+<AnchorPane fx:id="anchor" prefHeight="599.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.LabTechnicianController">
    <children>
       <ImageView fitHeight="605.0" fitWidth="818.0" layoutY="-4.0" preserveRatio="true">
          <image>
@@ -21,7 +21,7 @@
       <Button fx:id="labTechnicianSceneButton" layoutX="696.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="LT" />
       <Button fx:id="scholarSceneButton" layoutX="733.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="S" />
 
-      <Label fx:id="timerLabel" alignment="CENTER" layoutX="37.0" layoutY="25.0" prefHeight="46.0" prefWidth="131.0" />
+      <Label fx:id="timerLabel" alignment="CENTER" layoutX="36.0" layoutY="23.0" prefHeight="47.0" prefWidth="133.0" text="Label" textAlignment="CENTER" />
 
       <AnchorPane fx:id="chatPane" layoutX="6.0" layoutY="432.0" prefHeight="132.0" prefWidth="779.0" />
       <ImageView fx:id="labtechnician" fitHeight="311.0" fitWidth="202.0" layoutX="265.0" layoutY="203.0">
@@ -29,7 +29,12 @@
             <Image url="@../images/labtech_normal.png" />
          </image>
       </ImageView>
-      <Rectangle fx:id="rectLabTechnician" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="259.0" layoutX="325.0" layoutY="230.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="84.0">
+      <ImageView fx:id="labtechnicianturned" fitHeight="311.0" fitWidth="202.0" layoutX="265.0" layoutY="203.0">
+         <image>
+            <Image url="@../images/labtech_turned.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="rectLabTechnician" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="259.0" layoutX="325.0" layoutY="230.0" onMouseClicked="#handleRectangleClick" onMouseEntered="#showTurned" onMouseExited="#hideTurned" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="84.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

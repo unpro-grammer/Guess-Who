@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="590.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.LeadScientistController">
+<AnchorPane fx:id="anchor" prefHeight="590.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.LeadScientistController">
    <children>
       <ImageView fitHeight="605.0" fitWidth="818.0" layoutY="-4.0" preserveRatio="true" smooth="true">
          <image>
@@ -27,7 +27,12 @@
             <Image url="@../images/scientist_normal.png" />
          </image>
       </ImageView>
-      <Rectangle fx:id="rectLeadScientist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="252.0" layoutX="87.0" layoutY="266.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="56.0">
+      <ImageView fx:id="leadscientistturned" fitHeight="322.0" fitWidth="205.0" layoutX="9.0" layoutY="234.0">
+         <image>
+            <Image url="@../images/scientist_turned.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="rectLeadScientist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="252.0" layoutX="87.0" layoutY="266.0" onMouseClicked="#handleRectangleClick" onMouseEntered="#showTurned" onMouseExited="#hideTurned" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="56.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Rectangle>
