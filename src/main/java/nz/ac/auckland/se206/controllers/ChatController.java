@@ -10,9 +10,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.layout.AnchorPane;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
 import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
@@ -251,12 +251,12 @@ public class ChatController {
   }
 
   private void disbaleChatButton() {
-    txtInput.setDisable(true);
+    // txtInput.setDisable(true);
     btnSend.setDisable(true);
   }
 
   private void enableChatButton() {
-    txtInput.setDisable(false);
+    // txtInput.setDisable(false);
     btnSend.setDisable(false);
   }
 
