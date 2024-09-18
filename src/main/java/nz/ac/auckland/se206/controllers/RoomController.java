@@ -104,19 +104,19 @@ public class RoomController {
   }
 
   public void disableRoom() {
-    btnGuess.setDisable(true);
-    clueSceneBtn.setDisable(true);
-    leadScientistSceneButton.setDisable(true);
-    labTechnicianSceneButton.setDisable(true);
-    scholarSceneButton.setDisable(true);
+    btnGuess.setVisible(false);
+    clueSceneBtn.setVisible(false);
+    leadScientistSceneButton.setVisible(false);
+    labTechnicianSceneButton.setVisible(false);
+    scholarSceneButton.setVisible(false);
   }
 
   public void enableRoom() {
-    btnGuess.setDisable(false);
-    clueSceneBtn.setDisable(false);
-    leadScientistSceneButton.setDisable(false);
-    labTechnicianSceneButton.setDisable(false);
-    scholarSceneButton.setDisable(false);
+    btnGuess.setVisible(true);
+    clueSceneBtn.setVisible(true);
+    leadScientistSceneButton.setVisible(true);
+    labTechnicianSceneButton.setVisible(true);
+    scholarSceneButton.setVisible(true);
   }
 
   public void disableSuspects() {

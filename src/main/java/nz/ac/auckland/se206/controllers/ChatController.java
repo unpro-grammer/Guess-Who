@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.layout.AnchorPane;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
 import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
@@ -44,6 +45,7 @@ public class ChatController {
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
   @FXML private Button btnBack;
+  @FXML private AnchorPane anchor;
 
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
@@ -173,9 +175,7 @@ public class ChatController {
    */
   private ChatMessage runGpt(ChatMessage msg, boolean first) throws ApiProxyException {
     // FreeTextToSpeech.stop();
-    RoomController.getRoomController().disableRoom();
-    RoomController.getRoomController().disableSuspects();
-    disbaleChatButton();
+    disableInteraction();
     chatCompletionRequest.addMessage(msg);
     try {
       // handle GUI methods via main application thread, but at any point it's free
@@ -189,9 +189,7 @@ public class ChatController {
       if (first) {
         FreeTextToSpeech.speak(result.getChatMessage().getContent());
       }
-      RoomController.getRoomController().enableRoom();
-      RoomController.getRoomController().enableSuspects();
-      enableChatButton();
+      enableInteraction();
       // Platform.runLater(() -> roomController.hideHmm(profession)); // SOUNDFX LATER
       return result.getChatMessage();
     } catch (ApiProxyException e) {
@@ -247,17 +245,28 @@ public class ChatController {
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
     // FreeTextToSpeech.stop();
     App.hideChat();
+    enableInteraction();
   }
 
   private void disbaleChatButton() {
     txtInput.setDisable(true);
     btnSend.setDisable(true);
-    btnBack.setDisable(true);
   }
 
   private void enableChatButton() {
     txtInput.setDisable(false);
     btnSend.setDisable(false);
-    btnBack.setDisable(false);
+  }
+
+  private void disableInteraction() {
+    RoomController.getRoomController().disableRoom();
+    RoomController.getRoomController().disableSuspects();
+    disbaleChatButton();
+  }
+
+  private void enableInteraction() {
+    RoomController.getRoomController().enableRoom();
+    RoomController.getRoomController().enableSuspects();
+    enableChatButton();
   }
 }
