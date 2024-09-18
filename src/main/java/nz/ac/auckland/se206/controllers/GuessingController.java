@@ -17,6 +17,12 @@ public class GuessingController {
   @FXML Button confimGuessingButton;
 
   private String userAnswer;
+  private String userGuess;
+
+  @FXML
+  void initialize() {
+    confimGuessingButton.setDisable(true);
+  }
 
   @FXML
   private void confirmGuessing(ActionEvent event) throws IOException {
@@ -35,5 +41,19 @@ public class GuessingController {
     scholar.getStyleClass().remove("highlight");
     Rectangle selected = (Rectangle) event.getSource();
     selected.getStyleClass().add("highlight");
+    confimGuessingButton.setDisable(false);
+    switch (selected.getId()) {
+      case "leadScientist":
+        userGuess = "Lead Scientist";
+        break;
+      case "labTechnician":
+        userGuess = "Lab Technician";
+        break;
+      case "scholar":
+        userGuess = "Scholar";
+        break;
+    }
+    App.setUserGuess(userGuess);
+    System.out.println(userGuess);
   }
 }

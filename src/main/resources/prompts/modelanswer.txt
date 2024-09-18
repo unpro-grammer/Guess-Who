@@ -1,7 +1,9 @@
-User's answer: {userAnswer}
+(Without repeating my explanation back to me, please mark my explanation against the model explanation. Give extremely concise comments first mentioning the guess is correct. If I typed nothing, or very little,
+or only mentioned irrelevant reasons, then tell me such. Mark against the model answer above, telling me if any of my reasoning
+was correct, as well as what's missing compared to the model explanation. Don't actually use the phrase "model explanation". Remember, you are roleplaying as a detective chief giving feedback to my deduction.)
 
-(Please give extremely concise comments first commending the player for their correct guess, indicating which aspects they were right about, and
-possibly which aspects they should have also considered. Mark against the model explanation below.)
+My explanation: {userAnswer}
+END OF MY EXPLANATION.
 
 Model explanation: The thief is the scholar. On the day of the crime, they accidentally knocked over the flask of hydrofluoric acid on the table,
 which was next to the research notes (belonging to the lead scientist) they then stole. Hydrofluoric acid is very strong and burns through real leather. The scholar had gotten some on

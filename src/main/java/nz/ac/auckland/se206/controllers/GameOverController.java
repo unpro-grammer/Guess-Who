@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
@@ -23,10 +24,17 @@ public class GameOverController {
   @FXML Text thiefResultDisplay;
   @FXML TextArea feedbackDisplay;
   @FXML Text winLoseDisplay;
-  @FXML Button playAgainButton;
+  @FXML Button playAgainButton; // used for correct guess (Scholar)
   @FXML Button labButton;
   @FXML Button leadButton;
   @FXML Button scholarButton;
+  @FXML Button playAgainButton1; // used for incorrect guesses because position is different
+  @FXML Button playAgainButton2; // used for no guess because position is different
+
+  @FXML ImageView incorrectLabTech;
+  @FXML ImageView incorrectScientist;
+  @FXML ImageView correctScholar;
+  @FXML ImageView outOfTime;
 
   private String userAnswer;
   private ChatCompletionRequest chatCompletionRequest;
@@ -36,10 +44,38 @@ public class GameOverController {
   @FXML
   public void initialize() throws ApiProxyException {
     userAnswer = App.getUserAnswer();
-    getFeedback(userAnswer);
     leadButton.setVisible(false);
     labButton.setVisible(false);
     scholarButton.setVisible(false);
+    incorrectLabTech.setVisible(false);
+    incorrectScientist.setVisible(false);
+    correctScholar.setVisible(false);
+    feedbackDisplay.setVisible(false);
+    playAgainButton.setVisible(false);
+    playAgainButton1.setVisible(false);
+    playAgainButton2.setVisible(false);
+    outOfTime.setVisible(false);
+
+    switch (App.getUserGuess()) {
+      case "Lead Scientist":
+        incorrectScientist.setVisible(true);
+        playAgainButton1.setVisible(true);
+        break;
+      case "Lab Technician":
+        incorrectLabTech.setVisible(true);
+        playAgainButton1.setVisible(true);
+        break;
+      case "Scholar":
+        correctScholar.setVisible(true);
+        feedbackDisplay.setVisible(true);
+        getFeedback(userAnswer);
+        playAgainButton.setVisible(true);
+        break;
+      default:
+        outOfTime.setVisible(true);
+        playAgainButton2.setVisible(true);
+        break;
+    }
 
     // Any required initialization code can be placed here
   }
