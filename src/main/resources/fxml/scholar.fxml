@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,6 +20,7 @@
       <Button fx:id="leadScientistSceneButton" layoutX="733.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="LS" />
       <Button fx:id="labTechnicianSceneButton" layoutX="696.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="LT" />
       <Button fx:id="scholarSceneButton" layoutX="733.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" prefHeight="25.0" prefWidth="33.0" text="S" />
+      <Label fx:id="timerLabel" alignment="CENTER" layoutX="36.0" layoutY="24.0" prefHeight="46.0" prefWidth="131.0" />
       <AnchorPane fx:id="chatPane" layoutX="5.0" layoutY="442.0" prefHeight="132.0" prefWidth="779.0" />
       <ImageView fx:id="scholar" fitHeight="317.0" fitWidth="206.0" layoutX="90.0" layoutY="214.0">
          <image>
