@@ -29,13 +29,36 @@ import nz.ac.auckland.se206.speech.FreeTextToSpeech;
  * application.
  */
 public class App extends Application {
-  private static Timer timer = new Timer(null, 60);
+  private static Timer timer = new Timer(null, 300);
   private static Scene scene;
   private static Stage stageWindow;
   private static Parent chatView = null;
   private static ChatController chatController = null;
   private static RoomController roomController = null;
   private static MediaPlayer mediaPlayer;
+  private static String[] charactersToShow =
+      new String[] {
+        "rectLabTechnician",
+        "rectScholar",
+        "rectLeadScientist",
+        "leadscientist",
+        "labtechnician",
+        "scholar",
+      };
+
+  private static String[] charactersToHide =
+      new String[] {
+        "rectLabTechnician",
+        "rectScholar",
+        "rectLeadScientist",
+        "leadscientist",
+        "labtechnician",
+        "scholar",
+        "leadscientistturned",
+        "labtechnicianturned",
+        "scholarturned"
+      };
+  private static boolean isChatOpen = false;
 
   /**
    * The main method that launches the JavaFX application.
@@ -120,6 +143,7 @@ public class App extends Application {
    * @throws IOException if the FXML file is not found
    */
   public static void showChatbox(MouseEvent event, String profession) throws IOException {
+
     // cache chat node and controller
     System.out.println("Showing chat box");
     if (chatView == null) {
@@ -143,25 +167,28 @@ public class App extends Application {
         chatPane.setVisible(true);
       }
 
+      isChatOpen = true;
+
       // find characters in scene by id and hide them
-      Node leadscientistChar = mainPane.lookup("#leadscientist");
-      Node labtechnicianChar = mainPane.lookup("#labtechnician");
-      Node scholarChar = mainPane.lookup("#scholar");
-      hideCharacter(leadscientistChar);
-      hideCharacter(labtechnicianChar);
-      hideCharacter(scholarChar);
+
+      for (String characterId : charactersToHide) {
+        Node character = mainPane.lookup("#" + characterId);
+        hideCharacter(character);
+      }
     }
   }
 
   private static void hideCharacter(Node character) {
     if (character != null) {
       character.setVisible(false);
+      System.out.println("Hiding " + character.getId());
     }
   }
 
   private static void showCharacter(Node character) {
     if (character != null) {
       character.setVisible(true);
+      System.out.println("Showing " + character.getId());
     }
   }
 
@@ -175,12 +202,13 @@ public class App extends Application {
         chatPane.setVisible(false);
       }
 
-      Node leadscientistChar = mainPane.lookup("#leadscientist");
-      Node labtechnicianChar = mainPane.lookup("#labtechnician");
-      Node scholarChar = mainPane.lookup("#scholar");
-      showCharacter(leadscientistChar);
-      showCharacter(labtechnicianChar);
-      showCharacter(scholarChar);
+      isChatOpen = false;
+
+      // find characters by id and show them
+      for (String characterId : charactersToShow) {
+        Node character = mainPane.lookup("#" + characterId);
+        showCharacter(character);
+      }
     }
   }
 
@@ -216,6 +244,10 @@ public class App extends Application {
 
     stage.setScene(scene);
     stage.show();
+  }
+
+  public static boolean isChatOpen() {
+    return isChatOpen;
   }
 
   public static boolean gameResult(String suspectName) {
