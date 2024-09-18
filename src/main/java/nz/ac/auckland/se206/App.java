@@ -32,6 +32,15 @@ public class App extends Application {
   private static MediaPlayer mediaPlayer;
   private static String feedback = "";
   private static String userAnswer = "";
+  private static String userGuess = "";
+
+  public static String getUserGuess() {
+    return userGuess;
+  }
+
+  public static void setUserGuess(String userGuess) {
+    App.userGuess = userGuess;
+  }
 
   public static String getUserAnswer() {
     return userAnswer;

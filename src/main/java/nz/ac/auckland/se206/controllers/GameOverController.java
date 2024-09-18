@@ -32,12 +32,14 @@ public class GameOverController {
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
   private String feedback;
-  private Task<Void> fetchChatTask;
 
   @FXML
   public void initialize() throws ApiProxyException {
     userAnswer = App.getUserAnswer();
     getFeedback(userAnswer);
+    leadButton.setVisible(false);
+    labButton.setVisible(false);
+    scholarButton.setVisible(false);
 
     // Any required initialization code can be placed here
   }
@@ -53,11 +55,11 @@ public class GameOverController {
     String suspectName = clickedButton.getText();
     if (App.gameResult(suspectName)) {
       thiefResultDisplay.setText("The " + suspectName + " is the thief!");
-      feedbackDisplay.setText("He stole the research notes!");
+      feedbackDisplay.setText("They stole the research notes!");
       winLoseDisplay.setText("You WON!");
     } else {
       thiefResultDisplay.setText("The " + suspectName + " is not the thief!");
-      feedbackDisplay.setText("He didn't steal the research notes!");
+      feedbackDisplay.setText("They didn't steal the research notes!");
       winLoseDisplay.setText("You LOST!");
     }
   }
