@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
@@ -31,10 +32,12 @@ public class RoomController {
   @FXML private Button scholarSceneButton;
   @FXML private ImageView openLocker;
   @FXML private Rectangle rectLocker;
+  @FXML private AnchorPane anchor;
 
   protected static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
   protected Timer timer;
+  private static RoomController ctrl;
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
@@ -51,6 +54,11 @@ public class RoomController {
     }
     hideOpen();
     App.getTimer().setLabel(timerLabel);
+    ctrl = this;
+  }
+
+  public static RoomController getRoomController() {
+    return ctrl;
   }
 
   /**
@@ -113,6 +121,46 @@ public class RoomController {
   protected void hideOpen() {
     if (openLocker != null) {
       openLocker.setVisible(false);
+    }
+  }
+
+  public void disableRoom() {
+    btnGuess.setVisible(false);
+    clueSceneBtn.setVisible(false);
+    leadScientistSceneButton.setVisible(false);
+    labTechnicianSceneButton.setVisible(false);
+    scholarSceneButton.setVisible(false);
+  }
+
+  public void enableRoom() {
+    btnGuess.setVisible(true);
+    clueSceneBtn.setVisible(true);
+    leadScientistSceneButton.setVisible(true);
+    labTechnicianSceneButton.setVisible(true);
+    scholarSceneButton.setVisible(true);
+  }
+
+  public void disableSuspects() {
+    if (anchor.getChildren().contains(rectLabTechnician)) {
+      rectLabTechnician.setDisable(true);
+    }
+    if (anchor.getChildren().contains(rectScholar)) {
+      rectScholar.setDisable(true);
+    }
+    if (anchor.getChildren().contains(rectLeadScientist)) {
+      rectLeadScientist.setDisable(true);
+    }
+  }
+
+  public void enableSuspects() {
+    if (anchor.getChildren().contains(rectLabTechnician)) {
+      rectLabTechnician.setDisable(false);
+    }
+    if (anchor.getChildren().contains(rectScholar)) {
+      rectScholar.setDisable(false);
+    }
+    if (anchor.getChildren().contains(rectLeadScientist)) {
+      rectLeadScientist.setDisable(false);
     }
   }
 }
