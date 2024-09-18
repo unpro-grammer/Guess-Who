@@ -25,6 +25,7 @@ import nz.ac.auckland.se206.speech.FreeTextToSpeech;
  */
 public class App extends Application {
   private static Timer timer = new Timer(null, 300);
+  private static Timer guessTimer;
   private static Scene scene;
   private static Stage stageWindow;
   private static Parent chatView = null;
@@ -89,7 +90,16 @@ public class App extends Application {
   }
 
   public void setLabel(Label timerLabel) {
-    this.timer.setLabel(timerLabel);
+    timer.setLabel(timerLabel);
+  }
+
+  public static Timer startGuessTimer() {
+    guessTimer = new Timer(null, 60);
+    return guessTimer;
+  }
+
+  public void setGuessTimerLabel(Label timerLabel) {
+    guessTimer.setLabel(timerLabel);
   }
 
   /**

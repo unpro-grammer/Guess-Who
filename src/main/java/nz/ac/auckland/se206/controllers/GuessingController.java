@@ -4,10 +4,12 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.Timer;
 
 public class GuessingController {
   @FXML Rectangle leadScientist;
@@ -15,12 +17,17 @@ public class GuessingController {
   @FXML Rectangle scholar;
   @FXML TextArea explanationField;
   @FXML Button confimGuessingButton;
+  @FXML Label timerLabel;
 
   private String userAnswer;
   private String userGuess;
+  private Timer timer;
 
   @FXML
   void initialize() {
+    timer = App.startGuessTimer();
+    timer.setLabel(timerLabel);
+    timer.startTimer();
     confimGuessingButton.setDisable(true);
   }
 
