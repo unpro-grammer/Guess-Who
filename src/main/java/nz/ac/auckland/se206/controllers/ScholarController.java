@@ -1,3 +1,12 @@
 package nz.ac.auckland.se206.controllers;
 
-public class ScholarController extends RoomController {}
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+
+public class ScholarController extends RoomController {
+  @FXML private Label timerLabel;
+
+  public ScholarController() {
+    super.initialize();
+  }
+}

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -23,7 +24,7 @@ import nz.ac.auckland.se206.speech.FreeTextToSpeech;
  * application.
  */
 public class App extends Application {
-
+  private static Timer timer = new Timer(null, 60);
   private static Scene scene;
   private static Stage stageWindow;
   private static Parent chatView = null;
@@ -38,6 +39,14 @@ public class App extends Application {
    */
   public static void main(final String[] args) {
     launch();
+  }
+
+  public static Timer getTimer() {
+    return timer;
+  }
+
+  public void setLabel(Label timerLabel) {
+    this.timer.setLabel(timerLabel);
   }
 
   /**
