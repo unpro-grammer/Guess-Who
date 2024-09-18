@@ -42,11 +42,11 @@ public class ChatController {
   private String name = "Speaker";
   private Boolean first;
   private MediaPlayer mediaPlayerChat;
-  private int displayedChat;
+  private int displayedChat = 0;
   @FXML private TextArea txtaChat;
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
-
+  @FXML private Button btnLast;
   private ChatCompletionRequest chatCompletionRequest;
   private Task<Void> fetchChatTask;
   private Task<Void> runGptTask;
@@ -227,7 +227,7 @@ public class ChatController {
       Choice result = chatCompletionResult.getChoices().iterator().next();
       chatCompletionRequest.addMessage(result.getChatMessage());
       appendChatMessage(result.getChatMessage());
-
+      chatTexts.add(profession + ": " + result.getChatMessage().getContent());
       return result.getChatMessage();
     } catch (ApiProxyException e) {
       e.printStackTrace();
@@ -259,47 +259,53 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
-    if (displayedChat==0) {
-    // txtaChat.isDisable()=true;
-    updateChatTexts();
-    String message = txtInput.getText().trim();
-    if (message.isEmpty()) {
-      return;
+    System.out.println("displayedChat:" + displayedChat + "\n" + chatTexts);
+    if (displayedChat == 0) {
+      txtInput.setVisible(true);
+      updateChatTexts();
+      String message = txtInput.getText().trim();
+
+      if (message.isEmpty()) {
+        return;
+      }
+      chatTexts.add(message);
+      txtInput.clear();
+      ChatMessage msg = new ChatMessage("user", message);
+
+      appendChatMessage(msg);
+      talked = true;
+      runGptTask =
+          new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+              runGpt(msg);
+              return null;
+            }
+          };
+
+      Thread backgroundGptThread = new Thread(runGptTask);
+      backgroundGptThread.setDaemon(true);
+      backgroundGptThread.start();
+    } else {
+      this.displayedChat += 1;
+      txtaChat.setText(chatTexts.get(chatTexts.size() + displayedChat - 1));
     }
-    txtInput.clear();
-    ChatMessage msg = new ChatMessage("user", message);
-
-    appendChatMessage(msg);
-    talked = true;
-    runGptTask =
-        new Task<Void>() {
-          @Override
-          protected Void call() throws Exception {
-            runGpt(msg);
-            return null;
-          }
-        };
-
-    Thread backgroundGptThread = new Thread(runGptTask);
-    backgroundGptThread.setDaemon(true);
-    backgroundGptThread.start();
-  }else{
-    this.displayedChat+=1;
-    txtaChat.setText(chatTexts.get(chatTexts.size()+displayedChat));
-  }}
+  }
 
   private void updateChatTexts() {
-    chatTexts.add(txtaChat.getText());
+
     txtaChat.clear();
   }
 
   @FXML
-  private void onLastClicked(ActionEvent event) {
-    if (chatTexts.size() > 0) {
-      this.displayedChat-=1;
-      txtaChat.setText(chatTexts.get(chatTexts.size() +displayedChat));
-      
-      // txtaChat.disableProperty()=false;
+  private void onLastClicked(ActionEvent event) throws ApiProxyException, IOException {
+    if (!chatTexts.isEmpty() && -1 * displayedChat < chatTexts.size()) {
+      this.displayedChat -= 1;
+      txtaChat.setText(chatTexts.get(chatTexts.size() + displayedChat));
+      txtInput.setVisible(false);
+    }
+    if (-1 * displayedChat == chatTexts.size()) {
+      displayedChat += 1;
     }
   }
 

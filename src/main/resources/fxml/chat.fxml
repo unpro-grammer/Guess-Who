@@ -15,6 +15,6 @@
     <TextField fx:id="txtInput" layoutX="101.0" layoutY="131.0" prefHeight="26.0" prefWidth="487.0" style="-fx-background-color: #FFFFFF;" />
     <Button fx:id="btnSend" layoutX="715.0" layoutY="132.0" mnemonicParsing="false" onAction="#onSendMessage" text="Next" />
     <Button layoutX="7.0" layoutY="9.0" mnemonicParsing="false" onAction="#onGoBack" text="Go Back" />
-      <Button layoutX="654.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#onLastClicked" text="Last" />
+      <Button fx:id="btnLast" layoutX="654.0" layoutY="132.0" mnemonicParsing="false" onAction="#onLastClicked" text="Last" />
   </children>
 </AnchorPane>
