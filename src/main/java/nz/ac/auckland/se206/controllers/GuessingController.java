@@ -13,11 +13,18 @@ public class GuessingController {
   @FXML Rectangle leadScientist;
   @FXML Rectangle labTechnician;
   @FXML Rectangle scholar;
-  @FXML TextArea explainationField;
+  @FXML TextArea explanationField;
   @FXML Button confimGuessingButton;
+
+  private String userAnswer;
 
   @FXML
   private void confirmGuessing(ActionEvent event) throws IOException {
+
+    userAnswer = explanationField.getText();
+
+    App.setUserAnswer(userAnswer);
+
     App.setRoot("gameover");
   }
 

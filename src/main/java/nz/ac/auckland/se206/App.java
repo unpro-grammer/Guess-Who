@@ -30,6 +30,16 @@ public class App extends Application {
   private static ChatController chatController = null;
   private static RoomController roomController = null;
   private static MediaPlayer mediaPlayer;
+  private static String feedback = "";
+  private static String userAnswer = "";
+
+  public static String getUserAnswer() {
+    return userAnswer;
+  }
+
+  public static void setUserAnswer(String userAnswer) {
+    App.userAnswer = userAnswer;
+  }
 
   /**
    * The main method that launches the JavaFX application.
@@ -222,5 +232,13 @@ public class App extends Application {
 
   private void handleWindowClose(WindowEvent event) {
     FreeTextToSpeech.deallocateSynthesizer();
+  }
+
+  public static void setFeedback(String feedbackmsg) {
+    feedback = feedbackmsg;
+  }
+
+  public static String getFeedback() {
+    return feedback;
   }
 }

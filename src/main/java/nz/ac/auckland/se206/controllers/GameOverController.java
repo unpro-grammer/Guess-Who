@@ -1,12 +1,23 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
+import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
+import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
+import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
+import nz.ac.auckland.apiproxy.chat.openai.Choice;
+import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
+import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.prompts.PromptEngineering;
 
 public class GameOverController {
   @FXML Text thiefResultDisplay;
@@ -16,6 +27,20 @@ public class GameOverController {
   @FXML Button labButton;
   @FXML Button leadButton;
   @FXML Button scholarButton;
+
+  private String userAnswer;
+  private ChatCompletionRequest chatCompletionRequest;
+  private String profession;
+  private String feedback;
+  private Task<Void> fetchChatTask;
+
+  @FXML
+  public void initialize() throws ApiProxyException {
+    userAnswer = App.getUserAnswer();
+    getFeedback(userAnswer);
+
+    // Any required initialization code can be placed here
+  }
 
   @FXML
   private void playAgain(ActionEvent event) throws IOException {
@@ -34,6 +59,58 @@ public class GameOverController {
       thiefResultDisplay.setText("The " + suspectName + " is not the thief!");
       feedbackDisplay.setText("He didn't steal the research notes!");
       winLoseDisplay.setText("You LOST!");
+    }
+  }
+
+  public void getFeedback(String useranswer) {
+    Task<Void> getFeedbackTask =
+        new Task<Void>() {
+          @Override
+          protected Void call() throws Exception {
+            try {
+              ApiProxyConfig config = ApiProxyConfig.readConfig();
+              chatCompletionRequest =
+                  new ChatCompletionRequest(config)
+                      .setN(1)
+                      .setTemperature(0.2)
+                      .setTopP(0.5)
+                      .setMaxTokens(100);
+              runGpt(new ChatMessage("system", getSystemPrompt()));
+              Platform.runLater(
+                  () -> {
+                    // set text in feedbackDisplay to feedback
+                    feedbackDisplay.setText(feedback);
+                  });
+            } catch (ApiProxyException e) {
+              e.printStackTrace();
+            }
+            return null;
+          }
+        };
+
+    Thread backgroundResponseThread = new Thread(getFeedbackTask);
+    backgroundResponseThread.setDaemon(true);
+    backgroundResponseThread.start();
+  }
+
+  public String getSystemPrompt() {
+    Map<String, String> map = new HashMap<>();
+    map.put("userAnswer", userAnswer);
+    return PromptEngineering.getPrompt("modelanswer.txt", map);
+  }
+
+  private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
+    chatCompletionRequest.addMessage(msg);
+    try {
+      System.out.println(profession);
+      ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
+      Choice result = chatCompletionResult.getChoices().iterator().next();
+      chatCompletionRequest.addMessage(result.getChatMessage());
+      feedback = result.getChatMessage().getContent();
+      return result.getChatMessage();
+    } catch (ApiProxyException e) {
+      e.printStackTrace();
+      return null;
     }
   }
 }

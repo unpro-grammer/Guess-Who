@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="818.0" style="-fx-background-color: #aeaed1;" stylesheets="@/css/guessingStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.GuessingController">
    <children>
-      <TextArea fx:id="explainationField" layoutX="78.0" layoutY="314.0" prefHeight="187.0" prefWidth="654.0" promptText="Why is he/she the thieft?">
+      <TextArea fx:id="explanationField" layoutX="78.0" layoutY="314.0" prefHeight="187.0" prefWidth="654.0" promptText="Why is he/she the thieft?">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
