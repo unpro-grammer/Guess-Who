@@ -53,7 +53,12 @@ public class RoomController {
    */
   @FXML
   public void initialize() {
+
     hideMap();
+
+    App.getTimer().setLabel(timerLabel);
+    timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
+    
     if (App.isInteractedEnough()) {
       btnGuess.setDisable(false);
     } else {
@@ -74,11 +79,9 @@ public class RoomController {
       TextToSpeech.speak(
           "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
       isFirstTimeInit = false;
-      App.getTimer().setLabel(timerLabel);
       App.getTimer().startTimer();
     }
     hideOpen();
-    App.getTimer().setLabel(timerLabel);
     ctrl = this;
   }
 
