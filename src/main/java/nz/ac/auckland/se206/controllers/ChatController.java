@@ -59,6 +59,7 @@ public class ChatController {
 
   public static void setRoomController(RoomController roomContrl) {
     roomController = roomContrl;
+    roomController = new LabTechnicianController();
   }
 
   // Initializer Method
@@ -222,12 +223,16 @@ public class ChatController {
    * @throws ApiProxyException if there is an error communicating with the API proxy
    */
   private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
+    RoomController.getRoomController().hideSuspectSpeaking();
+    RoomController.getRoomController().showSuspectThinking();
     chatCompletionRequest.addMessage(msg);
     try {
       ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
       Choice result = chatCompletionResult.getChoices().iterator().next();
       chatCompletionRequest.addMessage(result.getChatMessage());
       appendChatMessage(result.getChatMessage());
+      RoomController.getRoomController().hideSuspectThinking();
+      RoomController.getRoomController().showSuspectSpeaking();
       chatTexts.add(profession + ": " + result.getChatMessage().getContent());
       return result.getChatMessage();
     } catch (ApiProxyException e) {
@@ -268,6 +273,7 @@ public class ChatController {
       return;
     }
     chatTexts.add("You: " + message);
+
     txtInput.clear();
     ChatMessage msg = new ChatMessage("user", message);
 
@@ -289,6 +295,7 @@ public class ChatController {
 
   @FXML
   private void onNextClicked(ActionEvent event) throws ApiProxyException, IOException {
+
     if (displayedChat == 0) {
       txtInput.setVisible(true);
       updateChatTexts();

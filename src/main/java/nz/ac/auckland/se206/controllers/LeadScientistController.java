@@ -11,8 +11,9 @@ public class LeadScientistController extends RoomController {
   @FXML private ImageView leadscientist;
   @FXML private ImageView leadscientistturned;
   @FXML private Label timerLabel;
+  @FXML private static ImageView suspectThinking;
+  @FXML private static ImageView suspectSpeaking;
 
-  @FXML
   public void initialize() {
     super.initialize();
     hideTurned();

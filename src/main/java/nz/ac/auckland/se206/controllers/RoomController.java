@@ -36,6 +36,8 @@ public class RoomController {
   @FXML private Rectangle rectLocker;
   @FXML private AnchorPane anchor;
   @FXML private ImageView pauseButton;
+  @FXML private ImageView suspectThinking;
+  @FXML private ImageView suspectSpeaking;
   protected static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
   protected Timer timer;
@@ -63,6 +65,24 @@ public class RoomController {
 
   public static RoomController getRoomController() {
     return ctrl;
+  }
+
+  @FXML
+  public void showSuspectThinking() {
+    suspectThinking.setVisible(true);
+  }
+
+  @FXML
+  public void showSuspectSpeaking() {
+    suspectSpeaking.setVisible(true);
+  }
+
+  public void hideSuspectThinking() {
+    suspectThinking.setVisible(false);
+  }
+
+  public void hideSuspectSpeaking() {
+    suspectSpeaking.setVisible(false);
   }
 
   @FXML

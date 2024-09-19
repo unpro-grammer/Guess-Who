@@ -15,6 +15,7 @@ public class MusicPlayer {
         mediaPlayer.dispose();
       }
       mediaPlayer = new MediaPlayer(new Media(App.class.getResource(filePath).toURI().toString()));
+      mediaPlayer.setVolume(0.3);
       mediaPlayer.play();
 
     } catch (Exception e) {
