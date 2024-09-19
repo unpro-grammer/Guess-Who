@@ -402,6 +402,8 @@ public class ChatController {
    */
   @FXML
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
+    RoomController.getRoomController().hideSuspectSpeaking();
+    RoomController.getRoomController().hideSuspectThinking();
     if (mediaPlayerChat != null) {
       mediaPlayerChat.stop();
     }
