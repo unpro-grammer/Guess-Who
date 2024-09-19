@@ -140,14 +140,17 @@ public class ChatController {
       case "Lab Technician":
         firstFile = "lab_technician.txt";
         secondFile = "lab_technician_2.txt";
+        firstInteraction.put("Lab Technician", false);
         break;
       case "Lead Scientist":
         firstFile = "lead_scientist.txt";
         secondFile = "lead_scientist_2.txt";
+        firstInteraction.put("Lead Scientist", false);
         break;
       case "Scholar":
         firstFile = "scholar.txt";
         secondFile = "scholar_2.txt";
+        firstInteraction.put("Scholar", false);
         break;
       default:
         firstFile = "chat.txt";
@@ -190,11 +193,54 @@ public class ChatController {
   }
 
   // Sound Effects Methods
-  public void playHmm() {
-    Media hmmSound = new Media(App.class.getResource("/sounds/hmmm.mp3").toExternalForm());
+  public void playSound(String profession, boolean first) {
+    String soundSource = "";
+    System.out.println(profession);
+    if (first) {
+      switch (profession) {
+        case "Lab Technician":
+          soundSource = "labtechnician_greeting.mp3";
+          break;
+        case "Lead Scientist":
+          soundSource = "leadscientist_greeting.mp3";
+          break;
+        case "Scholar":
+          soundSource = "scholar_greeting.mp3";
+          break;
+
+        default:
+          break;
+      }
+    } else {
+      switch (profession) {
+        case "Lab Technician":
+          soundSource = "labtechnician_hmm.mp3";
+          break;
+        case "Lead Scientist":
+          soundSource = "leadscientist_hmm.mp3";
+          break;
+        case "Scholar":
+          soundSource = "scholar_hmm.mp3";
+          break;
+
+        default:
+          break;
+      }
+    }
+    StringBuilder sb = new StringBuilder();
+    sb.append("/sounds/");
+    sb.append(soundSource);
+    Media hmmSound = new Media(App.class.getResource(sb.toString()).toExternalForm());
     mediaPlayerChat = new MediaPlayer(hmmSound);
+    // set volume
     mediaPlayerChat.setVolume(0.8);
-    Platform.runLater(() -> mediaPlayerChat.play());
+
+    System.out.println(mediaPlayerChat);
+
+    Platform.runLater(
+        () -> {
+          mediaPlayerChat.play();
+        });
   }
 
   // Chat Handling Methods
@@ -224,6 +270,8 @@ public class ChatController {
   private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
     chatCompletionRequest.addMessage(msg);
     try {
+      playSound(profession, first);
+
       ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
       Choice result = chatCompletionResult.getChoices().iterator().next();
       chatCompletionRequest.addMessage(result.getChatMessage());
@@ -234,6 +282,11 @@ public class ChatController {
       e.printStackTrace();
       return null;
     }
+  }
+
+  private void playGreeting(String profession2) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'playGreeting'");
   }
 
   // Save chat history to file
@@ -324,6 +377,9 @@ public class ChatController {
    */
   @FXML
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
+    if (mediaPlayerChat != null) {
+      mediaPlayerChat.stop();
+    }
     App.hideChat();
   }
 
