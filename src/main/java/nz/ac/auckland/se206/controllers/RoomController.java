@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -12,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
+import nz.ac.auckland.se206.MusicPlayer;
 import nz.ac.auckland.se206.Timer;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
@@ -33,11 +35,13 @@ public class RoomController {
   @FXML private ImageView openLocker;
   @FXML private Rectangle rectLocker;
   @FXML private AnchorPane anchor;
-
+  @FXML private ImageView pauseButton;
   protected static boolean isFirstTimeInit = true;
   private static GameStateContext context = new GameStateContext();
   protected Timer timer;
   private static RoomController ctrl;
+  private Image pauseImage = new Image("/images/pauseButton.png");
+  private Image playImage = new Image("/images/play-button.png");
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
@@ -59,6 +63,17 @@ public class RoomController {
 
   public static RoomController getRoomController() {
     return ctrl;
+  }
+
+  @FXML
+  public void onPauseClick(MouseEvent event) {
+    if (MusicPlayer.isPlaying()) {
+      MusicPlayer.pauseAudio();
+      pauseButton.setImage(playImage);
+    } else {
+      MusicPlayer.playAudio();
+      pauseButton.setImage(pauseImage);
+    }
   }
 
   /**
