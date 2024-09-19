@@ -51,6 +51,22 @@ public class GameStateContext {
     this.gameState = state;
   }
 
+  public GameState getState() {
+    return gameState;
+  }
+
+  public void setGameStartedState() {
+    gameState = gameStartedState;
+  }
+
+  public void setGuessingState() {
+    gameState = guessingState;
+  }
+
+  public void setGameOverState() {
+    gameState = gameOverState;
+  }
+
   /**
    * Gets the initial game started state.
    *

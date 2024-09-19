@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.controllers.ChatController;
+import nz.ac.auckland.se206.controllers.RoomController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 
 /**
@@ -17,8 +18,6 @@ public class GameStarted implements GameState {
 
   private final GameStateContext context;
   private HashSet<String> cluesExplored = new HashSet<>();
-  private boolean guessCluesWarned = false;
-  private boolean guessChatWarned = false;
 
   /**
    * Constructs a new GameStarted state with the given game state context.
@@ -27,6 +26,12 @@ public class GameStarted implements GameState {
    */
   public GameStarted(GameStateContext context) {
     this.context = context;
+  }
+
+  private void checkAppInteractions() {
+    if (App.isInteractedEnough()) {
+      RoomController.enableGuessButton();
+    }
   }
 
   /**
@@ -44,14 +49,20 @@ public class GameStarted implements GameState {
       case "rectLocker":
         App.setRoot("lockerclue");
         cluesExplored.add("Locker");
+        App.addClueExplored("Locker");
+        checkAppInteractions();
         return; // actually make a popup to give hint
       case "rectBagClue":
         App.setRoot("bagclue");
         cluesExplored.add("Bag");
+        App.addClueExplored("Bag");
+        checkAppInteractions();
         return;
       case "rectChemicalClue":
         App.setRoot("chemicalClue");
         cluesExplored.add("Chemical");
+        App.addClueExplored("Chemical");
+        checkAppInteractions();
         return;
       // case objects
       case "rectLabTechnician":

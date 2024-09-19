@@ -8,8 +8,11 @@ public class Timer {
   private Thread timerThread;
   private int currentTime; // To store the current time
   private Label timerLabel;
+  private Runnable onTimeOver;
+  private boolean isPaused = false;
 
-  public Timer(Label timerLabel, int duration) {
+  public Timer(Label timerLabel, int duration, Runnable onTimeOver) {
+    this.onTimeOver = onTimeOver; // callback for when timer finishes
     this.timerLabel = timerLabel;
     this.currentTime = duration; // Initialize currentTime with the full duration
   }
@@ -26,13 +29,18 @@ public class Timer {
           @Override
           protected Void call() throws Exception {
             while (currentTime >= 0) { // Use class-level currentTime
-              Platform.runLater(() -> timerLabel.setText(formatTime(currentTime)));
-              Thread.sleep(1000); // Sleep for 1 second
-              currentTime--; // Decrement the class-level currentTime
+              if (!isPaused) {
+                Platform.runLater(() -> timerLabel.setText(formatTime(currentTime)));
+                Thread.sleep(1000); // Sleep for 1 second
+                currentTime--; // Decrement the class-level currentTime
+              }
             }
 
             // Action to be performed when the timer reaches 0
-            Platform.runLater(() -> handleTimeOver());
+            Platform.runLater(
+                () -> {
+                  handleTimeOver();
+                });
 
             return null;
           }
@@ -49,8 +57,13 @@ public class Timer {
     return String.format("%02d:%02d", minutes, remainingSeconds);
   }
 
+  public void pauseTimer() {
+    isPaused = true; // pause the timer
+  }
+
   public void handleTimeOver() {
-    // Define what happens when the timer reaches 0
+    // when timer reaches 0
+    onTimeOver.run();
     System.out.println("Time's up!");
   }
 
