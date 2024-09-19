@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
+import nz.ac.auckland.se206.controllers.LabTechnicianController;
 import nz.ac.auckland.se206.controllers.RoomController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 import nz.ac.auckland.se206.states.GameState;
@@ -178,6 +179,7 @@ public class App extends Application {
         "src/main/resources/prompts/lead_scientist_2.txt");
     replaceFileContent(
         "src/main/resources/prompts/emptyfile.txt", "src/main/resources/prompts/scholar_2.txt");
+    LabTechnicianController lt = new LabTechnicianController();
     launch();
   }
 
@@ -358,6 +360,7 @@ public class App extends Application {
     }
 
     stage.setScene(scene);
+    stage.setResizable(false);
     stage.show();
   }
 
@@ -384,6 +387,7 @@ public class App extends Application {
     Parent root = loadFxml("home");
     scene = new Scene(root);
     stage.setScene(scene);
+    stage.setResizable(false);
     stage.show();
     stage.setOnCloseRequest(event -> handleWindowClose(event));
     root.requestFocus();

@@ -142,9 +142,9 @@ public class GameStateContext {
     gameState.handleGuessClick();
   }
 
-  public void handleRoomTransition(MouseEvent event, String buttonId) {
+  public void handleRoomTransition(MouseEvent event, String clickedId) {
     if (gameState instanceof GameStarted) {
-      gameStartedState.handleRoomTransition(event, buttonId);
+      gameStartedState.handleRoomTransition(event, clickedId);
     }
   }
 }

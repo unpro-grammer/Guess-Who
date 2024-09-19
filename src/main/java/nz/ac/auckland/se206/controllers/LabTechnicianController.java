@@ -11,11 +11,30 @@ public class LabTechnicianController extends RoomController {
   @FXML private ImageView labtechnician;
   @FXML private ImageView labtechnicianturned;
   @FXML private Label timerLabel;
+  @FXML private ImageView pauseButton;
+  @FXML private ImageView suspectThinking;
+  @FXML private ImageView suspectSpeaking;
 
   @FXML
   public void initialize() {
     super.initialize();
+
     hideTurned();
+  }
+
+  @FXML
+  public void onPauseClick(MouseEvent event) {
+    super.onPauseClick(event);
+  }
+
+  @FXML
+  public void showSuspectThinking() {
+    super.showSuspectThinking();
+  }
+
+  @FXML
+  public void showSuspectSpeaking() {
+    super.showSuspectSpeaking();
   }
 
   @FXML
