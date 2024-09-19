@@ -358,6 +358,7 @@ public class App extends Application {
     }
 
     stage.setScene(scene);
+    stage.setResizable(false);
     stage.show();
   }
 
@@ -384,6 +385,7 @@ public class App extends Application {
     Parent root = loadFxml("home");
     scene = new Scene(root);
     stage.setScene(scene);
+    stage.setResizable(false);
     stage.show();
     stage.setOnCloseRequest(event -> handleWindowClose(event));
     root.requestFocus();
