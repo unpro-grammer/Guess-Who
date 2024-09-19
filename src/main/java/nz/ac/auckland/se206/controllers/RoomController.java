@@ -59,16 +59,16 @@ public class RoomController {
       App.getTimer().setLabel(timerLabel);
       App.getTimer().startTimer();
       MusicPlayer.playAudio("/sounds/lofifocusbeat.mp3");
-      pauseButton.setImage(pauseImage);
+    } else {
+      if (MusicPlayer.isPlaying()) {
+        pauseButton.setImage(pauseImage);
+      } else {
+        pauseButton.setImage(playImage);
+      }
     }
     hideOpen();
     App.getTimer().setLabel(timerLabel);
     ctrl = this;
-    if (MusicPlayer.isPlaying()) {
-      pauseButton.setImage(pauseImage);
-    } else {
-      pauseButton.setImage(playImage);
-    }
   }
 
   public static RoomController getRoomController() {
