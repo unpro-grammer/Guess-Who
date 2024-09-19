@@ -41,5 +41,15 @@
             <Image url="@../images/pauseButton.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="suspectSpeaking" fitHeight="280.0" fitWidth="243.0" layoutX="461.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/scholar_speaking.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="suspectThinking" fitHeight="280.0" fitWidth="243.0" layoutX="463.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/scholar_thinking.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
