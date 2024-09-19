@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.MusicPlayer;
 import nz.ac.auckland.se206.Timer;
 
 public class HomeController {
@@ -26,6 +27,7 @@ public class HomeController {
     try {
 
       App.actuallyStart();
+      MusicPlayer.playAudio("/sounds/lofifocusbeat.mp3");
     } catch (IOException e) {
       e.printStackTrace();
     }
