@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
@@ -48,6 +47,7 @@ public class ChatController {
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
   @FXML private Button btnLast;
+  @FXML private Button btnNext;
   private ChatCompletionRequest chatCompletionRequest;
   private Task<Void> fetchChatTask;
   private Task<Void> runGptTask;
@@ -61,27 +61,7 @@ public class ChatController {
     roomController = roomContrl;
   }
 
-  @FXML private TextArea txtaChat;
-  @FXML private TextField txtInput;
-  @FXML private Button btnSend;
-  @FXML private Button btnBack;
-  @FXML private AnchorPane anchor;
-
-  private ChatCompletionRequest chatCompletionRequest;
-  private String profession;
-  private String promptSource;
-  private String name = "Speaker";
-  private Task<Void> fetchChatTask;
-  private Task<Void> runGptTask;
-
-  private Boolean first;
-  private MediaPlayer mediaPlayerChat;
-
-  /**
-   * Initializes the chat view.
-   *
-   * @throws ApiProxyException if there is an error communicating with the API proxy
-   */
+  // Initializer Method
   @FXML
   public void initialize() throws ApiProxyException {
     System.out.println("Chat initialized");
@@ -102,9 +82,7 @@ public class ChatController {
     System.out.println("Setting profession");
     updateChatTexts();
     this.profession = profession;
-    ChatMessage initialStartup = new ChatMessage("assistant", "...");
-    appendChatMessage(initialStartup);
-    // begin new task to retrieve generated text via api
+    initializeFilePath();
     fetchChatTask =
         new Task<Void>() {
           @Override
@@ -229,7 +207,7 @@ public class ChatController {
   private void appendChatMessage(ChatMessage msg) {
     name = msg.getRole().equals("assistant") ? profession : "You";
     String messageText = name + ": " + msg.getContent() + "\n\n";
-    saveChatToFile(messageText);
+    saveChatToFile(msg.getContent() + "\n");
     txtaChat.appendText(messageText);
     StringBuilder history = chatHistories.getOrDefault(profession, new StringBuilder());
     history.append(messageText);
@@ -243,20 +221,14 @@ public class ChatController {
    * @return the response chat message
    * @throws ApiProxyException if there is an error communicating with the API proxy
    */
-  private ChatMessage runGpt(ChatMessage msg, boolean first) throws ApiProxyException {
-    // FreeTextToSpeech.stop();
-    disableInteraction();
+  private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
     chatCompletionRequest.addMessage(msg);
     try {
       ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
       Choice result = chatCompletionResult.getChoices().iterator().next();
       chatCompletionRequest.addMessage(result.getChatMessage());
       appendChatMessage(result.getChatMessage());
-      if (first) {
-        FreeTextToSpeech.speak(result.getChatMessage().getContent());
-      }
-      enableInteraction();
-      // Platform.runLater(() -> roomController.hideHmm(profession)); // SOUNDFX LATER
+      chatTexts.add(profession + ": " + result.getChatMessage().getContent());
       return result.getChatMessage();
     } catch (ApiProxyException e) {
       e.printStackTrace();
@@ -288,27 +260,38 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
+
+    updateChatTexts();
     String message = txtInput.getText().trim();
+
     if (message.isEmpty()) {
       return;
     }
-    updateChatTexts();
+    chatTexts.add("You: " + message);
     txtInput.clear();
     ChatMessage msg = new ChatMessage("user", message);
+
     appendChatMessage(msg);
     talked = true;
     runGptTask =
         new Task<Void>() {
           @Override
           protected Void call() throws Exception {
-            runGpt(msg, false);
+            runGpt(msg);
             return null;
           }
         };
 
-      Thread backgroundGptThread = new Thread(runGptTask);
-      backgroundGptThread.setDaemon(true);
-      backgroundGptThread.start();
+    Thread backgroundGptThread = new Thread(runGptTask);
+    backgroundGptThread.setDaemon(true);
+    backgroundGptThread.start();
+  }
+
+  @FXML
+  private void onNextClicked(ActionEvent event) throws ApiProxyException, IOException {
+    if (displayedChat == 0) {
+      txtInput.setVisible(true);
+      updateChatTexts();
     } else {
       this.displayedChat += 1;
       txtaChat.setText(chatTexts.get(chatTexts.size() + displayedChat - 1));
@@ -342,7 +325,6 @@ public class ChatController {
   @FXML
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
     App.hideChat();
-    enableInteraction();
   }
 
   private void disbaleChatButton() {

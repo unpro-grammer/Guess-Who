@@ -1,0 +1,6 @@
+Hey there! Nice to finally meet you. It’s been a hectic time in the lab lately, especially with the lead scientist breathing down our necks. You know how they can be—always demanding results yesterday. What brings you here?
+
+what is an integral?
+
+An integral is a fundamental concept in calculus that represents the accumulation of quantities, such as areas under curves or total values over intervals. It can be thought of as the opposite of differentiation. There are two main types: definite integrals, which calculate a specific value over an interval, and indefinite integrals, which represent a family of functions.
+
