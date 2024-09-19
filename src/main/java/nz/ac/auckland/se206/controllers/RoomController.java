@@ -38,7 +38,7 @@ public class RoomController {
   @FXML private AnchorPane anchor;
 
   protected static boolean isFirstTimeInit = true;
-  private static GameStateContext context = new GameStateContext();
+  private static GameStateContext context = App.getContext();
   protected Timer timer;
   private static RoomController ctrl;
 
@@ -50,6 +50,11 @@ public class RoomController {
    */
   @FXML
   public void initialize() {
+    if (App.isInteractedEnough()) {
+      btnGuess.setDisable(false);
+    } else {
+      btnGuess.setDisable(true);
+    }
     if (isFirstTimeInit) {
       Media speech = new Media(App.class.getResource("/sounds/whostole.mp3").toExternalForm());
       speaker = new MediaPlayer(speech);
@@ -71,6 +76,11 @@ public class RoomController {
     hideOpen();
     App.getTimer().setLabel(timerLabel);
     ctrl = this;
+  }
+
+  public static void enableGuessButton() {
+    ctrl.btnGuess.setDisable(false);
+    System.out.println("Guess button enabled");
   }
 
   public static RoomController getRoomController() {

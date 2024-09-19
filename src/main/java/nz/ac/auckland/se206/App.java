@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.HashSet;
+import java.util.Set;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,19 +24,122 @@ import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
 import nz.ac.auckland.se206.controllers.RoomController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
+import nz.ac.auckland.se206.states.GameState;
 
 /**
  * This is the entry point of the JavaFX application. This class initializes and runs the JavaFX
  * application.
  */
 public class App extends Application {
-  private static Timer timer = new Timer(null, 300);
+  // 5 minute timer <TOCHANGE>
+  private static Timer timer = new Timer(null, 300, () -> switchToGuessing());
+  private static Timer guessTimer;
   private static Scene scene;
   private static Stage stageWindow;
   private static Parent chatView = null;
   private static ChatController chatController = null;
   private static RoomController roomController = null;
   private static MediaPlayer mediaPlayer;
+  private static String feedback = "";
+  private static String userAnswer = "";
+  private static String userGuess = "";
+  private static GameStateContext context = new GameStateContext();
+  private static boolean talkedEnough = false;
+  private static Set<String> cluesExplored = new HashSet<>();
+
+  public static boolean isInteractedEnough() {
+    return talkedEnough && cluesExplored.size() >= 1;
+  }
+
+  public static void setTalkedEnough(boolean talkedEnough) {
+    App.talkedEnough = talkedEnough;
+  }
+
+  public static void addClueExplored(String clue) {
+    cluesExplored.add(clue);
+  }
+
+  public static GameStateContext getContext() {
+    return context;
+  }
+
+  public static void setContext(GameStateContext context) {
+    App.context = context;
+  }
+
+  public static void pauseGameTimer() {
+    if (timer != null) {
+      timer.pauseTimer();
+    }
+  }
+
+  public static void pauseGuessTimer() {
+    if (guessTimer != null) {
+      guessTimer.pauseTimer();
+    }
+  }
+
+  public static String getUserGuess() {
+    return userGuess;
+  }
+
+  public static GameState getCurrentState() {
+    return context.getState();
+  }
+
+  private static void switchToGuessing() {
+
+    pauseGameTimer();
+    // if insufficient interactions, switch to game over
+
+    if (!isInteractedEnough()) {
+      System.out.println(
+          "talked to: " + ChatController.getTalkedTo() + " clues explored: " + cluesExplored);
+      switchToGameOver();
+      System.out.println("Switching to game over from switchToGuessing");
+      return;
+    }
+
+    context.setGuessingState();
+
+    // update scene IF ENOUGH INTERACTIONS
+    try {
+      App.setRoot("guessing");
+      System.out.println("Switching to guessing");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private static void switchToGameOver() {
+
+    context.setGameOverState();
+    try {
+      // NEED MORE LOGIC TO HANDLE WHETHER A GUESS HAS BEEN CLICKED (selectesuspect in
+      // gameovercontroller) // actually wait this is already done because suspect will be null.
+      // Thankfully I have unified the gameover screen for any sort of time running out.
+      App.setRoot("gameover");
+      System.out.println("Switching to game over from switchToGameOver");
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    // update scene
+
+  }
+
+  public static void setUserGuess(String userGuess) {
+    App.userGuess = userGuess;
+  }
+
+  public static String getUserAnswer() {
+    return userAnswer;
+  }
+
+  public static void setUserAnswer(String userAnswer) {
+    App.userAnswer = userAnswer;
+  }
+
   private static String[] charactersToShow =
       new String[] {
         "rectLabTechnician",
@@ -109,7 +214,17 @@ public class App extends Application {
   }
 
   public void setLabel(Label timerLabel) {
-    this.timer.setLabel(timerLabel);
+    timer.setLabel(timerLabel);
+  }
+
+  public static Timer startGuessTimer() {
+    // 60 sec timer <TOCHANGE>
+    guessTimer = new Timer(null, 60, () -> switchToGameOver());
+    return guessTimer;
+  }
+
+  public void setGuessTimerLabel(Label timerLabel) {
+    guessTimer.setLabel(timerLabel);
   }
 
   /**
@@ -304,5 +419,13 @@ public class App extends Application {
 
   private void handleWindowClose(WindowEvent event) {
     FreeTextToSpeech.deallocateSynthesizer();
+  }
+
+  public static void setFeedback(String feedbackmsg) {
+    feedback = feedbackmsg;
+  }
+
+  public static String getFeedback() {
+    return feedback;
   }
 }
