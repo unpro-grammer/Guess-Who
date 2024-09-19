@@ -26,6 +26,7 @@ public class HomeController {
     try {
 
       App.actuallyStart();
+
     } catch (IOException e) {
       e.printStackTrace();
     }

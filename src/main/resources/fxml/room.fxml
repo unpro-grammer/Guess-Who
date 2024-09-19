@@ -34,6 +34,11 @@
             <Cursor fx:constant="HAND" />
          </cursor></Rectangle>
       <Label fx:id="timerLabel" alignment="CENTER" layoutX="40.0" layoutY="24.0" prefHeight="45.0" prefWidth="125.0" text="\@4" textAlignment="CENTER" />
+      <ImageView fx:id="pauseButton" fitHeight="38.0" fitWidth="33.0" layoutX="585.0" layoutY="21.0" onMouseClicked="#onPauseClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/pauseButton.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="mapIcon" fitHeight="78.0" fitWidth="78.0" layoutX="699.0" layoutY="11.0" onMouseClicked="#showMap">
          <image>
             <Image url="@../images/map.png" />

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +16,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
+import nz.ac.auckland.se206.MusicPlayer;
 import nz.ac.auckland.se206.Timer;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 
@@ -36,6 +38,9 @@ public class RoomController {
   @FXML private ImageView openLocker;
   @FXML private Rectangle rectLocker;
   @FXML private AnchorPane anchor;
+  @FXML private ImageView pauseButton;
+  @FXML private ImageView suspectThinking;
+  @FXML private ImageView suspectSpeaking;
 
   @FXML private ImageView mapOverlay;
   @FXML private ImageView mapIcon;
@@ -44,6 +49,8 @@ public class RoomController {
   private static GameStateContext context = App.getContext();
   protected Timer timer;
   private static RoomController ctrl;
+  private Image pauseImage = new Image("/images/pauseButton.png");
+  private Image playImage = new Image("/images/play-button.png");
 
   private static MediaPlayer speaker;
 
@@ -58,7 +65,7 @@ public class RoomController {
 
     App.getTimer().setLabel(timerLabel);
     timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
-    
+
     if (App.isInteractedEnough()) {
       btnGuess.setDisable(false);
     } else {
@@ -80,6 +87,13 @@ public class RoomController {
           "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
       isFirstTimeInit = false;
       App.getTimer().startTimer();
+      MusicPlayer.playAudio("/sounds/lofifocusbeat.mp3");
+    } else {
+      if (MusicPlayer.isPlaying()) {
+        pauseButton.setImage(pauseImage);
+      } else {
+        pauseButton.setImage(playImage);
+      }
     }
     hideOpen();
     ctrl = this;
@@ -117,6 +131,35 @@ public class RoomController {
 
   public static RoomController getRoomController() {
     return ctrl;
+  }
+
+  @FXML
+  public void showSuspectThinking() {
+    suspectThinking.setVisible(true);
+  }
+
+  @FXML
+  public void showSuspectSpeaking() {
+    suspectSpeaking.setVisible(true);
+  }
+
+  public void hideSuspectThinking() {
+    suspectThinking.setVisible(false);
+  }
+
+  public void hideSuspectSpeaking() {
+    suspectSpeaking.setVisible(false);
+  }
+
+  @FXML
+  public void onPauseClick(MouseEvent event) {
+    if (MusicPlayer.isPlaying()) {
+      MusicPlayer.pauseAudio();
+      pauseButton.setImage(playImage);
+    } else {
+      MusicPlayer.playAudio();
+      pauseButton.setImage(pauseImage);
+    }
   }
 
   /**

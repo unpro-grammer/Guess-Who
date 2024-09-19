@@ -32,6 +32,21 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Rectangle>
+      <ImageView fx:id="pauseButton" fitHeight="38.0" fitWidth="33.0" layoutX="607.0" layoutY="24.0" onMouseClicked="#onPauseClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/pauseButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="suspectSpeaking" fitHeight="280.0" fitWidth="243.0" layoutX="461.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/scholar_speaking.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="suspectThinking" fitHeight="280.0" fitWidth="243.0" layoutX="463.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/scholar_thinking.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="mapIcon" fitHeight="78.0" fitWidth="78.0" layoutX="702.0" layoutY="13.0" onMouseClicked="#showMap">
          <image>
             <Image url="@../images/map.png" />
