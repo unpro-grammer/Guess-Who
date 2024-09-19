@@ -58,7 +58,7 @@ public class Timer {
   public String formatTime(int seconds) {
     int minutes = seconds / 60;
     int remainingSeconds = seconds % 60;
-    return String.format("%02d:%02d", minutes, remainingSeconds);
+    return String.format("%02d : %02d", minutes, remainingSeconds);
   }
 
   public void pauseTimer() {
