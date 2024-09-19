@@ -51,16 +51,24 @@ public class RoomController {
    */
   @FXML
   public void initialize() {
+
     if (isFirstTimeInit) {
       TextToSpeech.speak(
           "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
       isFirstTimeInit = false;
       App.getTimer().setLabel(timerLabel);
       App.getTimer().startTimer();
+      MusicPlayer.playAudio("/sounds/lofifocusbeat.mp3");
+      pauseButton.setImage(pauseImage);
     }
     hideOpen();
     App.getTimer().setLabel(timerLabel);
     ctrl = this;
+    if (MusicPlayer.isPlaying()) {
+      pauseButton.setImage(pauseImage);
+    } else {
+      pauseButton.setImage(playImage);
+    }
   }
 
   public static RoomController getRoomController() {

@@ -11,12 +11,18 @@ public class LeadScientistController extends RoomController {
   @FXML private ImageView leadscientist;
   @FXML private ImageView leadscientistturned;
   @FXML private Label timerLabel;
+  @FXML private ImageView pauseButton;
   @FXML private static ImageView suspectThinking;
   @FXML private static ImageView suspectSpeaking;
 
   public void initialize() {
     super.initialize();
     hideTurned();
+  }
+
+  @FXML
+  public void onPauseClick(MouseEvent event) {
+    super.onPauseClick(event);
   }
 
   @FXML

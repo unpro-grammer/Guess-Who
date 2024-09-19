@@ -18,6 +18,7 @@ public class LabTechnicianController extends RoomController {
   @FXML
   public void initialize() {
     super.initialize();
+
     hideTurned();
   }
 
