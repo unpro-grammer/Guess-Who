@@ -50,8 +50,8 @@ public class RoomController {
    */
   @FXML
   public void initialize() {
-    App.getTimer().setLabel(timerLabel);
     timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
+    App.getTimer().setLabel(timerLabel);
     if (App.isInteractedEnough()) {
       btnGuess.setDisable(false);
     } else {
