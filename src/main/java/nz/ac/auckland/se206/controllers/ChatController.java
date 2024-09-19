@@ -40,6 +40,16 @@ public class ChatController {
   private static boolean talked = false;
   private static RoomController roomController;
   private static MediaPlayer mediaPlayerChat;
+  private static boolean stillTalking = false;
+
+  public static boolean isStillTalking() {
+    return stillTalking;
+  }
+
+  public static void setStillTalking(boolean stillTalking) {
+    ChatController.stillTalking = stillTalking;
+  }
+
   private ArrayList<String> chatTexts = new ArrayList<>();
   private String profession;
   private String filePath;
@@ -112,6 +122,7 @@ public class ChatController {
    */
   public void setProfession(String profession) {
 
+    stillTalking = true;
     System.out.println("Setting profession");
     updateChatTexts();
     this.profession = profession;
@@ -300,7 +311,9 @@ public class ChatController {
    */
   private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
     RoomController.getRoomController().hideSuspectSpeaking();
-    RoomController.getRoomController().showSuspectThinking();
+    if (stillTalking) {
+      RoomController.getRoomController().showSuspectThinking();
+    }
     chatCompletionRequest.addMessage(msg);
     try {
       canSend = false;
@@ -314,7 +327,9 @@ public class ChatController {
       chatCompletionRequest.addMessage(result.getChatMessage());
       appendChatMessage(result.getChatMessage());
       RoomController.getRoomController().hideSuspectThinking();
-      RoomController.getRoomController().showSuspectSpeaking();
+      if (stillTalking) {
+        RoomController.getRoomController().showSuspectSpeaking();
+      }
       chatTexts.add(profession + ": " + result.getChatMessage().getContent());
       canSend = true;
       btnSend.setDisable(false);
@@ -426,6 +441,7 @@ public class ChatController {
    */
   @FXML
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
+    stillTalking = false;
     RoomController.getRoomController().hideSuspectSpeaking();
     RoomController.getRoomController().hideSuspectThinking();
     if (mediaPlayerChat != null) {
