@@ -8,7 +8,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -36,12 +38,12 @@ public class ChatController {
   private static Map<String, StringBuilder> chatHistories = new HashMap<>();
   private static boolean talked = false;
   private static RoomController roomController;
+  private static MediaPlayer mediaPlayerChat;
   private ArrayList<String> chatTexts = new ArrayList<>();
   private String profession;
   private String filePath;
   private String name = "Speaker";
   private Boolean first;
-  private MediaPlayer mediaPlayerChat;
   private int displayedChat = 0;
   @FXML private TextArea txtaChat;
   @FXML private TextField txtInput;
@@ -52,9 +54,21 @@ public class ChatController {
   private Task<Void> fetchChatTask;
   private Task<Void> runGptTask;
 
+  private static Set<String> talkedTo = new HashSet<>();
+
   // Static Methods
+  public static boolean hasTalkedEnough() {
+    return (talkedTo.size() == 3);
+  }
+
   public static boolean hasTalked() {
     return talked;
+  }
+
+  public static void stopSounds() {
+    if (mediaPlayerChat != null) {
+      mediaPlayerChat.stop();
+    }
   }
 
   public static void setRoomController(RoomController roomContrl) {
@@ -69,6 +83,10 @@ public class ChatController {
     firstInteraction.put("Lab Technician", true);
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
+  }
+
+  public static Set<String> getTalkedTo() {
+    return talkedTo;
   }
 
   // Chat Functionality Methods
@@ -137,6 +155,7 @@ public class ChatController {
     map.put("profession", profession);
     String firstFile, secondFile;
 
+    System.out.println(firstInteraction);
     switch (profession) {
       case "Lab Technician":
         firstFile = "lab_technician.txt";
@@ -191,11 +210,54 @@ public class ChatController {
   }
 
   // Sound Effects Methods
-  public void playHmm() {
-    Media hmmSound = new Media(App.class.getResource("/sounds/hmmm.mp3").toExternalForm());
+  public void playSound(String profession, boolean first) {
+    String soundSource = "";
+    System.out.println(profession);
+    if (firstInteraction.get(profession)) {
+      switch (profession) {
+        case "Lab Technician":
+          soundSource = "labtechnician_greeting.mp3";
+          break;
+        case "Lead Scientist":
+          soundSource = "leadscientist_greeting.mp3";
+          break;
+        case "Scholar":
+          soundSource = "scholar_greeting.mp3";
+          break;
+
+        default:
+          break;
+      }
+    } else {
+      switch (profession) {
+        case "Lab Technician":
+          soundSource = "labtechnician_hmm.mp3";
+          break;
+        case "Lead Scientist":
+          soundSource = "leadscientist_hmm.mp3";
+          break;
+        case "Scholar":
+          soundSource = "scholar_hmm.mp3";
+          break;
+
+        default:
+          break;
+      }
+    }
+    StringBuilder sb = new StringBuilder();
+    sb.append("/sounds/");
+    sb.append(soundSource);
+    Media hmmSound = new Media(App.class.getResource(sb.toString()).toExternalForm());
     mediaPlayerChat = new MediaPlayer(hmmSound);
+    // set volume
     mediaPlayerChat.setVolume(0.8);
-    Platform.runLater(() -> mediaPlayerChat.play());
+
+    System.out.println(mediaPlayerChat);
+
+    Platform.runLater(
+        () -> {
+          mediaPlayerChat.play();
+        });
   }
 
   // Chat Handling Methods
@@ -227,6 +289,8 @@ public class ChatController {
     RoomController.getRoomController().showSuspectThinking();
     chatCompletionRequest.addMessage(msg);
     try {
+      playSound(profession, first);
+      firstInteraction.put(profession, false);
       ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
       Choice result = chatCompletionResult.getChoices().iterator().next();
       chatCompletionRequest.addMessage(result.getChatMessage());
@@ -279,6 +343,13 @@ public class ChatController {
 
     appendChatMessage(msg);
     talked = true;
+    talkedTo.add(profession);
+    if (hasTalkedEnough()) {
+      App.setTalkedEnough(true);
+    }
+    if (App.isInteractedEnough()) {
+      RoomController.enableGuessButton();
+    }
     runGptTask =
         new Task<Void>() {
           @Override
@@ -331,6 +402,9 @@ public class ChatController {
    */
   @FXML
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
+    if (mediaPlayerChat != null) {
+      mediaPlayerChat.stop();
+    }
     App.hideChat();
   }
 

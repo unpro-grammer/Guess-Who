@@ -7,7 +7,7 @@ import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.controllers.ChatController;
-import nz.ac.auckland.se206.speech.FreeTextToSpeech;
+import nz.ac.auckland.se206.controllers.RoomController;
 
 /**
  * The GameStarted state of the game. Handles the initial interactions when the game starts,
@@ -17,8 +17,6 @@ public class GameStarted implements GameState {
 
   private final GameStateContext context;
   private HashSet<String> cluesExplored = new HashSet<>();
-  private boolean guessCluesWarned = false;
-  private boolean guessChatWarned = false;
 
   /**
    * Constructs a new GameStarted state with the given game state context.
@@ -27,6 +25,12 @@ public class GameStarted implements GameState {
    */
   public GameStarted(GameStateContext context) {
     this.context = context;
+  }
+
+  private void checkAppInteractions() {
+    if (App.isInteractedEnough()) {
+      RoomController.enableGuessButton();
+    }
   }
 
   /**
@@ -44,14 +48,20 @@ public class GameStarted implements GameState {
       case "rectLocker":
         App.setRoot("lockerclue");
         cluesExplored.add("Locker");
+        App.addClueExplored("Locker");
+        checkAppInteractions();
         return; // actually make a popup to give hint
       case "rectBagClue":
         App.setRoot("bagclue");
         cluesExplored.add("Bag");
+        App.addClueExplored("Bag");
+        checkAppInteractions();
         return;
       case "rectChemicalClue":
         App.setRoot("chemicalClue");
         cluesExplored.add("Chemical");
+        App.addClueExplored("Chemical");
+        checkAppInteractions();
         return;
       // case objects
       case "rectLabTechnician":
@@ -70,25 +80,6 @@ public class GameStarted implements GameState {
    */
   @Override
   public void handleGuessClick() throws IOException {
-
-    // if (!checkEnoughClues()) {
-    //   if (!guessCluesWarned) {
-    //     FreeTextToSpeech.speak("You need to explore further before making a guess.");
-    //     guessCluesWarned = true;
-    //   }
-    //   return;
-    // }
-    // if (!ChatController.hasTalked()) {
-    //   if (!guessChatWarned) {
-    //     FreeTextToSpeech.speak("You need to chat with at least one suspect before making a
-    // guess.");
-    //     guessChatWarned = true;
-    //   }
-
-    //   return;
-    // }
-    // disable guess button
-    FreeTextToSpeech.speak("Make a guess, click on the culprit");
 
     App.setRoot("guessing");
 
