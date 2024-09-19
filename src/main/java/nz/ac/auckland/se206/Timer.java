@@ -3,13 +3,20 @@ package nz.ac.auckland.se206;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
+// import mediaplayer
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Timer {
   private Thread timerThread;
   private int currentTime; // To store the current time
   private Label timerLabel;
+  private Runnable onTimeOver;
+  private boolean isPaused = false;
+  private MediaPlayer soundPlayer;
 
-  public Timer(Label timerLabel, int duration) {
+  public Timer(Label timerLabel, int duration, Runnable onTimeOver) {
+    this.onTimeOver = onTimeOver; // callback for when timer finishes
     this.timerLabel = timerLabel;
     this.currentTime = duration; // Initialize currentTime with the full duration
   }
@@ -26,13 +33,18 @@ public class Timer {
           @Override
           protected Void call() throws Exception {
             while (currentTime >= 0) { // Use class-level currentTime
-              Platform.runLater(() -> timerLabel.setText(formatTime(currentTime)));
-              Thread.sleep(1000); // Sleep for 1 second
-              currentTime--; // Decrement the class-level currentTime
+              if (!isPaused) {
+                Platform.runLater(() -> timerLabel.setText(formatTime(currentTime)));
+                Thread.sleep(1000); // Sleep for 1 second
+                currentTime--; // Decrement the class-level currentTime
+              }
             }
 
             // Action to be performed when the timer reaches 0
-            Platform.runLater(() -> handleTimeOver());
+            Platform.runLater(
+                () -> {
+                  handleTimeOver();
+                });
 
             return null;
           }
@@ -43,14 +55,30 @@ public class Timer {
     timerThread.start();
   }
 
-  private String formatTime(int seconds) {
+  public String formatTime(int seconds) {
     int minutes = seconds / 60;
     int remainingSeconds = seconds % 60;
     return String.format("%02d:%02d", minutes, remainingSeconds);
   }
 
+  public void pauseTimer() {
+    isPaused = true; // pause the timer
+  }
+
   public void handleTimeOver() {
-    // Define what happens when the timer reaches 0
+    // when timer reaches 0
+    Media sound = new Media(App.class.getResource("/sounds/timerup.mp3").toExternalForm());
+    soundPlayer = new MediaPlayer(sound);
+    // set volume
+    soundPlayer.setVolume(0.8);
+
+    System.out.println(soundPlayer);
+
+    Platform.runLater(
+        () -> {
+          soundPlayer.play();
+        });
+    onTimeOver.run();
     System.out.println("Time's up!");
   }
 

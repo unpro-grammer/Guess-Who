@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -14,25 +16,55 @@
             <Font size="88.0" />
          </font>
       </Text>
-      <TextArea fx:id="feedbackDisplay" editable="false" layoutX="81.0" layoutY="257.0" prefHeight="222.0" prefWidth="662.0" text="Feedbacks" />
       <Text fx:id="thiefResultDisplay" layoutX="29.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Scholar is the thief!" textAlignment="CENTER" wrappingWidth="758.1461791992188">
          <font>
             <Font size="44.0" />
          </font>
       </Text>
-      <Button fx:id="playAgainButton" layoutX="554.0" layoutY="493.0" mnemonicParsing="false" onAction="#playAgain" prefHeight="73.0" prefWidth="190.0" text="Play Again?">
-         <font>
-            <Font size="29.0" />
-         </font>
-      </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="74.0" layoutX="112.0" layoutY="492.0" stroke="RED" strokeType="INSIDE" width="413.0" />
+      <Button fx:id="labButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeSuspect" text="Lab Technician" />
+      <Button fx:id="scholarButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" onAction="#changeSuspect" text="Scholar" />
+      <Button fx:id="leadButton" layoutX="14.0" layoutY="49.0" mnemonicParsing="false" onAction="#changeSuspect" text="Lead Scientist" />
       <Text fx:id="winLoseDisplay" layoutX="127.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You WON!" textAlignment="CENTER" wrappingWidth="377.26918029785156">
          <font>
             <Font size="40.0" />
          </font>
       </Text>
-      <Button fx:id="labButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeSuspect" text="Lab Technician" />
-      <Button fx:id="scholarButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" onAction="#changeSuspect" text="Scholar" />
-      <Button fx:id="leadButton" layoutX="14.0" layoutY="49.0" mnemonicParsing="false" onAction="#changeSuspect" text="Lead Scientist" />
+      <ImageView fx:id="incorrectScientist" fitHeight="625.0" fitWidth="818.0">
+         <image>
+            <Image url="@../images/incorrect_scientist.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="correctScholar" fitHeight="625.0" fitWidth="818.0" layoutY="-8.0">
+         <image>
+            <Image url="@../images/correct_scholar.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="incorrectLabTech" fitHeight="625.0" fitWidth="818.0">
+         <image>
+            <Image url="@../images/incorrect_labtech.png" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="feedbackDisplay" editable="false" layoutX="81.0" layoutY="234.0" prefHeight="243.0" prefWidth="402.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Evaluating your explanation..." wrapText="true" />
+      <ImageView fx:id="outOfTime" fitHeight="625.0" fitWidth="818.0">
+         <image>
+            <Image url="@../images/outoftime.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="playAgainButton" layoutX="187.0" layoutY="508.0" mnemonicParsing="false" onAction="#playAgain" prefHeight="73.0" prefWidth="190.0" text="Play Again?">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Button>
+      <Button fx:id="playAgainButton1" layoutX="212.0" layoutY="381.0" mnemonicParsing="false" onAction="#playAgain" prefHeight="73.0" prefWidth="190.0" text="Play Again?">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Button>
+      <Button fx:id="playAgainButton2" layoutX="307.0" layoutY="456.0" mnemonicParsing="false" onAction="#playAgain" prefHeight="73.0" prefWidth="190.0" text="Play Again?">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

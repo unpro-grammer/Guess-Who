@@ -51,6 +51,22 @@ public class GameStateContext {
     this.gameState = state;
   }
 
+  public GameState getState() {
+    return gameState;
+  }
+
+  public void setGameStartedState() {
+    gameState = gameStartedState;
+  }
+
+  public void setGuessingState() {
+    gameState = guessingState;
+  }
+
+  public void setGameOverState() {
+    gameState = gameOverState;
+  }
+
   /**
    * Gets the initial game started state.
    *
@@ -126,9 +142,9 @@ public class GameStateContext {
     gameState.handleGuessClick();
   }
 
-  public void handleRoomTransition(MouseEvent event, String buttonId) {
+  public void handleRoomTransition(MouseEvent event, String clickedId) {
     if (gameState instanceof GameStarted) {
-      gameStartedState.handleRoomTransition(event, buttonId);
+      gameStartedState.handleRoomTransition(event, clickedId);
     }
   }
 }

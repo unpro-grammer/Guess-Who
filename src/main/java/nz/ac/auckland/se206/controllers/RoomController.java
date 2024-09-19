@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
@@ -38,12 +41,18 @@ public class RoomController {
   @FXML private ImageView pauseButton;
   @FXML private ImageView suspectThinking;
   @FXML private ImageView suspectSpeaking;
+
+  @FXML private ImageView mapOverlay;
+  @FXML private ImageView mapIcon;
+
   protected static boolean isFirstTimeInit = true;
-  private static GameStateContext context = new GameStateContext();
+  private static GameStateContext context = App.getContext();
   protected Timer timer;
   private static RoomController ctrl;
   private Image pauseImage = new Image("/images/pauseButton.png");
   private Image playImage = new Image("/images/play-button.png");
+
+  private static MediaPlayer speaker;
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
@@ -52,11 +61,31 @@ public class RoomController {
   @FXML
   public void initialize() {
 
+    hideMap();
+
+    App.getTimer().setLabel(timerLabel);
+    timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
+
+    if (App.isInteractedEnough()) {
+      btnGuess.setDisable(false);
+    } else {
+      btnGuess.setDisable(true);
+    }
     if (isFirstTimeInit) {
+      Media speech = new Media(App.class.getResource("/sounds/whostole.mp3").toExternalForm());
+      speaker = new MediaPlayer(speech);
+      // set volume
+      speaker.setVolume(0.8);
+
+      System.out.println(speaker);
+
+      Platform.runLater(
+          () -> {
+            speaker.play();
+          });
       TextToSpeech.speak(
           "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
       isFirstTimeInit = false;
-      App.getTimer().setLabel(timerLabel);
       App.getTimer().startTimer();
       MusicPlayer.playAudio("/sounds/lofifocusbeat.mp3");
     } else {
@@ -67,8 +96,37 @@ public class RoomController {
       }
     }
     hideOpen();
-    App.getTimer().setLabel(timerLabel);
     ctrl = this;
+  }
+
+  protected void hideMap() {
+    mapOverlay.setVisible(false);
+    mapIcon.setVisible(true);
+    clueSceneBtn.setVisible(false);
+    leadScientistSceneButton.setVisible(false);
+    labTechnicianSceneButton.setVisible(false);
+    scholarSceneButton.setVisible(false);
+  }
+
+  @FXML
+  protected void showMap() {
+    mapOverlay.setVisible(true);
+    mapIcon.setVisible(false);
+    clueSceneBtn.setVisible(true);
+    leadScientistSceneButton.setVisible(true);
+    labTechnicianSceneButton.setVisible(true);
+    scholarSceneButton.setVisible(true);
+  }
+
+  @FXML
+  protected void closeMap() {
+    hideMap();
+  }
+
+  @FXML
+  public static void enableGuessButton() {
+    ctrl.btnGuess.setDisable(false);
+    System.out.println("Guess button enabled");
   }
 
   public static RoomController getRoomController() {
@@ -149,8 +207,8 @@ public class RoomController {
 
   @FXML
   protected void handleRoomTransition(MouseEvent event) throws IOException {
-    Button clickedRoomButton = (Button) event.getSource();
-    context.handleRoomTransition(event, clickedRoomButton.getId());
+    Button clickedRoom = (Button) event.getSource();
+    context.handleRoomTransition(event, clickedRoom.getId());
   }
 
   @FXML
