@@ -334,6 +334,7 @@ public class App extends Application {
     // TO-DO: Do the loading of fxml files in platform run later? Doesn't make a visual difference
     // but at least buttons won't freeze.
     try {
+      ChatController.stopSounds();
       switch (roomButtonId) {
         case "clueSceneBtn":
           System.out.println("Switching to clue scene");
