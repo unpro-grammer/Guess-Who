@@ -1,0 +1,60 @@
+.next-button {
+  -fx-background-image: url("/images/nextbutton.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.prev-button {
+  -fx-background-image: url("/images/prevbutton.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.send-button {
+  -fx-background-image: url("/images/sendbtn.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.send-button:disabled {
+  -fx-background-image: url("/images/disabledsend.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.back-button {
+  -fx-background-image: url("/images/backbtn.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.no-highlight {
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
+  -fx-border-color: transparent;
+}

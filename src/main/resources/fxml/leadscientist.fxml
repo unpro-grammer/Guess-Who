@@ -27,21 +27,21 @@
             <Image url="@../images/scientist_turned.png" />
          </image>
       </ImageView>
-      <Rectangle fx:id="rectLeadScientist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="252.0" layoutX="87.0" layoutY="266.0" onMouseClicked="#handleRectangleClick" onMouseEntered="#showTurned" onMouseExited="#hideTurned" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="56.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Rectangle>
-      <ImageView fx:id="suspectThinking" fitHeight="487.0" fitWidth="318.0" layoutX="393.0" layoutY="65.0" pickOnBounds="true" preserveRatio="false" visible="false">
+      <ImageView fx:id="suspectThinking" fitHeight="536.0" fitWidth="350.0" layoutX="361.0" layoutY="65.0" pickOnBounds="true" preserveRatio="false" visible="false">
          <image>
             <Image url="@../images/scientist_thinking.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="suspectSpeaking" fitHeight="487.0" fitWidth="318.0" layoutX="393.0" layoutY="65.0" pickOnBounds="true" preserveRatio="false" visible="false">
+      <ImageView fx:id="suspectSpeaking" fitHeight="536.0" fitWidth="350.0" layoutX="361.0" layoutY="65.0" pickOnBounds="true" preserveRatio="false" visible="false">
          <image>
             <Image url="@../images/scientist_speaking.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="chatPane" layoutX="5.0" layoutY="446.0" prefHeight="132.0" prefWidth="779.0" />
+      <AnchorPane fx:id="chatPane" layoutY="428.0" prefHeight="173.0" prefWidth="748.0" />
+      <Rectangle fx:id="rectLeadScientist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="252.0" layoutX="87.0" layoutY="266.0" onMouseClicked="#handleRectangleClick" onMouseEntered="#showTurned" onMouseExited="#hideTurned" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="56.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Rectangle>
       <ImageView fx:id="pauseButton" fitHeight="38.0" fitWidth="33.0" layoutX="619.0" layoutY="24.0" onMouseClicked="#onPauseClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/pauseButton.png" />
@@ -73,7 +73,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="labTechnicianSceneButton" layoutX="415.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="LT">
+      <Button fx:id="labTechnicianSceneButton" layoutX="415.0" layoutY="97.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="LT">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

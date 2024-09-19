@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
@@ -53,6 +54,7 @@ public class ChatController {
   private ChatCompletionRequest chatCompletionRequest;
   private Task<Void> fetchChatTask;
   private Task<Void> runGptTask;
+  private boolean canSend = true;
 
   private static Set<String> talkedTo = new HashSet<>();
 
@@ -83,6 +85,18 @@ public class ChatController {
     firstInteraction.put("Lab Technician", true);
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
+    txtaChat.getStyleClass().add("no-highlight");
+
+    txtInput.setOnKeyPressed(
+        event -> {
+          if (event.getCode() == KeyCode.ENTER && canSend) {
+            try {
+              onSendMessage(new ActionEvent());
+            } catch (ApiProxyException | IOException e) {
+              e.printStackTrace();
+            }
+          }
+        });
   }
 
   public static Set<String> getTalkedTo() {
@@ -289,6 +303,10 @@ public class ChatController {
     RoomController.getRoomController().showSuspectThinking();
     chatCompletionRequest.addMessage(msg);
     try {
+      canSend = false;
+      btnSend.setDisable(true);
+      // disable btnSend
+
       playSound(profession, first);
       firstInteraction.put(profession, false);
       ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
@@ -298,6 +316,8 @@ public class ChatController {
       RoomController.getRoomController().hideSuspectThinking();
       RoomController.getRoomController().showSuspectSpeaking();
       chatTexts.add(profession + ": " + result.getChatMessage().getContent());
+      canSend = true;
+      btnSend.setDisable(false);
       return result.getChatMessage();
     } catch (ApiProxyException e) {
       e.printStackTrace();
@@ -329,6 +349,10 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
+
+    if (txtInput.getText().trim().isEmpty()) {
+      return;
+    }
 
     updateChatTexts();
     String message = txtInput.getText().trim();
