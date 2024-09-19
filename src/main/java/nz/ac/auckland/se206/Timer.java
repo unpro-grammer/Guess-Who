@@ -55,7 +55,7 @@ public class Timer {
     timerThread.start();
   }
 
-  private String formatTime(int seconds) {
+  public String formatTime(int seconds) {
     int minutes = seconds / 60;
     int remainingSeconds = seconds % 60;
     return String.format("%02d:%02d", minutes, remainingSeconds);
