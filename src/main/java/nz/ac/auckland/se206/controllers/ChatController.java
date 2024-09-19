@@ -36,12 +36,12 @@ public class ChatController {
   private static Map<String, StringBuilder> chatHistories = new HashMap<>();
   private static boolean talked = false;
   private static RoomController roomController;
+  private static MediaPlayer mediaPlayerChat;
   private ArrayList<String> chatTexts = new ArrayList<>();
   private String profession;
   private String filePath;
   private String name = "Speaker";
   private Boolean first;
-  private MediaPlayer mediaPlayerChat;
   private int displayedChat = 0;
   @FXML private TextArea txtaChat;
   @FXML private TextField txtInput;
@@ -55,6 +55,12 @@ public class ChatController {
   // Static Methods
   public static boolean hasTalked() {
     return talked;
+  }
+
+  public static void stopSounds() {
+    if (mediaPlayerChat != null) {
+      mediaPlayerChat.stop();
+    }
   }
 
   public static void setRoomController(RoomController roomContrl) {
@@ -282,11 +288,6 @@ public class ChatController {
       e.printStackTrace();
       return null;
     }
-  }
-
-  private void playGreeting(String profession2) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'playGreeting'");
   }
 
   // Save chat history to file

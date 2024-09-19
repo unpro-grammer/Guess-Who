@@ -7,7 +7,6 @@ import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.controllers.ChatController;
-import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 
 /**
  * The GameStarted state of the game. Handles the initial interactions when the game starts,
@@ -70,25 +69,6 @@ public class GameStarted implements GameState {
    */
   @Override
   public void handleGuessClick() throws IOException {
-
-    // if (!checkEnoughClues()) {
-    //   if (!guessCluesWarned) {
-    //     FreeTextToSpeech.speak("You need to explore further before making a guess.");
-    //     guessCluesWarned = true;
-    //   }
-    //   return;
-    // }
-    // if (!ChatController.hasTalked()) {
-    //   if (!guessChatWarned) {
-    //     FreeTextToSpeech.speak("You need to chat with at least one suspect before making a
-    // guess.");
-    //     guessChatWarned = true;
-    //   }
-
-    //   return;
-    // }
-    // disable guess button
-    FreeTextToSpeech.speak("Make a guess, click on the culprit");
 
     App.setRoot("guessing");
 

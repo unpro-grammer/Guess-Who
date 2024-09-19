@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
@@ -39,6 +42,8 @@ public class RoomController {
   protected Timer timer;
   private static RoomController ctrl;
 
+  private static MediaPlayer speaker;
+
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
    * via text-to-speech.
@@ -46,6 +51,17 @@ public class RoomController {
   @FXML
   public void initialize() {
     if (isFirstTimeInit) {
+      Media speech = new Media(App.class.getResource("/sounds/whostole.mp3").toExternalForm());
+      speaker = new MediaPlayer(speech);
+      // set volume
+      speaker.setVolume(0.8);
+
+      System.out.println(speaker);
+
+      Platform.runLater(
+          () -> {
+            speaker.play();
+          });
       TextToSpeech.speak(
           "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
       isFirstTimeInit = false;
