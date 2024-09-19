@@ -3,6 +3,9 @@ package nz.ac.auckland.se206;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
+// import mediaplayer
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Timer {
   private Thread timerThread;
@@ -10,6 +13,7 @@ public class Timer {
   private Label timerLabel;
   private Runnable onTimeOver;
   private boolean isPaused = false;
+  private MediaPlayer soundPlayer;
 
   public Timer(Label timerLabel, int duration, Runnable onTimeOver) {
     this.onTimeOver = onTimeOver; // callback for when timer finishes
@@ -63,6 +67,17 @@ public class Timer {
 
   public void handleTimeOver() {
     // when timer reaches 0
+    Media sound = new Media(App.class.getResource("/sounds/timerup.mp3").toExternalForm());
+    soundPlayer = new MediaPlayer(sound);
+    // set volume
+    soundPlayer.setVolume(0.8);
+
+    System.out.println(soundPlayer);
+
+    Platform.runLater(
+        () -> {
+          soundPlayer.play();
+        });
     onTimeOver.run();
     System.out.println("Time's up!");
   }

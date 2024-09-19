@@ -154,21 +154,19 @@ public class ChatController {
     map.put("profession", profession);
     String firstFile, secondFile;
 
+    System.out.println(firstInteraction);
     switch (profession) {
       case "Lab Technician":
         firstFile = "lab_technician.txt";
         secondFile = "lab_technician_2.txt";
-        firstInteraction.put("Lab Technician", false);
         break;
       case "Lead Scientist":
         firstFile = "lead_scientist.txt";
         secondFile = "lead_scientist_2.txt";
-        firstInteraction.put("Lead Scientist", false);
         break;
       case "Scholar":
         firstFile = "scholar.txt";
         secondFile = "scholar_2.txt";
-        firstInteraction.put("Scholar", false);
         break;
       default:
         firstFile = "chat.txt";
@@ -214,7 +212,7 @@ public class ChatController {
   public void playSound(String profession, boolean first) {
     String soundSource = "";
     System.out.println(profession);
-    if (first) {
+    if (firstInteraction.get(profession)) {
       switch (profession) {
         case "Lab Technician":
           soundSource = "labtechnician_greeting.mp3";
@@ -289,7 +287,7 @@ public class ChatController {
     chatCompletionRequest.addMessage(msg);
     try {
       playSound(profession, first);
-
+      firstInteraction.put(profession, false);
       ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
       Choice result = chatCompletionResult.getChoices().iterator().next();
       chatCompletionRequest.addMessage(result.getChatMessage());

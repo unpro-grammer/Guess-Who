@@ -45,8 +45,6 @@ public class GuessingController {
         () -> {
           speaker.play();
         });
-
-    explanationField.setText("Explain why you think the suspect is the thief.");
   }
 
   @FXML
@@ -57,6 +55,17 @@ public class GuessingController {
     App.setUserAnswer(userAnswer);
 
     App.setRoot("gameover");
+    Media sound = new Media(App.class.getResource("/sounds/timerup.mp3").toExternalForm());
+    speaker = new MediaPlayer(sound);
+    // set volume
+    speaker.setVolume(0.8);
+
+    System.out.println(speaker);
+
+    Platform.runLater(
+        () -> {
+          speaker.play();
+        });
   }
 
   @FXML
