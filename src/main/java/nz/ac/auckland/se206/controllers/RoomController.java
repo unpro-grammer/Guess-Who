@@ -37,6 +37,9 @@ public class RoomController {
   @FXML private Rectangle rectLocker;
   @FXML private AnchorPane anchor;
 
+  @FXML private ImageView mapOverlay;
+  @FXML private ImageView mapIcon;
+
   protected static boolean isFirstTimeInit = true;
   private static GameStateContext context = App.getContext();
   protected Timer timer;
@@ -50,8 +53,12 @@ public class RoomController {
    */
   @FXML
   public void initialize() {
+
+    hideMap();
+
     App.getTimer().setLabel(timerLabel);
     timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
+    
     if (App.isInteractedEnough()) {
       btnGuess.setDisable(false);
     } else {
@@ -78,6 +85,31 @@ public class RoomController {
     ctrl = this;
   }
 
+  protected void hideMap() {
+    mapOverlay.setVisible(false);
+    mapIcon.setVisible(true);
+    clueSceneBtn.setVisible(false);
+    leadScientistSceneButton.setVisible(false);
+    labTechnicianSceneButton.setVisible(false);
+    scholarSceneButton.setVisible(false);
+  }
+
+  @FXML
+  protected void showMap() {
+    mapOverlay.setVisible(true);
+    mapIcon.setVisible(false);
+    clueSceneBtn.setVisible(true);
+    leadScientistSceneButton.setVisible(true);
+    labTechnicianSceneButton.setVisible(true);
+    scholarSceneButton.setVisible(true);
+  }
+
+  @FXML
+  protected void closeMap() {
+    hideMap();
+  }
+
+  @FXML
   public static void enableGuessButton() {
     ctrl.btnGuess.setDisable(false);
     System.out.println("Guess button enabled");
@@ -132,8 +164,8 @@ public class RoomController {
 
   @FXML
   protected void handleRoomTransition(MouseEvent event) throws IOException {
-    Button clickedRoomButton = (Button) event.getSource();
-    context.handleRoomTransition(event, clickedRoomButton.getId());
+    Button clickedRoom = (Button) event.getSource();
+    context.handleRoomTransition(event, clickedRoom.getId());
   }
 
   @FXML
