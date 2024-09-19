@@ -36,5 +36,10 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Rectangle>
+      <ImageView fx:id="pauseButton" fitHeight="38.0" fitWidth="33.0" layoutX="607.0" layoutY="24.0" onMouseClicked="#onPauseClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/pauseButton.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
