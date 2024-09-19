@@ -5,7 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-
+import java.util.HashSet;
+import java.util.Set;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +32,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE>
-  private static Timer timer = new Timer(null, 7, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 300, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Stage stageWindow;
@@ -43,7 +44,20 @@ public class App extends Application {
   private static String userAnswer = "";
   private static String userGuess = "";
   private static GameStateContext context = new GameStateContext();
-  private static boolean interactedEnough = false;
+  private static boolean talkedEnough = false;
+  private static Set<String> cluesExplored = new HashSet<>();
+
+  public static boolean isInteractedEnough() {
+    return talkedEnough && cluesExplored.size() >= 1;
+  }
+
+  public static void setTalkedEnough(boolean talkedEnough) {
+    App.talkedEnough = talkedEnough;
+  }
+
+  public static void addClueExplored(String clue) {
+    cluesExplored.add(clue);
+  }
 
   public static GameStateContext getContext() {
     return context;
@@ -78,7 +92,9 @@ public class App extends Application {
     pauseGameTimer();
     // if insufficient interactions, switch to game over
 
-    if (!interactedEnough) {
+    if (!isInteractedEnough()) {
+      System.out.println(
+          "talked to: " + ChatController.getTalkedTo() + " clues explored: " + cluesExplored);
       switchToGameOver();
       System.out.println("Switching to game over from switchToGuessing");
       return;
@@ -203,7 +219,7 @@ public class App extends Application {
 
   public static Timer startGuessTimer() {
     // 60 sec timer <TOCHANGE>
-    guessTimer = new Timer(null, 7, () -> switchToGameOver());
+    guessTimer = new Timer(null, 60, () -> switchToGameOver());
     return guessTimer;
   }
 

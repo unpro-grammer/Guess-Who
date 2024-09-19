@@ -8,7 +8,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -52,7 +54,13 @@ public class ChatController {
   private Task<Void> fetchChatTask;
   private Task<Void> runGptTask;
 
+  private static Set<String> talkedTo = new HashSet<>();
+
   // Static Methods
+  public static boolean hasTalkedEnough() {
+    return (talkedTo.size() == 3);
+  }
+
   public static boolean hasTalked() {
     return talked;
   }
@@ -68,6 +76,10 @@ public class ChatController {
     firstInteraction.put("Lab Technician", true);
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
+  }
+
+  public static Set<String> getTalkedTo() {
+    return talkedTo;
   }
 
   // Chat Functionality Methods
@@ -273,6 +285,13 @@ public class ChatController {
 
     appendChatMessage(msg);
     talked = true;
+    talkedTo.add(profession);
+    if (hasTalkedEnough()) {
+      App.setTalkedEnough(true);
+    }
+    if (App.isInteractedEnough()) {
+      RoomController.enableGuessButton();
+    }
     runGptTask =
         new Task<Void>() {
           @Override

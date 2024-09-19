@@ -45,6 +45,11 @@ public class RoomController {
    */
   @FXML
   public void initialize() {
+    if (App.isInteractedEnough()) {
+      btnGuess.setDisable(false);
+    } else {
+      btnGuess.setDisable(true);
+    }
     if (isFirstTimeInit) {
       TextToSpeech.speak(
           "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
@@ -55,6 +60,11 @@ public class RoomController {
     hideOpen();
     App.getTimer().setLabel(timerLabel);
     ctrl = this;
+  }
+
+  public static void enableGuessButton() {
+    ctrl.btnGuess.setDisable(false);
+    System.out.println("Guess button enabled");
   }
 
   public static RoomController getRoomController() {
