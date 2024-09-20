@@ -23,7 +23,7 @@ public class LockerClueController extends ClueController {
   @FXML private Rectangle rectShoes;
   @FXML private Rectangle rectBoundary;
 
-  private double xOffset = 0;
+  private double offsetX = 0;
   private Rectangle currentRect;
   private ImageView currentImage;
 
@@ -56,14 +56,14 @@ public class LockerClueController extends ClueController {
         event -> {
           currentRect = rectSelection;
           currentImage = image;
-          xOffset = event.getSceneX() - image.getLayoutX();
+          offsetX = event.getSceneX() - image.getLayoutX();
         });
 
     // dragging of mouse (horizontally only)
     rectSelection.setOnMouseDragged(
         event -> {
           if (currentImage == image) {
-            double newX = event.getSceneX() - xOffset;
+            double newX = event.getSceneX() - offsetX;
 
             double boundaryX = 200;
             // manually set boundary width actually
@@ -72,10 +72,12 @@ public class LockerClueController extends ClueController {
             // constrain horizontal dragging motion to boundary
             double imageWidth = image.getFitWidth();
 
-            if (newX < boundaryX) newX = boundaryX;
-            if (newX > boundaryX + boundaryWidth - imageWidth)
+            if (newX < boundaryX) {
+              newX = boundaryX;
+            }
+            if (newX > boundaryX + boundaryWidth - imageWidth) {
               newX = boundaryX + boundaryWidth - imageWidth;
-
+            }
             image.setLayoutX(newX);
             rectSelection.setLayoutX(newX);
           }
