@@ -251,7 +251,7 @@ public class RoomController {
    * @throws IOException if there is an I/O error
    */
   @FXML
-  protected void handleGuessClick(ActionEvent event) throws IOException {
+  protected void onHandleGuessClick() throws IOException {
     context.handleGuessClick();
   }
 
