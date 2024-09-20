@@ -11,17 +11,17 @@
 
 <AnchorPane prefHeight="599.0" prefWidth="789.0" stylesheets="@../css/buttonStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.BagClueController">
    <children>
-      <ImageView fitHeight="605.0" fitWidth="818.0" layoutY="-4.0" preserveRatio="true">
+      <ImageView fitHeight="606.0" fitWidth="793.0" layoutY="-4.0" preserveRatio="true">
          <image>
             <Image url="@../images/lowerlayerbag.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bagzipper" fitHeight="556.0" fitWidth="174.0" layoutX="486.0" layoutY="166.0" preserveRatio="true">
+      <ImageView fx:id="bagzipper" fitHeight="556.0" fitWidth="174.0" layoutX="489.0" layoutY="166.0" preserveRatio="true">
          <image>
             <Image url="@../images/movingzipper.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="605.0" fitWidth="818.0" layoutY="-4.0" preserveRatio="true">
+      <ImageView fitHeight="610.0" fitWidth="793.0" layoutY="-2.0" preserveRatio="true">
          <image>
             <Image url="@../images/toplayerbag.png" />
          </image>
