@@ -2,7 +2,6 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -48,7 +47,7 @@ public class GuessingController {
   }
 
   @FXML
-  private void confirmGuessing() throws IOException {
+  private void onConfirmGuessing() throws IOException {
 
     userAnswer = explanationField.getText();
 
