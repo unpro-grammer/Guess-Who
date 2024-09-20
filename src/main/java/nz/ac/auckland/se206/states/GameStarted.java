@@ -44,6 +44,7 @@ public class GameStarted implements GameState {
   @Override
   public void handleRectangleClick(MouseEvent event, String rectangleId) throws IOException {
     // Transition to chat view or provide an introduction based on the clicked rectangle
+
     switch (rectangleId) {
       case "rectLocker":
         App.setRoot("lockerclue");
