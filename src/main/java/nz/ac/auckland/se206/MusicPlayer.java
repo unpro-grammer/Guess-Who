@@ -13,7 +13,6 @@ public class MusicPlayer {
   /** The MediaPlayer instance used for playing audio. */
   private static MediaPlayer mediaPlayer;
 
-
   /**
    * Plays the specified audio file. If an audio file is already playing, it stops and disposes of
    * the previous MediaPlayer instance before creating a new one.
@@ -49,5 +48,9 @@ public class MusicPlayer {
   /** Pauses the currently playing audio. */
   public static void pauseAudio() {
     mediaPlayer.pause();
+  }
+
+  public static void unPauseAudio() {
+    mediaPlayer.play();
   }
 }
