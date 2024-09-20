@@ -28,7 +28,7 @@
       </ImageView>
       <Rectangle fx:id="rectZipper" arcHeight="5.0" arcWidth="5.0" fill="#194f7b" focusTraversable="true" height="44.0" layoutX="511.0" layoutY="398.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="25.0">
          <cursor>
-            <Cursor fx:constant="MOVE" />
+            <Cursor fx:constant="V_RESIZE" />
          </cursor>
       </Rectangle>
       <Rectangle fx:id="clickInto" arcHeight="5.0" arcWidth="5.0" fill="#194f7b" focusTraversable="true" height="116.0" layoutX="509.0" layoutY="304.0" onMouseClicked="#onOpenBag" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="19.0">
