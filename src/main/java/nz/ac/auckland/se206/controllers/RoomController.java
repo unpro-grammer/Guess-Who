@@ -207,7 +207,7 @@ public class RoomController {
       MusicPlayer.pauseAudio();
       pauseButton.setImage(playImage);
     } else {
-      MusicPlayer.playAudio();
+      MusicPlayer.unPauseAudio();
       pauseButton.setImage(pauseImage);
     }
   }

@@ -96,9 +96,9 @@ public class Timer {
     return String.format("%02d : %02d", minutes, remainingSeconds);
   }
 
-  /** Pauses the timer, stopping it from counting down further until resumed. */
+  /** Pauses the countdown timer. */
   public void pauseTimer() {
-    isPaused = true; // Pause the timer
+    isPaused = true;
   }
 
   /**
