@@ -190,8 +190,7 @@ public class ChatController {
     }
 
     return content.toString();
-  }\
-  
+  }
 
   /**
    * Initializes the chat system when the chat window is opened.
