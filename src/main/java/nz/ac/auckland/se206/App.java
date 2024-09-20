@@ -438,6 +438,7 @@ public class App extends Application {
   }
 
   private void handleWindowClose(WindowEvent event) {
+    clearChats();
     FreeTextToSpeech.deallocateSynthesizer();
   }
 

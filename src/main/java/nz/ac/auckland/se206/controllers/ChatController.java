@@ -36,7 +36,7 @@ import nz.ac.auckland.se206.App;
 public class ChatController {
 
   private static Map<String, Boolean> firstInteraction = new HashMap<>();
-  private static Map<String, StringBuilder> chatHistories = new HashMap<>();
+  private static Map<String, ArrayList<String>> chatHistories = new HashMap<>();
   private static boolean talked = false;
   private static RoomController roomController;
   private static MediaPlayer mediaPlayerChat;
@@ -55,10 +55,10 @@ public class ChatController {
   private String filePath;
   private String name = "Speaker";
   private static Boolean first;
-  private static int displayedChat = 0;
+  private static HashMap<String, Integer> displayedChat = new HashMap<String, Integer>();
   @FXML private TextArea txtaChat;
-  @FXML private TextField txtInput;
-  @FXML private Button btnSend;
+  @FXML private static TextField txtInput;
+  @FXML private static Button btnSend;
   @FXML private Button btnLast;
   @FXML private Button btnNext;
   private ChatCompletionRequest chatCompletionRequest;
@@ -68,6 +68,12 @@ public class ChatController {
 
   private static Set<String> talkedTo = new HashSet<>();
 
+  /**
+   * Resets the game to its initial state.
+   *
+   * <p>This method reinitializes key game variables such as chat histories, interaction flags, and
+   * state indicators to their default values, preparing the game for a new session.
+   */
   public static void resetGame() {
     firstInteraction.put("Lab Technician", true);
     firstInteraction.put("Lead Scientist", true);
@@ -78,31 +84,37 @@ public class ChatController {
     stillTalking = false;
     talked = false;
     talkedTo = new HashSet<>();
-    displayedChat = 0;
+    displayedChat = new HashMap<>();
+    resetDisplayedChat();
   }
 
-  // Static Methods
-  public static boolean hasTalkedEnough() {
-    System.out.println(talkedTo.size());
-    return (talkedTo.size() == 3);
+  public static void resetDisplayedChat() {
+    displayedChat.put("Lab Technician", 0);
+    displayedChat.put("Lead Scientist", 0);
+    displayedChat.put("Scholar", 0);
   }
 
-  public static boolean hasTalked() {
-    return talked;
-  }
-
-  public static void stopSounds() {
-    if (mediaPlayerChat != null) {
-      mediaPlayerChat.stop();
-    }
-  }
-
+  /**
+   * Sets the room controller for managing the suspect interaction.
+   *
+   * <p>This method assigns a RoomController instance to the class and initializes the
+   * LabTechnicianController as the current room controller.
+   *
+   * @param roomContrl the RoomController instance to manage room activities
+   */
   public static void setRoomController(RoomController roomContrl) {
     roomController = roomContrl;
     roomController = new LabTechnicianController();
   }
 
-  // Initializer Method
+  /**
+   * Initializes the chat system when the chat window is opened.
+   *
+   * <p>This method sets up the initial interaction flags and configures the input field event
+   * handler to send messages when the Enter key is pressed.
+   *
+   * @throws ApiProxyException if an error occurs during the chat initialization process
+   */
   @FXML
   public void initialize() throws ApiProxyException {
     System.out.println("Chat initialized");
@@ -110,6 +122,7 @@ public class ChatController {
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
     txtaChat.getStyleClass().add("no-highlight");
+    resetDisplayedChat();
 
     txtInput.setOnKeyPressed(
         event -> {
@@ -123,14 +136,67 @@ public class ChatController {
         });
   }
 
+  public static void showSendButton() {
+    btnSend.setVisible(true);
+    txtInput.setVisible(true);
+  }
+
+  /**
+   * Retrieves the set of professions the player has talked to.
+   *
+   * <p>This method returns the set of professions (suspects) that the player has interacted with.
+   *
+   * @return a set of professions that the player has talked to
+   */
   public static Set<String> getTalkedTo() {
     return talkedTo;
   }
 
-  // Chat Functionality Methods
+  /**
+   * Checks if the player has talked to all suspects.
+   *
+   * <p>This method verifies if the player has interacted with all three suspects ("Lab Technician",
+   * "Lead Scientist", and "Scholar"). It returns true if the player has interacted with each.
+   *
+   * @return true if all suspects have been talked to, false otherwise
+   */
+  public static boolean hasTalkedEnough() {
+    System.out.println(talkedTo.size());
+    return (talkedTo.size() == 3);
+  }
 
   /**
-   * Sets the profession for the chat context and initializes the ChatCompletionRequest.
+   * Checks if the player has talked to any suspect.
+   *
+   * <p>This method returns the boolean value of the 'talked' flag, which tracks whether the player
+   * has initiated any conversation with a suspect.
+   *
+   * @return true if the player has talked to at least one suspect, false otherwise
+   */
+  public static boolean hasTalked() {
+    return talked;
+  }
+
+  /**
+   * Stops any currently playing chat sound.
+   *
+   * <p>This method checks if there is an active MediaPlayer instance for chat audio and stops the
+   * sound playback if it is currently playing.
+   */
+  public static void stopSounds() {
+    if (mediaPlayerChat != null) {
+      mediaPlayerChat.stop();
+    }
+  }
+
+  /**
+   * Sets the room controller for managing the suspect interaction.
+   *
+   * <p>This method assigns a RoomController instance
+   *
+   * <p>// Chat Functionality Methods
+   *
+   * <p>/** Sets the profession for the chat context and initializes the ChatCompletionRequest.
    *
    * @param profession the profession to set
    */
@@ -167,6 +233,12 @@ public class ChatController {
     backgroundChatThread.start();
   }
 
+  /**
+   * Initializes the file path based on the selected profession.
+   *
+   * <p>This method assigns a specific file path for each profession to load the appropriate chat
+   * prompt file.
+   */
   private void initializeFilePath() {
     switch (profession) {
       case "Lab Technician":
@@ -187,7 +259,10 @@ public class ChatController {
   /**
    * Generates the system prompt based on the profession.
    *
-   * @return the system prompt string
+   * <p>This method reads two specific text files based on the profession and concatenates their
+   * content to form the system prompt for that profession.
+   *
+   * @return the generated system prompt as a string
    */
   private String getSystemPrompt() {
     Map<String, String> map = new HashMap<>();
@@ -219,36 +294,52 @@ public class ChatController {
         + readTextFile("src/main/resources/prompts/" + secondFile);
   }
 
+  /**
+   * Reads the content of a text file and returns it as a string.
+   *
+   * <p>This method reads a file from the provided file path, line by line, and returns the content
+   * as a single string.
+   *
+   * @param filePath the path of the file to be read
+   * @return the content of the file as a string
+   */
   public static String readTextFile(String filePath) {
     StringBuilder content = new StringBuilder();
     BufferedReader reader = null;
 
     try {
-      // Initialize reader to read the file
       reader = new BufferedReader(new FileReader(filePath));
 
       String line;
-      // Read each line and append it to the content StringBuilder
       while ((line = reader.readLine()) != null) {
         content.append(line).append(System.lineSeparator());
       }
 
     } catch (IOException e) {
-      e.printStackTrace(); // Handle any file read errors
+      e.printStackTrace();
     } finally {
       try {
         if (reader != null) {
-          reader.close(); // Close the reader
+          reader.close();
         }
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
 
-    return content.toString(); // Return the file content as a string
+    return content.toString();
   }
 
-  // Sound Effects Methods
+  /**
+   * Plays a sound effect based on the profession and interaction status.
+   *
+   * <p>This method selects and plays a greeting or response sound effect for the given profession
+   * based on whether it is the first interaction with that profession. The sound is played using
+   * the JavaFX `MediaPlayer`.
+   *
+   * @param profession the profession for which the sound effect is played
+   * @param first indicates if this is the first interaction with the profession
+   */
   public void playSound(String profession, boolean first) {
     String soundSource = "";
     System.out.println(profession);
@@ -288,7 +379,6 @@ public class ChatController {
     sb.append(soundSource);
     Media hmmSound = new Media(App.class.getResource(sb.toString()).toExternalForm());
     mediaPlayerChat = new MediaPlayer(hmmSound);
-    // set volume
     mediaPlayerChat.setVolume(0.8);
 
     System.out.println(mediaPlayerChat);
@@ -311,16 +401,21 @@ public class ChatController {
     String messageText = name + ": " + msg.getContent() + "\n\n";
     saveChatToFile(msg.getContent() + "\n");
     txtaChat.appendText(messageText);
-    StringBuilder history = chatHistories.getOrDefault(profession, new StringBuilder());
-    history.append(messageText);
+    ArrayList history = chatHistories.getOrDefault(profession, new ArrayList<String>());
+    history.add(messageText);
     chatHistories.put(profession, history);
+    System.out.println(chatHistories.get(profession));
   }
 
   /**
    * Runs the GPT model with a given chat message.
    *
+   * <p>This method sends the provided chat message to the GPT model for processing, handles the
+   * interaction by showing and hiding the suspect's speaking and thinking animations, and returns
+   * the response from the GPT model.
+   *
    * @param msg the chat message to process
-   * @return the response chat message
+   * @return the response chat message generated by the GPT model
    * @throws ApiProxyException if there is an error communicating with the API proxy
    */
   private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
@@ -332,7 +427,6 @@ public class ChatController {
     try {
       canSend = false;
       btnSend.setDisable(true);
-      // disable btnSend
 
       playSound(profession, first);
       firstInteraction.put(profession, false);
@@ -354,7 +448,13 @@ public class ChatController {
     }
   }
 
-  // Save chat history to file
+  /**
+   * Saves the chat history to a file.
+   *
+   * <p>Appends the provided chat content to the specified file.
+   *
+   * @param chatContent the chat message content to save to the file
+   */
   private void saveChatToFile(String chatContent) {
     try {
       Files.writeString(
@@ -367,10 +467,13 @@ public class ChatController {
     }
   }
 
-  // Event Handlers
-
   /**
-   * Sends a message to the GPT model.
+   * Sends a message to the GPT model when the send button is clicked.
+   *
+   * <p>This method is triggered by the "Send" button. It retrieves the user's input message,
+   * updates the chat history, and sends the message to the GPT model for processing asynchronously.
+   * If the user has talked enough or interacted enough, additional UI elements may be updated, like
+   * enabling the guess button.
    *
    * @param event the action event triggered by the send button
    * @throws ApiProxyException if there is an error communicating with the API proxy
@@ -378,7 +481,6 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
-
     if (txtInput.getText().trim().isEmpty()) {
       return;
     }
@@ -417,43 +519,87 @@ public class ChatController {
     backgroundGptThread.start();
   }
 
+  /**
+   * Handles the "Next" button click event to navigate to the next chat message.
+   *
+   * <p>If the user has previously clicked the "Last" button to see past messages, this method
+   * allows them to go forward to the next message in the chat history.
+   *
+   * @param event the action event triggered by the "Next" button
+   * @throws ApiProxyException if there is an error communicating with the API proxy
+   * @throws IOException if there is an I/O error
+   */
   @FXML
   private void onNextClicked(ActionEvent event) throws ApiProxyException, IOException {
-
-    if (displayedChat == 0) {
+    if (displayedChat.getOrDefault(profession, 0) == 0) {
       txtInput.setVisible(true);
       btnSend.setVisible(true);
       updateChatTexts();
     } else {
-      this.displayedChat += 1;
-      txtaChat.setText(chatTexts.get(chatTexts.size() + displayedChat - 1));
-    }
-  }
-
-  private void updateChatTexts() {
-
-    txtaChat.clear();
-  }
-
-  @FXML
-  private void onLastClicked(ActionEvent event) throws ApiProxyException, IOException {
-    if (!chatTexts.isEmpty() && -1 * displayedChat < chatTexts.size()) {
-      this.displayedChat -= 1;
-      txtaChat.setText(chatTexts.get(chatTexts.size() + displayedChat));
-      txtInput.setVisible(false);
-      btnSend.setVisible(false);
-    }
-    if (-1 * displayedChat == chatTexts.size()) {
-      displayedChat += 1;
+      ChatController.displayedChat.put(
+          profession, ChatController.displayedChat.getOrDefault(profession, 0) + 1);
+      txtaChat.setText(
+          chatHistories
+              .get(profession)
+              .get(chatTexts.size() + displayedChat.getOrDefault(profession, 0) - 1));
     }
   }
 
   /**
-   * Navigates back to the previous view.
+   * Clears the text area where the chat messages are displayed.
    *
-   * @param event the action event triggered by the go back button
-   * @throws ApiProxyException if there is an error communicating with the API proxy
-   * @throws IOException if there is an I/O error
+   * <p>This method is used to reset the chat display area when navigating between messages or
+   * updating the chat history.
+   */
+  private void updateChatTexts() {
+    txtaChat.clear();
+  }
+
+  /**
+   * Handles the "Last" button click event to navigate to the previous chat message.
+   *
+   * <p>If the user has previously clicked the "Next" button to see future messages, this method
+   * allows them to go back one message in the chat history.
+   *
+   * <p>- Decreases `displayedChat` to show the previous message. - Hides the input and send button
+   * when navigating backward through chat history.
+   *
+   * @param event The action event triggered by the "Last" button.
+   * @throws ApiProxyException If there's an issue with the API proxy.
+   * @throws IOException If an I/O error occurs.
+   */
+  @FXML
+  private void onLastClicked(ActionEvent event) throws ApiProxyException, IOException {
+    if (!chatHistories.get(profession).isEmpty()
+        && -1 * displayedChat.getOrDefault(profession, 0) < chatTexts.size()) {
+      ChatController.displayedChat.put(
+          profession, ChatController.displayedChat.getOrDefault(profession, 0) - 1);
+      txtaChat.setText(
+          chatHistories
+              .get(profession)
+              .get(
+                  chatHistories.get(profession).size()
+                      + displayedChat.getOrDefault(profession, 0)));
+      txtInput.setVisible(false);
+      btnSend.setVisible(false);
+    }
+    if (-1 * displayedChat.getOrDefault(profession, 0) == chatHistories.get(profession).size()) {
+      displayedChat.put(profession, displayedChat.getOrDefault(profession, 0) + 1);
+    }
+  }
+
+  /**
+   * Navigates back to the previous view in the chat application.
+   *
+   * <p>This method handles the event triggered by clicking a "Go Back" button. It resets various UI
+   * components related to the suspect's interaction (hides the suspect's speaking and thinking
+   * actions) and stops any ongoing media playback for the chat.
+   *
+   * <p>- Stops chat-related media playback. - Hides chat and resets suspect-related UI components.
+   *
+   * @param event The action event triggered by the "Go Back" button.
+   * @throws ApiProxyException If there is an error communicating with the API proxy.
+   * @throws IOException If there is an I/O error.
    */
   @FXML
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
@@ -469,22 +615,43 @@ public class ChatController {
     App.hideChat();
   }
 
+  /**
+   * Disables the chat button, preventing the user from sending any more messages.
+   *
+   * <p>This method hides the input field and disables the send button to block user interaction
+   * with the chat.
+   */
   private void disbaleChatButton() {
-    // txtInput.setDisable(true);
     btnSend.setDisable(true);
   }
 
+  /**
+   * Enables the chat button, allowing the user to send messages again.
+   *
+   * <p>This method re-enables the input field and the send button for chat interaction.
+   */
   private void enableChatButton() {
-    // txtInput.setDisable(false);
     btnSend.setDisable(false);
   }
 
+  /**
+   * Disables all user interactions within the room and suspects interface.
+   *
+   * <p>This method blocks the user from interacting with the room and suspects by disabling the
+   * related components and the chat functionality.
+   */
   private void disableInteraction() {
     RoomController.getRoomController().disableRoom();
     RoomController.getRoomController().disableSuspects();
     disbaleChatButton();
   }
 
+  /**
+   * Enables user interactions within the room and suspects interface.
+   *
+   * <p>This method re-enables interaction with the room and suspects by making the related
+   * components and chat functionality active again.
+   */
   private void enableInteraction() {
     RoomController.getRoomController().enableRoom();
     RoomController.getRoomController().enableSuspects();
