@@ -407,10 +407,12 @@ public class App extends Application {
     fadeHome.play();
   }
 
+
   private void handleWindowClose(WindowEvent event) {
     clearChats();
     FreeTextToSpeech.deallocateSynthesizer();
   }
+
 
   public static void setFeedback(String feedbackmsg) {
     feedback = feedbackmsg;
@@ -444,4 +446,5 @@ public class App extends Application {
   public void setGuessTimerLabel(Label timerLabel) {
     guessTimer.setLabel(timerLabel);
   }
+
 }
