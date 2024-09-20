@@ -63,6 +63,7 @@ public class App extends Application {
   }
 
   public static void resetGame() {
+    clearChats();
     timer = new Timer(null, 300, () -> switchToGuessing());
     guessTimer = null;
     mediaPlayer = null;
