@@ -72,6 +72,7 @@ public class App extends Application {
   }
 
   public static void clearChats() {
+    // empty all chat history files
     replaceFileContent(
         "src/main/resources/prompts/emptyfile.txt",
         "src/main/resources/prompts/lab_technician_2.txt");
@@ -83,6 +84,7 @@ public class App extends Application {
   }
 
   public static void resetGame() {
+    // clear all variables and reset game state
     clearChats();
     timer = new Timer(null, 300, () -> switchToGuessing());
     guessTimer = null;
@@ -90,6 +92,7 @@ public class App extends Application {
     userAnswer = "";
     userGuess = "";
     context.setState(context.getGameStartedState());
+    // game completion progress to 0
     talkedEnough = false;
     cluesExplored = new HashSet<>();
   }
@@ -407,12 +410,10 @@ public class App extends Application {
     fadeHome.play();
   }
 
-
   private void handleWindowClose(WindowEvent event) {
     clearChats();
     FreeTextToSpeech.deallocateSynthesizer();
   }
-
 
   public static void setFeedback(String feedbackmsg) {
     feedback = feedbackmsg;
@@ -446,5 +447,4 @@ public class App extends Application {
   public void setGuessTimerLabel(Label timerLabel) {
     guessTimer.setLabel(timerLabel);
   }
-
 }

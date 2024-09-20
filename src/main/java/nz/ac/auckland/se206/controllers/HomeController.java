@@ -4,10 +4,8 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import nz.ac.auckland.se206.App;
-import nz.ac.auckland.se206.Timer;
 
 public class HomeController {
-  private Timer timer;
 
   @FXML private ImageView backstory;
 
