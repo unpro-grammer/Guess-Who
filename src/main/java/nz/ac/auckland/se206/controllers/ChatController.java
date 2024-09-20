@@ -50,12 +50,12 @@ public class ChatController {
     ChatController.stillTalking = stillTalking;
   }
 
-  private ArrayList<String> chatTexts = new ArrayList<>();
+  private static ArrayList<String> chatTexts = new ArrayList<>();
   private String profession;
   private String filePath;
   private String name = "Speaker";
-  private Boolean first;
-  private int displayedChat = 0;
+  private static Boolean first;
+  private static int displayedChat = 0;
   @FXML private TextArea txtaChat;
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
@@ -64,9 +64,21 @@ public class ChatController {
   private ChatCompletionRequest chatCompletionRequest;
   private Task<Void> fetchChatTask;
   private Task<Void> runGptTask;
-  private boolean canSend = true;
+  private static boolean canSend = true;
 
   private static Set<String> talkedTo = new HashSet<>();
+
+  public static void resetGame() {
+    firstInteraction.put("Lab Technician", true);
+    firstInteraction.put("Lead Scientist", true);
+    firstInteraction.put("Scholar", true);
+    chatHistories = new HashMap<>();
+    chatTexts = new ArrayList<>();
+    canSend = true;
+    stillTalking = false;
+    talked = false;
+    displayedChat = 0;
+  }
 
   // Static Methods
   public static boolean hasTalkedEnough() {

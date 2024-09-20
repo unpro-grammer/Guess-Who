@@ -32,7 +32,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE>
-  private static Timer timer = new Timer(null, 2, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 20, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Stage stageWindow;

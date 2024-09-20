@@ -85,6 +85,7 @@ public class GameOverController {
   private void playAgain(ActionEvent event) throws IOException {
     App.resetGame();
     RoomController.setFirstTime();
+    ChatController.resetGame();
     App.setRoot("home");
   }
 
