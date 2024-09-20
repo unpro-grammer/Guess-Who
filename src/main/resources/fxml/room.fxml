@@ -24,7 +24,10 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Rectangle>
-      <Button fx:id="btnGuess" layoutX="338.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleGuessClick" prefHeight="54.0" prefWidth="138.0" styleClass="guess-button" />
+      <Button fx:id="btnGuess" layoutX="338.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleGuessClick" prefHeight="54.0" prefWidth="138.0" styleClass="guess-button">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <ImageView fx:id="openLocker" fitHeight="313.0" fitWidth="203.0" layoutX="500.0" layoutY="138.0">
          <image>
             <Image url="@../images/openlocker.png" />

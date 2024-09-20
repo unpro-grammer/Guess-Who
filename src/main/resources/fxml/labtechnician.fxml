@@ -16,7 +16,10 @@
             <Image url="@../images/labtech_background_only.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnGuess" layoutX="338.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleGuessClick" prefHeight="54.0" prefWidth="138.0" styleClass="guess-button" />
+      <Button fx:id="btnGuess" layoutX="338.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleGuessClick" prefHeight="54.0" prefWidth="138.0" styleClass="guess-button">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="19.0" prefHeight="51.0" prefWidth="125.0" text="0 : 00" textAlignment="CENTER">
          <font>
             <Font size="31.0" />

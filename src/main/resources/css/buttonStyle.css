@@ -129,39 +129,6 @@
   -fx-border-width: 0;
 }
 
-.confirm-button {
-  -fx-background-image: url("/images/confirmbtn.png");
-  -fx-background-size: cover;
-  -fx-background-repeat: no-repeat;
-  -fx-background-color: transparent;
-  -fx-text-fill: transparent;
-  -fx-padding: 0;
-  -fx-border-color: transparent;
-  -fx-border-width: 0;
-  -fx-opacity: 1;
-}
-
-.confirm-button:hover {
-  -fx-background-image: url("/images/hoverconfirm.png");
-  -fx-background-size: cover;
-  -fx-background-repeat: no-repeat;
-  -fx-background-color: transparent;
-  -fx-text-fill: transparent;
-  -fx-padding: 0;
-  -fx-border-color: transparent;
-  -fx-border-width: 0;
-}
-
-.confirm-button:disabled {
-  -fx-background-image: url("/images/disabledconfirm.png");
-  -fx-background-size: cover;
-  -fx-background-repeat: no-repeat;
-  -fx-background-color: transparent;
-  -fx-text-fill: transparent;
-  -fx-padding: 0;
-  -fx-border-color: transparent;
-  -fx-border-width: 0;
-}
 
 .replay-button {
   -fx-background-image: url("/images/replaybtn.png");
