@@ -24,7 +24,6 @@ public class LockerClueController extends ClueController {
   @FXML private Rectangle rectBoundary;
 
   private double offsetX = 0;
-  private Rectangle currentRect;
   private ImageView currentImage;
 
   @FXML
@@ -54,7 +53,6 @@ public class LockerClueController extends ClueController {
     // pressing of mouse
     rectSelection.setOnMousePressed(
         event -> {
-          currentRect = rectSelection;
           currentImage = image;
           offsetX = event.getSceneX() - image.getLayoutX();
         });
