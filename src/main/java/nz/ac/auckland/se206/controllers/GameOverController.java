@@ -21,20 +21,14 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.prompts.PromptEngineering;
 
 public class GameOverController {
-  @FXML Text thiefResultDisplay;
-  @FXML TextArea feedbackDisplay;
-  @FXML Text winLoseDisplay;
-  @FXML Button playAgainButton; // used for correct guess (Scholar)
-  @FXML Button labButton;
-  @FXML Button leadButton;
-  @FXML Button scholarButton;
-  @FXML Button playAgainButton1; // used for incorrect guesses because position is different
-  @FXML Button playAgainButton2; // used for no guess because position is different
-
-  @FXML ImageView incorrectLabTech;
-  @FXML ImageView incorrectScientist;
-  @FXML ImageView correctScholar;
-  @FXML ImageView outOfTime;
+  @FXML private TextArea feedbackDisplay;
+  @FXML private Button playAgainButton; // used for correct guess (Scholar)
+  @FXML private Button playAgainButton1; // used for incorrect guesses because position is different
+  @FXML private Button playAgainButton2; // used for no guess because position is different
+  @FXML private ImageView incorrectLabTech;
+  @FXML private ImageView incorrectScientist;
+  @FXML private ImageView correctScholar;
+  @FXML private ImageView outOfTime;
 
   private String userAnswer;
   private ChatCompletionRequest chatCompletionRequest;
@@ -43,10 +37,10 @@ public class GameOverController {
 
   @FXML
   public void initialize() throws ApiProxyException {
+    // Any required initialization code can be placed here
+
+    // default make everything invisible
     userAnswer = App.getUserAnswer();
-    leadButton.setVisible(false);
-    labButton.setVisible(false);
-    scholarButton.setVisible(false);
     incorrectLabTech.setVisible(false);
     incorrectScientist.setVisible(false);
     correctScholar.setVisible(false);
@@ -57,6 +51,7 @@ public class GameOverController {
     outOfTime.setVisible(false);
     App.pauseGuessTimer();
 
+    // depending on the player guessing result, display the correct image and related button
     switch (App.getUserGuess()) {
       case "Lead Scientist":
         incorrectScientist.setVisible(true);
@@ -67,43 +62,36 @@ public class GameOverController {
         playAgainButton1.setVisible(true);
         break;
       case "Scholar":
+      // only the Scholar one is correct and have feedback generated
         correctScholar.setVisible(true);
         feedbackDisplay.setVisible(true);
         getFeedback(userAnswer);
         playAgainButton.setVisible(true);
         break;
       default:
+      // if the player instead failed to guess when ran out of time
         outOfTime.setVisible(true);
         playAgainButton2.setVisible(true);
         break;
     }
-
-    // Any required initialization code can be placed here
   }
 
   @FXML
-  private void playAgain(ActionEvent event) throws IOException {
+
+  private void playAgain() throws IOException {
+
     App.resetGame();
     RoomController.setFirstTime();
     ChatController.resetGame();
+
     App.setRoot("home");
   }
 
-  @FXML
-  private void changeSuspect(ActionEvent event) {
-    Button clickedButton = (Button) event.getSource();
-    String suspectName = clickedButton.getText();
-    if (App.gameResult(suspectName)) {
-      thiefResultDisplay.setText("The " + suspectName + " is the thief!");
-      feedbackDisplay.setText("They stole the research notes!");
-      winLoseDisplay.setText("You WON!");
-    } else {
-      thiefResultDisplay.setText("The " + suspectName + " is not the thief!");
-      feedbackDisplay.setText("They didn't steal the research notes!");
-      winLoseDisplay.setText("You LOST!");
-    }
-  }
-
+  /**
+   * Displays the feedback based on the player's explaination during guessing
+   * 
+   * @param useranswer the explaination typed in by the user during guessing
+   */
   public void getFeedback(String useranswer) {
     Task<Void> getFeedbackTask =
         new Task<Void>() {
@@ -117,6 +105,7 @@ public class GameOverController {
                       .setTemperature(0.2)
                       .setTopP(0.5)
                       .setMaxTokens(100);
+              // runs ChatGPT to generate a feedback based on the model answer
               runGpt(new ChatMessage("system", getSystemPrompt()));
               Platform.runLater(
                   () -> {
@@ -141,7 +130,15 @@ public class GameOverController {
     return PromptEngineering.getPrompt("modelanswer.txt", map);
   }
 
+  /**
+   * Runs ChatGPT to generate a feedback based on the model answer given
+   * 
+   * @param msg The model answer preset
+   * @return resulting message from generating
+   * @throws ApiProxyException if there is API error
+   */
   private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
+    // The same as the one in ChatController except it doesn't append but returns
     chatCompletionRequest.addMessage(msg);
     try {
       System.out.println(profession);

@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="599.0" prefWidth="789.0" stylesheets="@../css/buttonStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ChemicalClueController">
@@ -23,5 +24,18 @@
          <font>
             <Font size="31.0" />
          </font></Label>
+      <Rectangle fx:id="clickInto" arcHeight="5.0" arcWidth="5.0" fill="#194f7b" focusTraversable="true" height="66.0" layoutX="220.0" layoutY="303.0" onMouseClicked="#onOpenLabel" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="128.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Rectangle>
+      <ImageView fx:id="chemicalLabel" fitHeight="605.0" fitWidth="796.0" onMouseClicked="#closeLabel">
+         <image>
+            <Image url="@../images/chemical_label.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
 </AnchorPane>

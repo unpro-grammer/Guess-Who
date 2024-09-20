@@ -17,12 +17,10 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
-import nz.ac.auckland.se206.controllers.RoomController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 import nz.ac.auckland.se206.states.GameState;
 
@@ -35,17 +33,39 @@ public class App extends Application {
   private static Timer timer = new Timer(null, 300, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
-  private static Stage stageWindow;
   private static Parent chatView = null;
   private static ChatController chatController = null;
-  private static RoomController roomController = null;
-  private static MediaPlayer mediaPlayer;
   private static String feedback = "";
   private static String userAnswer = "";
   private static String userGuess = "";
   private static GameStateContext context = new GameStateContext();
   private static boolean talkedEnough = false;
   private static Set<String> cluesExplored = new HashSet<>();
+
+  private static String[] charactersToShow =
+      new String[] {
+        "rectLabTechnician",
+        "rectScholar",
+        "rectLeadScientist",
+        "leadscientist",
+        "labtechnician",
+        "scholar",
+      };
+
+  private static String[] charactersToHide =
+      new String[] {
+        "rectLabTechnician",
+        "rectScholar",
+        "rectLeadScientist",
+        "leadscientist",
+        "labtechnician",
+        "scholar",
+        "leadscientistturned",
+        "labtechnicianturned",
+        "scholarturned"
+      };
+
+  private static boolean isChatOpen = false;
 
   public static boolean isInteractedEnough() {
     return talkedEnough && cluesExplored.size() >= 1;
@@ -66,7 +86,6 @@ public class App extends Application {
     clearChats();
     timer = new Timer(null, 300, () -> switchToGuessing());
     guessTimer = null;
-    mediaPlayer = null;
     feedback = "";
     userAnswer = "";
     userGuess = "";
@@ -164,30 +183,6 @@ public class App extends Application {
     App.userAnswer = userAnswer;
   }
 
-  private static String[] charactersToShow =
-      new String[] {
-        "rectLabTechnician",
-        "rectScholar",
-        "rectLeadScientist",
-        "leadscientist",
-        "labtechnician",
-        "scholar",
-      };
-
-  private static String[] charactersToHide =
-      new String[] {
-        "rectLabTechnician",
-        "rectScholar",
-        "rectLeadScientist",
-        "leadscientist",
-        "labtechnician",
-        "scholar",
-        "leadscientistturned",
-        "labtechnicianturned",
-        "scholarturned"
-      };
-  private static boolean isChatOpen = false;
-
   /**
    * The main method that launches the JavaFX application.
    *
@@ -230,18 +225,10 @@ public class App extends Application {
     return timer;
   }
 
-  public void setLabel(Label timerLabel) {
-    timer.setLabel(timerLabel);
-  }
-
   public static Timer startGuessTimer() {
     // 60 sec timer <TOCHANGE>
     guessTimer = new Timer(null, 60, () -> switchToGameOver());
     return guessTimer;
-  }
-
-  public void setGuessTimerLabel(Label timerLabel) {
-    guessTimer.setLabel(timerLabel);
   }
 
   /**
@@ -392,23 +379,6 @@ public class App extends Application {
     }
   }
 
-  /**
-   * This method is invoked when the application starts. It loads and shows the "room" scene.
-   *
-   * @param stage the primary stage of the application
-   * @throws IOException if the "src/main/resources/fxml/room.fxml" file is not found
-   */
-  @Override
-  public void start(final Stage stage) throws IOException {
-    Parent root = loadFxml("home");
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.setResizable(false);
-    stage.show();
-    stage.setOnCloseRequest(event -> handleWindowClose(event));
-    root.requestFocus();
-  }
-
   public static void actuallyStart() throws IOException {
     Parent clueRoot = loadFxml("room");
 
@@ -448,5 +418,30 @@ public class App extends Application {
 
   public static String getFeedback() {
     return feedback;
+  }
+
+  /**
+   * This method is invoked when the application starts. It loads and shows the "room" scene.
+   *
+   * @param stage the primary stage of the application
+   * @throws IOException if the "src/main/resources/fxml/room.fxml" file is not found
+   */
+  @Override
+  public void start(final Stage stage) throws IOException {
+    Parent root = loadFxml("home");
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.setResizable(false);
+    stage.show();
+    stage.setOnCloseRequest(event -> handleWindowClose(event));
+    root.requestFocus();
+  }
+
+  public void setLabel(Label timerLabel) {
+    timer.setLabel(timerLabel);
+  }
+
+  public void setGuessTimerLabel(Label timerLabel) {
+    guessTimer.setLabel(timerLabel);
   }
 }

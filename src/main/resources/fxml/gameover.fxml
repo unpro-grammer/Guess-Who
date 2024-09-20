@@ -6,40 +6,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="818.0" stylesheets="@../css/buttonStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.GameOverController">
    <children>
-      <Text layoutX="150.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Over" textAlignment="CENTER" underline="true" wrappingWidth="503.02557373046875">
-         <font>
-            <Font size="88.0" />
-         </font>
-      </Text>
-      <Text fx:id="thiefResultDisplay" layoutX="29.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Scholar is the thief!" textAlignment="CENTER" wrappingWidth="758.1461791992188">
-         <font>
-            <Font size="44.0" />
-         </font>
-      </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="74.0" layoutX="112.0" layoutY="492.0" stroke="RED" strokeType="INSIDE" width="413.0" />
-      <Button fx:id="labButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeSuspect" text="Lab Technician">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor></Button>
-      <Button fx:id="scholarButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" onAction="#changeSuspect" text="Scholar">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor></Button>
-      <Button fx:id="leadButton" layoutX="14.0" layoutY="49.0" mnemonicParsing="false" onAction="#changeSuspect" text="Lead Scientist">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor></Button>
-      <Text fx:id="winLoseDisplay" layoutX="127.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You WON!" textAlignment="CENTER" wrappingWidth="377.26918029785156">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Text>
       <ImageView fx:id="incorrectScientist" fitHeight="625.0" fitWidth="818.0">
          <image>
             <Image url="@../images/incorrect_scientist.png" />

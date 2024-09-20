@@ -13,7 +13,7 @@ public class BagClueController extends ClueController {
   @FXML private Rectangle clickInto;
   @FXML private ImageView zoomedBagStuff;
 
-  private double yOffset = 0;
+  private double offsetY = 0;
 
   @FXML
   @Override
@@ -29,13 +29,13 @@ public class BagClueController extends ClueController {
 
     rectZipper.setOnMousePressed(
         event -> {
-          yOffset = event.getSceneY() - bagzipper.getLayoutY();
+          offsetY = event.getSceneY() - bagzipper.getLayoutY();
         });
 
     // update position on drag
     rectZipper.setOnMouseDragged(
         event -> {
-          double newY = event.getSceneY() - yOffset;
+          double newY = event.getSceneY() - offsetY;
 
           // manually determined positions
           double upperBoundary = 0;
