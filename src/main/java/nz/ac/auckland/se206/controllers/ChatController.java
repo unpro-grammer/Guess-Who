@@ -77,11 +77,13 @@ public class ChatController {
     canSend = true;
     stillTalking = false;
     talked = false;
+    talkedTo = new HashSet<>();
     displayedChat = 0;
   }
 
   // Static Methods
   public static boolean hasTalkedEnough() {
+    System.out.println(talkedTo.size());
     return (talkedTo.size() == 3);
   }
 
