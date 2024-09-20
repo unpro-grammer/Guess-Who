@@ -649,18 +649,6 @@ public class ChatController {
   }
 
   /**
-   * Disables all user interactions within the room and suspects interface.
-   *
-   * <p>This method blocks the user from interacting with the room and suspects by disabling the
-   * related components and the chat functionality.
-   */
-  private void disableInteraction() {
-    RoomController.getRoomController().disableRoom(); // Disable the room and suspects interface
-    RoomController.getRoomController().disableSuspects();
-    disbaleChatButton();
-  }
-
-  /**
    * Enables user interactions within the room and suspects interface.
    *
    * <p>This method re-enables interaction with the room and suspects by making the related
