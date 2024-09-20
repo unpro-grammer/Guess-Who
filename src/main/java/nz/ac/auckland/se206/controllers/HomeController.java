@@ -7,7 +7,7 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.Timer;
 
 public class HomeController {
-  public Timer timer;
+  private Timer timer;
 
   @FXML private ImageView backstory;
 
