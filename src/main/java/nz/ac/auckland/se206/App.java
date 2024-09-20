@@ -32,7 +32,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE>
-  private static Timer timer = new Timer(null, 20, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 300, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Stage stageWindow;
@@ -63,7 +63,7 @@ public class App extends Application {
   }
 
   public static void resetGame() {
-    timer = new Timer(null, 200, () -> switchToGuessing());
+    timer = new Timer(null, 300, () -> switchToGuessing());
     guessTimer = null;
     mediaPlayer = null;
     feedback = "";
@@ -409,7 +409,6 @@ public class App extends Application {
   }
 
   public static void actuallyStart() throws IOException {
-    timer.startTimer();
     Parent clueRoot = loadFxml("room");
 
     StackPane stackPane = new StackPane(scene.getRoot(), clueRoot);

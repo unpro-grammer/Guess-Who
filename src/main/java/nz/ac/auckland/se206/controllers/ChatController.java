@@ -420,6 +420,7 @@ public class ChatController {
 
     if (displayedChat == 0) {
       txtInput.setVisible(true);
+      btnSend.setVisible(true);
       updateChatTexts();
     } else {
       this.displayedChat += 1;
@@ -438,6 +439,7 @@ public class ChatController {
       this.displayedChat -= 1;
       txtaChat.setText(chatTexts.get(chatTexts.size() + displayedChat));
       txtInput.setVisible(false);
+      btnSend.setVisible(false);
     }
     if (-1 * displayedChat == chatTexts.size()) {
       displayedChat += 1;
