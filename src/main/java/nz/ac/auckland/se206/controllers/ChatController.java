@@ -50,6 +50,7 @@ public class ChatController {
     ChatController.stillTalking = stillTalking;
   }
 
+  // Chat Functionality Variables
   private static ArrayList<String> chatTexts = new ArrayList<>();
   private String profession;
   private String filePath;
@@ -75,7 +76,7 @@ public class ChatController {
    * state indicators to their default values, preparing the game for a new session.
    */
   public static void resetGame() {
-    firstInteraction.put("Lab Technician", true);
+    firstInteraction.put("Lab Technician", true); // Reset the game state
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
     chatHistories = new HashMap<>();
@@ -88,7 +89,7 @@ public class ChatController {
     resetDisplayedChat();
   }
 
-  public static void resetDisplayedChat() {
+  public static void resetDisplayedChat() { // Reset the displayed chat messages
     displayedChat.put("Lab Technician", 0);
     displayedChat.put("Lead Scientist", 0);
     displayedChat.put("Scholar", 0);
@@ -103,8 +104,7 @@ public class ChatController {
    * @param roomContrl the RoomController instance to manage room activities
    */
   public static void setRoomController(RoomController roomContrl) {
-    roomController = roomContrl;
-    roomController = new LabTechnicianController();
+    roomController = roomContrl; // Set the room controller
   }
 
   /**
@@ -118,7 +118,7 @@ public class ChatController {
   @FXML
   public void initialize() throws ApiProxyException {
     System.out.println("Chat initialized");
-    firstInteraction.put("Lab Technician", true);
+    firstInteraction.put("Lab Technician", true); // Initialize the interaction flags
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
     txtaChat.getStyleClass().add("no-highlight");
@@ -126,7 +126,8 @@ public class ChatController {
 
     txtInput.setOnKeyPressed(
         event -> {
-          if (event.getCode() == KeyCode.ENTER && canSend) {
+          if (event.getCode() == KeyCode.ENTER
+              && canSend) { // Send the message when the Enter key is pressed
             try {
               onSendMessage(new ActionEvent());
             } catch (ApiProxyException | IOException e) {
@@ -156,7 +157,7 @@ public class ChatController {
    * @return true if all suspects have been talked to, false otherwise
    */
   public static boolean hasTalkedEnough() {
-    System.out.println(talkedTo.size());
+    System.out.println(talkedTo.size()); // Check if the player has talked to all suspects
     return (talkedTo.size() == 3);
   }
 
@@ -179,7 +180,7 @@ public class ChatController {
    * sound playback if it is currently playing.
    */
   public static void stopSounds() {
-    if (mediaPlayerChat != null) {
+    if (mediaPlayerChat != null) { // Stop the chat sound if it is playing
       mediaPlayerChat.stop();
     }
   }
@@ -197,7 +198,7 @@ public class ChatController {
    */
   public void setProfession(String profession) {
 
-    stillTalking = true;
+    stillTalking = true; // Set the profession and initialize the chat context
     System.out.println("Setting profession");
     updateChatTexts();
     this.profession = profession;
@@ -205,14 +206,14 @@ public class ChatController {
     fetchChatTask =
         new Task<Void>() {
           @Override
-          protected Void call() throws Exception {
+          protected Void call() throws Exception { // Initialize the chat context
             try {
               btnSend.setVisible(true);
               txtInput.setVisible(true);
               first = firstInteraction.get(profession);
               ApiProxyConfig config = ApiProxyConfig.readConfig();
               chatCompletionRequest =
-                  new ChatCompletionRequest(config)
+                  new ChatCompletionRequest(config) // Initialize the ChatCompletionRequest
                       .setN(1)
                       .setTemperature(0.2)
                       .setTopP(0.5)
@@ -239,7 +240,7 @@ public class ChatController {
    * prompt file.
    */
   private void initializeFilePath() {
-    switch (profession) {
+    switch (profession) { // Select the appropriate file path based on the profession
       case "Lab Technician":
         filePath = "src/main/resources/prompts/lab_technician_2.txt";
         break;
@@ -263,13 +264,13 @@ public class ChatController {
    *
    * @return the generated system prompt as a string
    */
-  private String getSystemPrompt() {
+  private String getSystemPrompt() { // Generate the system prompt based on the profession
     Map<String, String> map = new HashMap<>();
     map.put("profession", profession);
     String firstFile, secondFile;
 
     System.out.println(firstInteraction);
-    switch (profession) {
+    switch (profession) { // Select the appropriate files based on the profession
       case "Lab Technician":
         firstFile = "lab_technician.txt";
         secondFile = "lab_technician_2.txt";
@@ -288,7 +289,8 @@ public class ChatController {
         break;
     }
 
-    return readTextFile("src/main/resources/prompts/" + firstFile)
+    return readTextFile(
+            "src/main/resources/prompts/" + firstFile) // Concatenate the content of the two files
         + "\n\n"
         + readTextFile("src/main/resources/prompts/" + secondFile);
   }
@@ -303,21 +305,21 @@ public class ChatController {
    * @return the content of the file as a string
    */
   public static String readTextFile(String filePath) {
-    StringBuilder content = new StringBuilder();
+    StringBuilder content = new StringBuilder(); // Initialize the content string
     BufferedReader reader = null;
 
     try {
-      reader = new BufferedReader(new FileReader(filePath));
+      reader = new BufferedReader(new FileReader(filePath)); // Read the file line by line
 
       String line;
-      while ((line = reader.readLine()) != null) {
+      while ((line = reader.readLine()) != null) { // Append each line to the content
         content.append(line).append(System.lineSeparator());
       }
 
     } catch (IOException e) {
       e.printStackTrace();
     } finally {
-      try {
+      try { // Close the reader when finished
         if (reader != null) {
           reader.close();
         }
@@ -339,11 +341,13 @@ public class ChatController {
    * @param profession the profession for which the sound effect is played
    * @param first indicates if this is the first interaction with the profession
    */
-  public void playSound(String profession, boolean first) {
+  public void playSound(
+      String profession,
+      boolean first) { // Play the sound effect based on the profession and interaction status
     String soundSource = "";
     System.out.println(profession);
     if (firstInteraction.get(profession)) {
-      switch (profession) {
+      switch (profession) { // Select the appropriate sound effect based on the profession
         case "Lab Technician":
           soundSource = "labtechnician_greeting.mp3";
           break;
@@ -358,7 +362,7 @@ public class ChatController {
           break;
       }
     } else {
-      switch (profession) {
+      switch (profession) { // Select the appropriate sound effect based on the profession
         case "Lab Technician":
           soundSource = "labtechnician_hmm.mp3";
           break;
@@ -376,7 +380,8 @@ public class ChatController {
     StringBuilder sb = new StringBuilder();
     sb.append("/sounds/");
     sb.append(soundSource);
-    Media hmmSound = new Media(App.class.getResource(sb.toString()).toExternalForm());
+    Media hmmSound =
+        new Media(App.class.getResource(sb.toString()).toExternalForm()); // Load the sound file
     mediaPlayerChat = new MediaPlayer(hmmSound);
     mediaPlayerChat.setVolume(0.8);
 
@@ -384,7 +389,7 @@ public class ChatController {
 
     Platform.runLater(
         () -> {
-          mediaPlayerChat.play();
+          mediaPlayerChat.play(); // Play the sound
         });
   }
 
@@ -395,14 +400,17 @@ public class ChatController {
    *
    * @param msg the chat message to append
    */
-  private void appendChatMessage(ChatMessage msg) {
+  private void appendChatMessage(
+      ChatMessage msg) { // Appends the chat message to the chat text area
     name = msg.getRole().equals("assistant") ? profession : "You";
     String messageText = name + ": " + msg.getContent() + "\n\n";
-    saveChatToFile(msg.getContent() + "\n");
+    saveChatToFile(msg.getContent() + "\n"); // Save the chat message to the file
     txtaChat.appendText(messageText);
-    ArrayList history = chatHistories.getOrDefault(profession, new ArrayList<String>());
+    ArrayList history =
+        chatHistories.getOrDefault(
+            profession, new ArrayList<String>()); // Add the chat message to the chat history
     history.add(messageText);
-    chatHistories.put(profession, history);
+    chatHistories.put(profession, history); // Update the chat history
     System.out.println(chatHistories.get(profession));
   }
 
@@ -420,29 +428,30 @@ public class ChatController {
   private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
 
     RoomController.getRoomController().hideSuspectSpeaking();
-    if (stillTalking) {
+    if (stillTalking) { // Show the suspect thinking animation if they are still talking
       RoomController.getRoomController().showSuspectThinking();
     }
     chatCompletionRequest.addMessage(msg);
     try {
-      canSend = false;
+      canSend = false; // Disable the send button while the GPT model is processing
       btnSend.setDisable(true);
 
       playSound(profession, first);
       firstInteraction.put(profession, false);
-      ChatCompletionResult chatCompletionResult = chatCompletionRequest.execute();
+      ChatCompletionResult chatCompletionResult =
+          chatCompletionRequest.execute(); // Execute the GPT model
       Choice result = chatCompletionResult.getChoices().iterator().next();
       chatCompletionRequest.addMessage(result.getChatMessage());
       appendChatMessage(result.getChatMessage());
       RoomController.getRoomController().hideSuspectThinking();
-      if (stillTalking) {
+      if (stillTalking) { // Show the suspect speaking animation if they are still talking
         RoomController.getRoomController().showSuspectSpeaking();
       }
       chatTexts.add(profession + ": " + result.getChatMessage().getContent());
       canSend = true;
       btnSend.setDisable(false);
       return result.getChatMessage();
-    } catch (ApiProxyException e) {
+    } catch (ApiProxyException e) { // Handle any API proxy exceptions
       e.printStackTrace();
       return null;
     }
@@ -457,10 +466,10 @@ public class ChatController {
    */
   private void saveChatToFile(String chatContent) {
     try {
-      Files.writeString(
+      Files.writeString( // Write the chat content to the file
           Paths.get(filePath),
           chatContent + "\n",
-          StandardOpenOption.CREATE,
+          StandardOpenOption.CREATE, // Create the file if it doesn't exist
           StandardOpenOption.APPEND);
     } catch (IOException e) {
       e.printStackTrace();
@@ -481,32 +490,32 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
-    if (txtInput.getText().trim().isEmpty()) {
+    if (txtInput.getText().trim().isEmpty()) { // if the input is empty,
       return;
     }
 
     updateChatTexts();
     String message = txtInput.getText().trim();
 
-    if (message.isEmpty()) {
+    if (message.isEmpty()) { // Send the message to the GPT model
       return;
     }
     chatTexts.add("You: " + message);
 
-    txtInput.clear();
+    txtInput.clear(); // Clear the input field after sending the message
     ChatMessage msg = new ChatMessage("user", message);
 
     appendChatMessage(msg);
     talked = true;
     talkedTo.add(profession);
-    if (hasTalkedEnough()) {
+    if (hasTalkedEnough()) { // Check if the player has talked to all suspects
       App.setTalkedEnough(true);
     }
-    if (App.isInteractedEnough()) {
+    if (App.isInteractedEnough()) { // Check if the player has interacted enough
       RoomController.enableGuessButton();
     }
     runGptTask =
-        new Task<Void>() {
+        new Task<Void>() { // Run the GPT model asynchronously
           @Override
           protected Void call() throws Exception {
             runGpt(msg);
@@ -514,7 +523,7 @@ public class ChatController {
           }
         };
 
-    Thread backgroundGptThread = new Thread(runGptTask);
+    Thread backgroundGptThread = new Thread(runGptTask); // Start the GPT model thread
     backgroundGptThread.setDaemon(true);
     backgroundGptThread.start();
   }
@@ -531,11 +540,12 @@ public class ChatController {
    */
   @FXML
   private void onNextClicked(ActionEvent event) throws ApiProxyException, IOException {
-    if (displayedChat.getOrDefault(profession, 0) == 0) {
+    if (displayedChat.getOrDefault(profession, 0)
+        == 0) { // Show the next message in the chat history
       txtInput.setVisible(true);
       btnSend.setVisible(true);
       updateChatTexts();
-    } else {
+    } else { // Update the chat history and display the next message
       ChatController.displayedChat.put(
           profession, ChatController.displayedChat.getOrDefault(profession, 0) + 1);
       txtaChat.setText(
@@ -570,7 +580,7 @@ public class ChatController {
    */
   @FXML
   private void onLastClicked(ActionEvent event) throws ApiProxyException, IOException {
-    if (!chatHistories.get(profession).isEmpty()
+    if (!chatHistories.get(profession).isEmpty() // Show the previous message in the chat history
         && -1 * displayedChat.getOrDefault(profession, 0) < chatTexts.size()) {
       ChatController.displayedChat.put(
           profession, ChatController.displayedChat.getOrDefault(profession, 0) - 1);
@@ -579,11 +589,14 @@ public class ChatController {
               .get(profession)
               .get(
                   chatHistories.get(profession).size()
-                      + displayedChat.getOrDefault(profession, 0)));
+                      + displayedChat.getOrDefault(profession, 0))); // Update the chat history
       txtInput.setVisible(false);
-      btnSend.setVisible(false);
+      btnSend.setVisible(false); // Hide the input field and send button when navigating backward
     }
-    if (-1 * displayedChat.getOrDefault(profession, 0) == chatHistories.get(profession).size()) {
+    if (-1 * displayedChat.getOrDefault(profession, 0)
+        == chatHistories
+            .get(profession)
+            .size()) { // Hide the input field and send button when navigating backward
       displayedChat.put(profession, displayedChat.getOrDefault(profession, 0) + 1);
     }
   }
@@ -604,12 +617,12 @@ public class ChatController {
   @FXML
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
     stillTalking = false;
-    RoomController.getRoomController().hideSuspectSpeaking();
+    RoomController.getRoomController().hideSuspectSpeaking(); // Hide the suspect speaking animation
     RoomController.getRoomController().hideSuspectThinking();
     if (mediaPlayerChat != null) {
       mediaPlayerChat.stop();
     }
-    RoomController.getRoomController().hideSuspectSpeaking();
+    RoomController.getRoomController().hideSuspectSpeaking(); // Hide the suspect speaking animation
     RoomController.getRoomController().hideSuspectThinking();
 
     App.hideChat();
@@ -641,7 +654,7 @@ public class ChatController {
    * related components and the chat functionality.
    */
   private void disableInteraction() {
-    RoomController.getRoomController().disableRoom();
+    RoomController.getRoomController().disableRoom(); // Disable the room and suspects interface
     RoomController.getRoomController().disableSuspects();
     disbaleChatButton();
   }
@@ -653,7 +666,7 @@ public class ChatController {
    * components and chat functionality active again.
    */
   private void enableInteraction() {
-    RoomController.getRoomController().enableRoom();
+    RoomController.getRoomController().enableRoom(); // Enable the room and suspects interface
     RoomController.getRoomController().enableSuspects();
     enableChatButton();
   }
