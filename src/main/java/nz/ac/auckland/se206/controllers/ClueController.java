@@ -10,6 +10,7 @@ public abstract class ClueController {
 
   @FXML
   void initialize() {
+    timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
     App.getTimer().setLabel(timerLabel);
   }
 }
