@@ -1,0 +1,179 @@
+.next-button {
+  -fx-background-image: url("/images/nextbutton.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.next-button:hover {
+  -fx-opacity: 0.8;
+}
+
+.next-button:active {
+  -fx-opacity: 0.6;
+}
+
+.prev-button {
+  -fx-background-image: url("/images/prevbutton.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.prev-button:hover {
+  -fx-opacity: 0.8;
+}
+
+.prev-button:active {
+  -fx-opacity: 0.6;
+}
+
+.send-button {
+  -fx-background-image: url("/images/sendbtn.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.send-button:hover {
+  -fx-opacity: 0.8;
+}
+
+.send-button:active {
+  -fx-opacity: 0.6;
+}
+
+.send-button:disabled {
+  -fx-background-image: url("/images/disabledsend.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.back-button {
+  -fx-background-image: url("/images/backbtn.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-opacity: 1;
+}
+
+.back-button:hover {
+  -fx-background-image: url("/images/hoverback.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.no-highlight {
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
+  -fx-border-color: transparent;
+}
+
+.guess-button {
+  -fx-background-image: url("/images/guessbtn.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-opacity: 1;
+}
+
+.guess-button:hover {
+  -fx-background-image: url("/images/hoverguess.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.guess-button:disabled {
+  -fx-background-image: url("/images/disabledguess.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+
+.replay-button {
+  -fx-background-image: url("/images/replaybtn.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-opacity: 1;
+}
+
+
+.replay-button:hover {
+  -fx-background-image: url("/images/hoverreplay.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+}
+
+.start-button {
+  -fx-background-image: url("/images/startbtn.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-opacity: 1;
+}
+
+.start-button:hover {
+  -fx-background-image: url("/images/hoverstart.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-opacity: 1;
+}
