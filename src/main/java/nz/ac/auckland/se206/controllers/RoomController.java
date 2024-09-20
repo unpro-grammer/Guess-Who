@@ -26,33 +26,10 @@ import nz.ac.auckland.se206.speech.TextToSpeech;
  */
 public class RoomController {
 
-  @FXML private Label timerLabel;
-  @FXML private Rectangle rectLabTechnician;
-  @FXML private Rectangle rectScholar;
-  @FXML private Rectangle rectLeadScientist;
-  @FXML private Button btnGuess;
-  @FXML private Button clueSceneBtn;
-  @FXML private Button leadScientistSceneButton;
-  @FXML private Button labTechnicianSceneButton;
-  @FXML private Button scholarSceneButton;
-  @FXML private ImageView openLocker;
-  @FXML private Rectangle rectLocker;
-  @FXML private AnchorPane anchor;
-
-  @FXML private ImageView mapOverlay;
-  @FXML private ImageView mapIcon;
-
-  @FXML private ImageView pauseButton;
-  @FXML private ImageView suspectThinking;
-  @FXML private ImageView suspectSpeaking;
   protected static boolean isFirstTimeInit = true;
   private static GameStateContext context = App.getContext();
-  protected Timer timer;
   private static RoomController ctrl;
-
   private static MediaPlayer speaker;
-  private Image pauseImage = new Image("/images/pauseButton.png");
-  private Image playImage = new Image("/images/play-button.png");
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
@@ -61,6 +38,49 @@ public class RoomController {
   public static void setFirstTime() {
     isFirstTimeInit = true;
   }
+
+  /**
+   * Enables the guess button, allowing the player to submit their guess. This is usually triggered
+   * after the player has gathered enough information.
+   */
+  @FXML
+  public static void enableGuessButton() {
+    ctrl.btnGuess.setDisable(false);
+    System.out.println("Guess button enabled");
+  }
+
+  /**
+   * Retrieves the instance of the RoomController. This can be used by other classes to access the
+   * controller and its methods.
+   *
+   * @return the RoomController instance
+   */
+  public static RoomController getRoomController() {
+    return ctrl;
+  }
+
+  @FXML private AnchorPane anchor;
+  @FXML private Button clueSceneBtn;
+  @FXML private Button leadScientistSceneButton;
+  @FXML private Button labTechnicianSceneButton;
+  @FXML private Button scholarSceneButton;
+  @FXML private Button btnGuess;
+  @FXML private ImageView mapOverlay;
+  @FXML private ImageView mapIcon;
+  @FXML private ImageView pauseButton;
+  @FXML private ImageView suspectThinking;
+  @FXML private ImageView suspectSpeaking;
+  @FXML private ImageView openLocker;
+  @FXML private Label timerLabel;
+  @FXML private Rectangle rectLabTechnician;
+  @FXML private Rectangle rectScholar;
+  @FXML private Rectangle rectLeadScientist;
+  @FXML private Rectangle rectLocker;
+
+  protected Timer timer;
+
+  private Image pauseImage = new Image("/images/pauseButton.png");
+  private Image playImage = new Image("/images/play-button.png");
 
   /**
    * Initializes the room controller. This method sets up the timer, hides the map overlay, disables
@@ -129,8 +149,10 @@ public class RoomController {
    */
   @FXML
   protected void showMap() {
+    // show map overlay, hide map icon
     mapOverlay.setVisible(true);
     mapIcon.setVisible(false);
+    // display the navigation buttons
     clueSceneBtn.setVisible(true);
     leadScientistSceneButton.setVisible(true);
     labTechnicianSceneButton.setVisible(true);
@@ -142,26 +164,6 @@ public class RoomController {
   protected void closeMap() {
     ChatController.resetDisplayedChat();
     hideMap();
-  }
-
-  /**
-   * Enables the guess button, allowing the player to submit their guess. This is usually triggered
-   * after the player has gathered enough information.
-   */
-  @FXML
-  public static void enableGuessButton() {
-    ctrl.btnGuess.setDisable(false);
-    System.out.println("Guess button enabled");
-  }
-
-  /**
-   * Retrieves the instance of the RoomController. This can be used by other classes to access the
-   * controller and its methods.
-   *
-   * @return the RoomController instance
-   */
-  public static RoomController getRoomController() {
-    return ctrl;
   }
 
   /**
@@ -200,6 +202,7 @@ public class RoomController {
    */
   @FXML
   public void onPauseClick(MouseEvent event) {
+    // toggle between play and pause, alongside icons
     if (MusicPlayer.isPlaying()) {
       MusicPlayer.pauseAudio();
       pauseButton.setImage(playImage);
