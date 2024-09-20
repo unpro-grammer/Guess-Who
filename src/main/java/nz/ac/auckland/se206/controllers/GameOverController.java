@@ -77,7 +77,13 @@ public class GameOverController {
   }
 
   @FXML
+
   private void playAgain() throws IOException {
+
+    App.resetGame();
+    RoomController.setFirstTime();
+    ChatController.resetGame();
+
     App.setRoot("home");
   }
 

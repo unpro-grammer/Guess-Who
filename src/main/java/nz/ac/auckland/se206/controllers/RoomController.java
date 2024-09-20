@@ -38,32 +38,35 @@ public class RoomController {
   @FXML private ImageView openLocker;
   @FXML private Rectangle rectLocker;
   @FXML private AnchorPane anchor;
-  @FXML private ImageView pauseButton;
-  @FXML private ImageView suspectThinking;
-  @FXML private ImageView suspectSpeaking;
 
   @FXML private ImageView mapOverlay;
   @FXML private ImageView mapIcon;
 
+  @FXML private ImageView pauseButton;
+  @FXML private ImageView suspectThinking;
+  @FXML private ImageView suspectSpeaking;
   protected static boolean isFirstTimeInit = true;
   private static GameStateContext context = App.getContext();
   protected Timer timer;
   private static RoomController ctrl;
-  private Image pauseImage = new Image("/images/pauseButton.png");
-  private Image playImage = new Image("/images/play-button.png");
 
   private static MediaPlayer speaker;
+  private Image pauseImage = new Image("/images/pauseButton.png");
+  private Image playImage = new Image("/images/play-button.png");
 
   /**
    * Initializes the room view. If it's the first time initialization, it will provide instructions
    * via text-to-speech.
    */
+  public static void setFirstTime() {
+    isFirstTimeInit = true;
+  }
+
   @FXML
   public void initialize() {
 
     timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
     App.getTimer().setLabel(timerLabel);
-
 
     hideMap();
 
@@ -72,6 +75,7 @@ public class RoomController {
     } else {
       btnGuess.setDisable(true);
     }
+
     if (isFirstTimeInit) {
       Media speech = new Media(App.class.getResource("/sounds/whostole.mp3").toExternalForm());
       speaker = new MediaPlayer(speech);

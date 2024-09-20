@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
-import nz.ac.auckland.se206.controllers.LabTechnicianController;
 import nz.ac.auckland.se206.controllers.RoomController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 import nz.ac.auckland.se206.states.GameState;
@@ -50,6 +49,30 @@ public class App extends Application {
 
   public static boolean isInteractedEnough() {
     return talkedEnough && cluesExplored.size() >= 1;
+  }
+
+  public static void clearChats() {
+    replaceFileContent(
+        "src/main/resources/prompts/emptyfile.txt",
+        "src/main/resources/prompts/lab_technician_2.txt");
+    replaceFileContent(
+        "src/main/resources/prompts/emptyfile.txt",
+        "src/main/resources/prompts/lead_scientist_2.txt");
+    replaceFileContent(
+        "src/main/resources/prompts/emptyfile.txt", "src/main/resources/prompts/scholar_2.txt");
+  }
+
+  public static void resetGame() {
+    clearChats();
+    timer = new Timer(null, 300, () -> switchToGuessing());
+    guessTimer = null;
+    mediaPlayer = null;
+    feedback = "";
+    userAnswer = "";
+    userGuess = "";
+    context.setState(context.getGameStartedState());
+    talkedEnough = false;
+    cluesExplored = new HashSet<>();
   }
 
   public static void setTalkedEnough(boolean talkedEnough) {
@@ -171,15 +194,7 @@ public class App extends Application {
    * @param args the command line arguments
    */
   public static void main(final String[] args) {
-    replaceFileContent(
-        "src/main/resources/prompts/emptyfile.txt",
-        "src/main/resources/prompts/lab_technician_2.txt");
-    replaceFileContent(
-        "src/main/resources/prompts/emptyfile.txt",
-        "src/main/resources/prompts/lead_scientist_2.txt");
-    replaceFileContent(
-        "src/main/resources/prompts/emptyfile.txt", "src/main/resources/prompts/scholar_2.txt");
-    LabTechnicianController lt = new LabTechnicianController();
+    clearChats();
     launch();
   }
 
