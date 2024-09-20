@@ -57,8 +57,8 @@ public class ChatController {
   private static Boolean first;
   private static HashMap<String, Integer> displayedChat = new HashMap<String, Integer>();
   @FXML private TextArea txtaChat;
-  @FXML private static TextField txtInput;
-  @FXML private static Button btnSend;
+  @FXML private TextField txtInput;
+  @FXML private Button btnSend;
   @FXML private Button btnLast;
   @FXML private Button btnNext;
   private ChatCompletionRequest chatCompletionRequest;
@@ -136,11 +136,6 @@ public class ChatController {
         });
   }
 
-  public static void showSendButton() {
-    btnSend.setVisible(true);
-    txtInput.setVisible(true);
-  }
-
   /**
    * Retrieves the set of professions the player has talked to.
    *
@@ -212,6 +207,8 @@ public class ChatController {
           @Override
           protected Void call() throws Exception {
             try {
+              btnSend.setVisible(true);
+              txtInput.setVisible(true);
               first = firstInteraction.get(profession);
               ApiProxyConfig config = ApiProxyConfig.readConfig();
               chatCompletionRequest =
@@ -220,7 +217,9 @@ public class ChatController {
                       .setTemperature(0.2)
                       .setTopP(0.5)
                       .setMaxTokens(100);
+
               runGpt(new ChatMessage("system", getSystemPrompt()));
+
             } catch (ApiProxyException e) {
               e.printStackTrace();
             }
@@ -419,6 +418,7 @@ public class ChatController {
    * @throws ApiProxyException if there is an error communicating with the API proxy
    */
   private ChatMessage runGpt(ChatMessage msg) throws ApiProxyException {
+
     RoomController.getRoomController().hideSuspectSpeaking();
     if (stillTalking) {
       RoomController.getRoomController().showSuspectThinking();
