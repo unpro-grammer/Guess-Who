@@ -131,19 +131,6 @@ public class ChatController {
     }
   }
 
-  // Instance Fields
-  private String profession;
-  private String filePath;
-  private String name = "Speaker";
-  @FXML private TextArea txtaChat;
-  @FXML private TextField txtInput;
-  @FXML private Button btnSend;
-  @FXML private Button btnLast;
-  @FXML private Button btnNext;
-  private ChatCompletionRequest chatCompletionRequest;
-  private Task<Void> fetchChatTask;
-  private Task<Void> runGptTask;
-
   /**
    * Sets the room controller for managing the suspect interaction.
    *
@@ -191,6 +178,19 @@ public class ChatController {
 
     return content.toString();
   }
+
+  // Instance Fields
+  private String profession;
+  private String filePath;
+  private String name = "Speaker";
+  @FXML private TextArea txtaChat;
+  @FXML private TextField txtInput;
+  @FXML private Button btnSend;
+  @FXML private Button btnLast;
+  @FXML private Button btnNext;
+  private ChatCompletionRequest chatCompletionRequest;
+  private Task<Void> fetchChatTask;
+  private Task<Void> runGptTask;
 
   /**
    * Initializes the chat system when the chat window is opened.
