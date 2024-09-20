@@ -405,6 +405,9 @@ public class ChatController {
     if (mediaPlayerChat != null) {
       mediaPlayerChat.stop();
     }
+    RoomController.getRoomController().hideSuspectSpeaking();
+    RoomController.getRoomController().hideSuspectThinking();
+
     App.hideChat();
   }
 
