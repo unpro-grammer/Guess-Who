@@ -57,7 +57,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Rectangle>
-      <Button fx:id="confimGuessingButton" layoutX="314.0" layoutY="516.0" mnemonicParsing="false" onAction="#confirmGuessing" prefHeight="71.2" prefWidth="183.0" styleClass="confirm-button">
+      <Button fx:id="confimGuessingButton" layoutX="314.0" layoutY="516.0" mnemonicParsing="false" onAction="#onConfirmGuessing" prefHeight="71.2" prefWidth="183.0" styleClass="confirm-button">
          <font>
             <Font size="29.0" />
          </font>

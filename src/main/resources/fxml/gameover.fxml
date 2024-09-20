@@ -31,7 +31,7 @@
             <Image url="@../images/outoftime.png" />
          </image>
       </ImageView>
-      <Button fx:id="playAgainButton" layoutX="187.0" layoutY="508.0" mnemonicParsing="false" onAction="#playAgain" prefHeight="73.0" prefWidth="187.0" styleClass="replay-button">
+      <Button fx:id="playAgainButton" layoutX="187.0" layoutY="508.0" mnemonicParsing="false" onAction="#onPlayAgain" prefHeight="73.0" prefWidth="187.0" styleClass="replay-button">
          <font>
             <Font size="29.0" />
          </font>
@@ -39,7 +39,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="playAgainButton1" layoutX="212.0" layoutY="381.0" mnemonicParsing="false" onAction="#playAgain" prefHeight="73.0" prefWidth="187.0" styleClass="replay-button">
+      <Button fx:id="playAgainButton1" layoutX="212.0" layoutY="381.0" mnemonicParsing="false" onAction="#onPlayAgain" prefHeight="73.0" prefWidth="187.0" styleClass="replay-button">
          <font>
             <Font size="29.0" />
          </font>
@@ -47,7 +47,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="playAgainButton2" layoutX="307.0" layoutY="456.0" mnemonicParsing="false" onAction="#playAgain" prefHeight="73.0" prefWidth="187.0" styleClass="replay-button">
+      <Button fx:id="playAgainButton2" layoutX="307.0" layoutY="456.0" mnemonicParsing="false" onAction="#onPlayAgain" prefHeight="73.0" prefWidth="187.0" styleClass="replay-button">
          <font>
             <Font size="29.0" />
          </font>

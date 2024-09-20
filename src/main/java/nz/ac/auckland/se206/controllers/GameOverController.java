@@ -5,12 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
 import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
@@ -62,14 +60,14 @@ public class GameOverController {
         playAgainButton1.setVisible(true);
         break;
       case "Scholar":
-      // only the Scholar one is correct and have feedback generated
+        // only the Scholar one is correct and have feedback generated
         correctScholar.setVisible(true);
         feedbackDisplay.setVisible(true);
         getFeedback(userAnswer);
         playAgainButton.setVisible(true);
         break;
       default:
-      // if the player instead failed to guess when ran out of time
+        // if the player instead failed to guess when ran out of time
         outOfTime.setVisible(true);
         playAgainButton2.setVisible(true);
         break;
@@ -77,8 +75,7 @@ public class GameOverController {
   }
 
   @FXML
-
-  private void playAgain() throws IOException {
+  private void onPlayAgain() throws IOException {
 
     App.resetGame();
     RoomController.setFirstTime();
