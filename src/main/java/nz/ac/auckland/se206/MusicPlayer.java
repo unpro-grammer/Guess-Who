@@ -13,8 +13,12 @@ public class MusicPlayer {
   /** The MediaPlayer instance used for playing audio. */
   private static MediaPlayer mediaPlayer;
 
-  /** Constructor for the MusicPlayer class. */
-  public MusicPlayer() {}
+
+  /** Resumes playback of the current audio if it is paused. */
+   public static void playAudio() {
+    mediaPlayer.play();
+  }
+
 
   /**
    * Plays the specified audio file. If an audio file is already playing, it stops and disposes of
@@ -46,11 +50,6 @@ public class MusicPlayer {
    */
   public static boolean isPlaying() {
     return mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING;
-  }
-
-  /** Resumes playback of the current audio if it is paused. */
-  public static void playAudio() {
-    mediaPlayer.play();
   }
 
   /** Pauses the currently playing audio. */
