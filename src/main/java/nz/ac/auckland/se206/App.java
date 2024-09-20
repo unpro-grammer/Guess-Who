@@ -32,7 +32,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE>
-  private static Timer timer = new Timer(null, 300, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 2, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Stage stageWindow;
@@ -51,8 +51,19 @@ public class App extends Application {
     return talkedEnough && cluesExplored.size() >= 1;
   }
 
+  public static void clearChats() {
+    replaceFileContent(
+        "src/main/resources/prompts/emptyfile.txt",
+        "src/main/resources/prompts/lab_technician_2.txt");
+    replaceFileContent(
+        "src/main/resources/prompts/emptyfile.txt",
+        "src/main/resources/prompts/lead_scientist_2.txt");
+    replaceFileContent(
+        "src/main/resources/prompts/emptyfile.txt", "src/main/resources/prompts/scholar_2.txt");
+  }
+
   public static void resetGame() {
-    timer = new Timer(null, 300, () -> switchToGuessing());
+    timer = new Timer(null, 200, () -> switchToGuessing());
     guessTimer = null;
     mediaPlayer = null;
     feedback = "";
@@ -182,14 +193,7 @@ public class App extends Application {
    * @param args the command line arguments
    */
   public static void main(final String[] args) {
-    replaceFileContent(
-        "src/main/resources/prompts/emptyfile.txt",
-        "src/main/resources/prompts/lab_technician_2.txt");
-    replaceFileContent(
-        "src/main/resources/prompts/emptyfile.txt",
-        "src/main/resources/prompts/lead_scientist_2.txt");
-    replaceFileContent(
-        "src/main/resources/prompts/emptyfile.txt", "src/main/resources/prompts/scholar_2.txt");
+    clearChats();
     launch();
   }
 

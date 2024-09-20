@@ -58,12 +58,15 @@ public class RoomController {
    * Initializes the room view. If it's the first time initialization, it will provide instructions
    * via text-to-speech.
    */
+  public static void setFirstTime() {
+    isFirstTimeInit = true;
+  }
+
   @FXML
   public void initialize() {
 
     timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
     App.getTimer().setLabel(timerLabel);
-
 
     hideMap();
 
