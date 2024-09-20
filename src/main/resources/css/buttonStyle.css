@@ -186,3 +186,27 @@
   -fx-border-color: transparent;
   -fx-border-width: 0;
 }
+
+.start-button {
+  -fx-background-image: url("/images/startbtn.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-opacity: 1;
+}
+
+.start-button:hover {
+  -fx-background-image: url("/images/hoverstart.png");
+  -fx-background-size: cover;
+  -fx-background-repeat: no-repeat;
+  -fx-background-color: transparent;
+  -fx-text-fill: transparent;
+  -fx-padding: 0;
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-opacity: 1;
+}
