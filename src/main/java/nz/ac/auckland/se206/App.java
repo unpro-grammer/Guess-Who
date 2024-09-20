@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
-import nz.ac.auckland.se206.controllers.LabTechnicianController;
 import nz.ac.auckland.se206.controllers.RoomController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 import nz.ac.auckland.se206.states.GameState;
@@ -33,7 +32,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE>
-  private static Timer timer = new Timer(null, 300, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 1, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Stage stageWindow;
@@ -50,6 +49,18 @@ public class App extends Application {
 
   public static boolean isInteractedEnough() {
     return talkedEnough && cluesExplored.size() >= 1;
+  }
+
+  public static void resetGame() {
+    timer = new Timer(null, 5, () -> switchToGuessing());
+    guessTimer = null;
+    mediaPlayer = null;
+    feedback = "";
+    userAnswer = "";
+    userGuess = "";
+    context.setState(context.getGameStartedState());
+    talkedEnough = false;
+    cluesExplored = new HashSet<>();
   }
 
   public static void setTalkedEnough(boolean talkedEnough) {
@@ -179,7 +190,6 @@ public class App extends Application {
         "src/main/resources/prompts/lead_scientist_2.txt");
     replaceFileContent(
         "src/main/resources/prompts/emptyfile.txt", "src/main/resources/prompts/scholar_2.txt");
-    LabTechnicianController lt = new LabTechnicianController();
     launch();
   }
 
@@ -394,6 +404,7 @@ public class App extends Application {
   }
 
   public static void actuallyStart() throws IOException {
+
     Parent clueRoot = loadFxml("room");
 
     StackPane stackPane = new StackPane(scene.getRoot(), clueRoot);

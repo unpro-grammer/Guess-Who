@@ -83,6 +83,7 @@ public class GameOverController {
 
   @FXML
   private void playAgain(ActionEvent event) throws IOException {
+    App.resetGame();
     App.setRoot("home");
   }
 
