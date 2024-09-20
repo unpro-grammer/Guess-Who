@@ -628,35 +628,4 @@ public class ChatController {
 
     App.hideChat();
   }
-
-  /**
-   * Disables the chat button, preventing the user from sending any more messages.
-   *
-   * <p>This method hides the input field and disables the send button to block user interaction
-   * with the chat.
-   */
-  private void disbaleChatButton() {
-    btnSend.setDisable(true);
-  }
-
-  /**
-   * Enables the chat button, allowing the user to send messages again.
-   *
-   * <p>This method re-enables the input field and the send button for chat interaction.
-   */
-  private void enableChatButton() {
-    btnSend.setDisable(false);
-  }
-
-  /**
-   * Enables user interactions within the room and suspects interface.
-   *
-   * <p>This method re-enables interaction with the room and suspects by making the related
-   * components and chat functionality active again.
-   */
-  private void enableInteraction() {
-    RoomController.getRoomController().enableRoom(); // Enable the room and suspects interface
-    RoomController.getRoomController().enableSuspects();
-    enableChatButton();
-  }
 }
