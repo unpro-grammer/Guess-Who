@@ -16,12 +16,12 @@ import nz.ac.auckland.se206.Timer;
 
 public class GuessingController {
   private static MediaPlayer speaker;
-  @FXML Rectangle leadScientist;
-  @FXML Rectangle labTechnician;
-  @FXML Rectangle scholar;
-  @FXML TextArea explanationField;
-  @FXML Button confimGuessingButton;
-  @FXML Label timerLabel;
+  @FXML private Rectangle leadScientist;
+  @FXML private Rectangle labTechnician;
+  @FXML private Rectangle scholar;
+  @FXML private TextArea explanationField;
+  @FXML private Button confimGuessingButton;
+  @FXML private Label timerLabel;
 
   private String userAnswer;
   private String userGuess;
@@ -48,7 +48,7 @@ public class GuessingController {
   }
 
   @FXML
-  private void confirmGuessing(ActionEvent event) throws IOException {
+  private void confirmGuessing() throws IOException {
 
     userAnswer = explanationField.getText();
 
@@ -68,6 +68,12 @@ public class GuessingController {
         });
   }
 
+  /**
+   * Runs when player is selecting a suspect to be guessed during guessing state
+   * 
+   * @param event mouse event triggered by clicking on the suspect rectangle
+   * @throws IOException if there is I/O error
+   */
   @FXML
   private void selectSuspect(MouseEvent event) throws IOException {
     leadScientist.getStyleClass().remove("highlight");
@@ -75,6 +81,8 @@ public class GuessingController {
     scholar.getStyleClass().remove("highlight");
     Rectangle selected = (Rectangle) event.getSource();
     selected.getStyleClass().add("highlight");
+
+    // Player is only able to guess after selecting a suspect
     confimGuessingButton.setDisable(false);
     switch (selected.getId()) {
       case "leadScientist":
@@ -87,6 +95,8 @@ public class GuessingController {
         userGuess = "Scholar";
         break;
     }
+
+    // Update status in App
     App.setUserGuess(userGuess);
     System.out.println(userGuess);
   }
