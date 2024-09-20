@@ -7,17 +7,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" prefHeight="590.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.LeadScientistController">
+<AnchorPane fx:id="anchor" prefHeight="590.0" prefWidth="789.0" stylesheets="@../css/buttonStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.LeadScientistController">
    <children>
       <ImageView fitHeight="605.0" fitWidth="818.0" layoutY="-4.0" preserveRatio="true" smooth="true">
          <image>
             <Image url="@../images/scientist_background_only.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnGuess" layoutX="338.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleGuessClick" prefHeight="38.0" prefWidth="125.0" text="Make a Guess" />
-      <Label fx:id="timerLabel" alignment="CENTER" layoutX="36.0" layoutY="23.0" prefHeight="47.0" prefWidth="133.0" text="Label" textAlignment="CENTER" />
-      <AnchorPane fx:id="chatPane" layoutX="5.0" layoutY="446.0" prefHeight="132.0" prefWidth="779.0" />
+      <Button fx:id="btnGuess" layoutX="338.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleGuessClick" prefHeight="54.0" prefWidth="138.0" styleClass="guess-button" />
+      <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="19.0" prefHeight="51.0" prefWidth="125.0" text="Label" textAlignment="CENTER">
+         <font>
+            <Font size="31.0" />
+         </font></Label>
       <ImageView fx:id="leadscientist" fitHeight="322.0" fitWidth="205.0" layoutX="9.0" layoutY="234.0">
          <image>
             <Image url="@../images/scientist_normal.png" />
@@ -28,6 +31,17 @@
             <Image url="@../images/scientist_turned.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="suspectThinking" fitHeight="536.0" fitWidth="350.0" layoutX="361.0" layoutY="65.0" pickOnBounds="true" preserveRatio="false" visible="false">
+         <image>
+            <Image url="@../images/scientist_thinking.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="suspectSpeaking" fitHeight="536.0" fitWidth="350.0" layoutX="361.0" layoutY="65.0" pickOnBounds="true" preserveRatio="false" visible="false">
+         <image>
+            <Image url="@../images/scientist_speaking.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="chatPane" layoutY="428.0" prefHeight="173.0" prefWidth="748.0" />
       <Rectangle fx:id="rectLeadScientist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="252.0" layoutX="87.0" layoutY="266.0" onMouseClicked="#handleRectangleClick" onMouseEntered="#showTurned" onMouseExited="#hideTurned" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="56.0">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -37,15 +51,13 @@
             <Image url="@../images/pauseButton.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="suspectSpeaking" fitHeight="280.0" fitWidth="243.0" layoutX="461.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="mapOverlay" fitHeight="605.0" fitWidth="792.0" layoutX="-1.0" layoutY="-4.0" onMouseClicked="#closeMap">
          <image>
-            <Image url="@../images/scientist_speaking.png" />
+            <Image url="@../images/map_sci.png" />
          </image>
-      </ImageView>
-      <ImageView fx:id="suspectThinking" fitHeight="280.0" fitWidth="243.0" layoutX="461.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../images/scientist_thinking.png" />
-         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <ImageView fx:id="mapIcon" fitHeight="78.0" fitWidth="78.0" layoutX="701.0" layoutY="14.0" onMouseClicked="#showMap">
          <image>
@@ -55,30 +67,22 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="mapOverlay" fitHeight="605.0" fitWidth="792.0" layoutX="-1.0" layoutY="-4.0" onMouseClicked="#closeMap">
-         <image>
-            <Image url="@../images/map_sci.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <Button fx:id="clueSceneBtn" layoutX="118.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="C">
+      <Button fx:id="clueSceneBtn" layoutX="112.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="C">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="leadScientistSceneButton" layoutX="424.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="LS">
+      <Button fx:id="leadScientistSceneButton" layoutX="415.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="LS">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="labTechnicianSceneButton" layoutX="424.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="LT">
+      <Button fx:id="labTechnicianSceneButton" layoutX="415.0" layoutY="97.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="LT">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="scholarSceneButton" layoutX="118.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="S">
+      <Button fx:id="scholarSceneButton" layoutX="103.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="S">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="599.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.LockerClueController">
    <children>
@@ -79,6 +80,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Label fx:id="timerLabel" alignment="CENTER" layoutX="36.0" layoutY="23.0" prefHeight="47.0" prefWidth="133.0" text="Label" textAlignment="CENTER" />
+      <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="19.0" prefHeight="51.0" prefWidth="125.0" text="0 : 00" textAlignment="CENTER">
+         <font>
+            <Font size="31.0" />
+         </font></Label>
    </children>
 </AnchorPane>
