@@ -13,9 +13,6 @@ public class MusicPlayer {
   /** The MediaPlayer instance used for playing audio. */
   private static MediaPlayer mediaPlayer;
 
-  /** Constructor for the MusicPlayer class. */
-  public MusicPlayer() {}
-
   /**
    * Plays the specified audio file. If an audio file is already playing, it stops and disposes of
    * the previous MediaPlayer instance before creating a new one.

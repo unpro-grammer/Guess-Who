@@ -35,13 +35,20 @@ import nz.ac.auckland.se206.App;
  */
 public class ChatController {
 
+  // Static Fields
   private static Map<String, Boolean> firstInteraction = new HashMap<>();
   private static Map<String, ArrayList<String>> chatHistories = new HashMap<>();
   private static boolean talked = false;
   private static RoomController roomController;
   private static MediaPlayer mediaPlayerChat;
   private static boolean stillTalking = false;
+  private static ArrayList<String> chatTexts = new ArrayList<>();
+  private static Boolean first;
+  private static HashMap<String, Integer> displayedChat = new HashMap<>();
+  private static boolean canSend = true;
+  private static Set<String> talkedTo = new HashSet<>();
 
+  // Static Methods
   public static boolean isStillTalking() {
     return stillTalking;
   }
@@ -49,25 +56,6 @@ public class ChatController {
   public static void setStillTalking(boolean stillTalking) {
     ChatController.stillTalking = stillTalking;
   }
-
-  // Chat Functionality Variables
-  private static ArrayList<String> chatTexts = new ArrayList<>();
-  private String profession;
-  private String filePath;
-  private String name = "Speaker";
-  private static Boolean first;
-  private static HashMap<String, Integer> displayedChat = new HashMap<String, Integer>();
-  @FXML private TextArea txtaChat;
-  @FXML private TextField txtInput;
-  @FXML private Button btnSend;
-  @FXML private Button btnLast;
-  @FXML private Button btnNext;
-  private ChatCompletionRequest chatCompletionRequest;
-  private Task<Void> fetchChatTask;
-  private Task<Void> runGptTask;
-  private static boolean canSend = true;
-
-  private static Set<String> talkedTo = new HashSet<>();
 
   /**
    * Resets the game to its initial state.
@@ -93,48 +81,6 @@ public class ChatController {
     displayedChat.put("Lab Technician", 0);
     displayedChat.put("Lead Scientist", 0);
     displayedChat.put("Scholar", 0);
-  }
-
-  /**
-   * Sets the room controller for managing the suspect interaction.
-   *
-   * <p>This method assigns a RoomController instance to the class and initializes the
-   * LabTechnicianController as the current room controller.
-   *
-   * @param roomContrl the RoomController instance to manage room activities
-   */
-  public static void setRoomController(RoomController roomContrl) {
-    roomController = roomContrl; // Set the room controller
-  }
-
-  /**
-   * Initializes the chat system when the chat window is opened.
-   *
-   * <p>This method sets up the initial interaction flags and configures the input field event
-   * handler to send messages when the Enter key is pressed.
-   *
-   * @throws ApiProxyException if an error occurs during the chat initialization process
-   */
-  @FXML
-  public void initialize() throws ApiProxyException {
-    System.out.println("Chat initialized");
-    firstInteraction.put("Lab Technician", true); // Initialize the interaction flags
-    firstInteraction.put("Lead Scientist", true);
-    firstInteraction.put("Scholar", true);
-    txtaChat.getStyleClass().add("no-highlight");
-    resetDisplayedChat();
-
-    txtInput.setOnKeyPressed(
-        event -> {
-          if (event.getCode() == KeyCode.ENTER
-              && canSend) { // Send the message when the Enter key is pressed
-            try {
-              onSendMessage(new ActionEvent());
-            } catch (ApiProxyException | IOException e) {
-              e.printStackTrace();
-            }
-          }
-        });
   }
 
   /**
@@ -183,6 +129,98 @@ public class ChatController {
     if (mediaPlayerChat != null) { // Stop the chat sound if it is playing
       mediaPlayerChat.stop();
     }
+  }
+
+  // Instance Fields
+  private String profession;
+  private String filePath;
+  private String name = "Speaker";
+  @FXML private TextArea txtaChat;
+  @FXML private TextField txtInput;
+  @FXML private Button btnSend;
+  @FXML private Button btnLast;
+  @FXML private Button btnNext;
+  private ChatCompletionRequest chatCompletionRequest;
+  private Task<Void> fetchChatTask;
+  private Task<Void> runGptTask;
+
+  /**
+   * Sets the room controller for managing the suspect interaction.
+   *
+   * <p>This method assigns a RoomController instance to the class and initializes the
+   * LabTechnicianController as the current room controller.
+   *
+   * @param roomContrl the RoomController instance to manage room activities
+   */
+  public static void setRoomController(RoomController roomContrl) {
+    roomController = roomContrl; // Set the room controller
+  }
+
+  /**
+   * Reads the content of a text file and returns it as a string.
+   *
+   * <p>This method reads a file from the provided file path, line by line, and returns the content
+   * as a single string.
+   *
+   * @param filePath the path of the file to be read
+   * @return the content of the file as a string
+   */
+  public static String readTextFile(String filePath) {
+    StringBuilder content = new StringBuilder(); // Initialize the content string
+    BufferedReader reader = null;
+
+    try {
+      reader = new BufferedReader(new FileReader(filePath)); // Read the file line by line
+
+      String line;
+      while ((line = reader.readLine()) != null) { // Append each line to the content
+        content.append(line).append(System.lineSeparator());
+      }
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try { // Close the reader when finished
+        if (reader != null) {
+          reader.close();
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+    return content.toString();
+  }\
+  
+
+  /**
+   * Initializes the chat system when the chat window is opened.
+   *
+   * <p>This method sets up the initial interaction flags and configures the input field event
+   * handler to send messages when the Enter key is pressed.
+   *
+   * @throws ApiProxyException if an error occurs during the chat initialization process
+   */
+  @FXML
+  public void initialize() throws ApiProxyException {
+    System.out.println("Chat initialized");
+    firstInteraction.put("Lab Technician", true); // Initialize the interaction flags
+    firstInteraction.put("Lead Scientist", true);
+    firstInteraction.put("Scholar", true);
+    txtaChat.getStyleClass().add("no-highlight");
+    resetDisplayedChat();
+
+    txtInput.setOnKeyPressed(
+        event -> {
+          if (event.getCode() == KeyCode.ENTER
+              && canSend) { // Send the message when the Enter key is pressed
+            try {
+              onSendMessage(new ActionEvent());
+            } catch (ApiProxyException | IOException e) {
+              e.printStackTrace();
+            }
+          }
+        });
   }
 
   /**
@@ -293,42 +331,6 @@ public class ChatController {
             "src/main/resources/prompts/" + firstFile) // Concatenate the content of the two files
         + "\n\n"
         + readTextFile("src/main/resources/prompts/" + secondFile);
-  }
-
-  /**
-   * Reads the content of a text file and returns it as a string.
-   *
-   * <p>This method reads a file from the provided file path, line by line, and returns the content
-   * as a single string.
-   *
-   * @param filePath the path of the file to be read
-   * @return the content of the file as a string
-   */
-  public static String readTextFile(String filePath) {
-    StringBuilder content = new StringBuilder(); // Initialize the content string
-    BufferedReader reader = null;
-
-    try {
-      reader = new BufferedReader(new FileReader(filePath)); // Read the file line by line
-
-      String line;
-      while ((line = reader.readLine()) != null) { // Append each line to the content
-        content.append(line).append(System.lineSeparator());
-      }
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      try { // Close the reader when finished
-        if (reader != null) {
-          reader.close();
-        }
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-
-    return content.toString();
   }
 
   /**
