@@ -41,10 +41,13 @@
          <font>
             <Font size="31.0" />
          </font></Label>
-      <ImageView fx:id="pauseButton" fitHeight="38.0" fitWidth="33.0" layoutX="585.0" layoutY="21.0" onMouseClicked="#onPauseClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="pauseButton" fitHeight="38.0" fitWidth="33.0" layoutX="585.0" layoutY="40.0" onMouseClicked="#onPauseClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/pauseButton.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <ImageView fx:id="mapIcon" fitHeight="78.0" fitWidth="78.0" layoutX="699.0" layoutY="11.0" onMouseClicked="#showMap">
          <image>

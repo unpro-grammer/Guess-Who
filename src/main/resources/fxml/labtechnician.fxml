@@ -41,10 +41,13 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Rectangle>
-      <ImageView fx:id="pauseButton" fitHeight="38.0" fitWidth="33.0" layoutX="595.0" layoutY="31.0" onMouseClicked="#onPauseClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="pauseButton" fitHeight="38.0" fitWidth="33.0" layoutX="585.0" layoutY="40.0" onMouseClicked="#onPauseClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/pauseButton.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <ImageView fx:id="suspectThinking" fitHeight="536.0" fitWidth="350.0" layoutX="361.0" layoutY="65.0" pickOnBounds="true" preserveRatio="false" visible="false">
          <image>
