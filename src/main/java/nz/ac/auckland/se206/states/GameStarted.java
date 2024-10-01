@@ -86,9 +86,7 @@ public class GameStarted implements GameState {
 
     // App.setRoot("guessing");
     FXMLLoader guessLoader = new FXMLLoader(App.class.getResource("/fxml/guessing.fxml"));
-    System.out.println(guessLoader);
     Parent guessRoot = guessLoader.load();
-    System.out.println(guessRoot);
     App.setGuessCtrl(guessLoader.getController());
     App.setRoot(guessRoot);
 

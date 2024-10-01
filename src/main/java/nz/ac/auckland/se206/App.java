@@ -161,11 +161,8 @@ public class App extends Application {
     try {
       // App.setRoot("guessing");
       FXMLLoader guessLoader = new FXMLLoader(App.class.getResource("/fxml/guessing.fxml"));
-      System.out.println(guessLoader);
       Parent guessRoot = guessLoader.load();
-      System.out.println(guessRoot);
       guessCtrl = guessLoader.getController();
-      System.out.println(guessCtrl);
       scene.setRoot(guessRoot);
       System.out.println("Switching to guessing");
     } catch (IOException e) {
