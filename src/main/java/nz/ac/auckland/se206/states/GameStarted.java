@@ -2,6 +2,8 @@ package nz.ac.auckland.se206.states;
 
 import java.io.IOException;
 import java.util.HashSet;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.App;
@@ -82,7 +84,13 @@ public class GameStarted implements GameState {
   @Override
   public void handleGuessClick() throws IOException {
 
-    App.setRoot("guessing");
+    // App.setRoot("guessing");
+    FXMLLoader guessLoader = new FXMLLoader(App.class.getResource("/fxml/guessing.fxml"));
+    System.out.println(guessLoader);
+    Parent guessRoot = guessLoader.load();
+    System.out.println(guessRoot);
+    App.setGuessCtrl(guessLoader.getController());
+    App.setRoot(guessRoot);
 
     context.setState(context.getGuessingState());
   }

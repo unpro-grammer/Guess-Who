@@ -14,17 +14,22 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.Timer;
 
 public class GuessingController {
+  @FXML private TextArea explanationField;
   private static MediaPlayer speaker;
   @FXML private Rectangle leadScientist;
   @FXML private Rectangle labTechnician;
   @FXML private Rectangle scholar;
-  @FXML private TextArea explanationField;
   @FXML private Button confimGuessingButton;
   @FXML private Label timerLabel;
 
-  private String userAnswer;
+  private static String userAnswer;
   private String userGuess;
   private Timer timer;
+
+  public void setUserExplanation() {
+    userAnswer = explanationField.getText();
+    App.setUserAnswer(userAnswer);
+  }
 
   @FXML
   void initialize() {
@@ -50,7 +55,6 @@ public class GuessingController {
   private void onConfirmGuessing() throws IOException {
 
     userAnswer = explanationField.getText();
-
     App.setUserAnswer(userAnswer);
 
     App.setRoot("gameover");
@@ -69,7 +73,7 @@ public class GuessingController {
 
   /**
    * Runs when player is selecting a suspect to be guessed during guessing state
-   * 
+   *
    * @param event mouse event triggered by clicking on the suspect rectangle
    * @throws IOException if there is I/O error
    */

@@ -99,7 +99,7 @@ public class RoomController {
     if (App.isInteractedEnough()) {
       btnGuess.setDisable(false);
     } else {
-      btnGuess.setDisable(false); // IMPORTANT: CHANGE VALUE TO TRUE AFTER TESTING
+      btnGuess.setDisable(true); // IMPORTANT: CHANGE VALUE TO TRUE AFTER TESTING
     }
 
     // First-time initialization logic
