@@ -86,7 +86,7 @@ public class GameOverController {
 
   /**
    * Displays the feedback based on the player's explaination during guessing
-   * 
+   *
    * @param useranswer the explaination typed in by the user during guessing
    */
   public void getFeedback(String useranswer) {
@@ -101,7 +101,7 @@ public class GameOverController {
                       .setN(1)
                       .setTemperature(0.2)
                       .setTopP(0.5)
-                      .setMaxTokens(100);
+                      .setMaxTokens(130);
               // runs ChatGPT to generate a feedback based on the model answer
               runGpt(new ChatMessage("system", getSystemPrompt()));
               Platform.runLater(
@@ -129,7 +129,7 @@ public class GameOverController {
 
   /**
    * Runs ChatGPT to generate a feedback based on the model answer given
-   * 
+   *
    * @param msg The model answer preset
    * @return resulting message from generating
    * @throws ApiProxyException if there is API error

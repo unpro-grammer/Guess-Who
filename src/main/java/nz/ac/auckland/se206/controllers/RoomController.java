@@ -2,7 +2,6 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -100,7 +99,7 @@ public class RoomController {
     if (App.isInteractedEnough()) {
       btnGuess.setDisable(false);
     } else {
-      btnGuess.setDisable(true);
+      btnGuess.setDisable(false); // IMPORTANT: CHANGE VALUE TO TRUE AFTER TESTING
     }
 
     // First-time initialization logic
