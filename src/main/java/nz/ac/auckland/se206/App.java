@@ -30,7 +30,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE>
-  private static Timer timer = new Timer(null, 300, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 10, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Parent chatView = null;
@@ -230,7 +230,7 @@ public class App extends Application {
 
   public static Timer startGuessTimer() {
     // 60 sec timer <TOCHANGE>
-    guessTimer = new Timer(null, 60, () -> switchToGameOver());
+    guessTimer = new Timer(null, 10, () -> switchToGameOver());
     return guessTimer;
   }
 
