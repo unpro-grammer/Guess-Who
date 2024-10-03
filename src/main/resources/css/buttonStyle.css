@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Sono Medium';
+  src: url('/fonts/sonoMedium.ttf');
+}
+
+
 .next-button {
   -fx-background-image: url("/images/nextbutton.png");
   -fx-background-size: cover;
@@ -176,4 +182,11 @@
   -fx-border-color: transparent;
   -fx-border-width: 0;
   -fx-opacity: 1;
+}
+
+#timerLabel {
+  -fx-font-size: 30;
+  -fx-text-fill: rgb(94, 63, 40);
+  -fx-font-family: 'Sono Medium', monospace;
+  -fx-font-weight: 800;
 }

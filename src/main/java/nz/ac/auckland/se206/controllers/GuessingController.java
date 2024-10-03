@@ -41,6 +41,7 @@ public class GuessingController {
     confimGuessingButton.setDisable(true);
     Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/handwritingFont.ttf"), 27);
     System.out.println("Font Loaded: " + font.getName());
+    Font.loadFont(getClass().getResourceAsStream("/fonts/sonoMedium.ttf"), 27);
     Media speech = new Media(App.class.getResource("/sounds/guess.mp3").toExternalForm());
     speaker = new MediaPlayer(speech);
     // set volume

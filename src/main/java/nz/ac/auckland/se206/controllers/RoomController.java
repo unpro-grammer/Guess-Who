@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.MusicPlayer;
@@ -92,6 +93,10 @@ public class RoomController {
     // Set up the timer label
     timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
     App.getTimer().setLabel(timerLabel);
+
+    Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/sonoMedium.ttf"), 27);
+    System.out.println(font);
+    timerLabel.setFont(font);
 
     hideMap();
 

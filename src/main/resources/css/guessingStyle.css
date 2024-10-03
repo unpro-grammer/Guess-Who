@@ -18,6 +18,11 @@ Rectangle:hover {
   src: url('/fonts/handwritingFont.ttf');
 }
 
+@font-face {
+  font-family: 'Sono Medium';
+  src: url('/fonts/sonoMedium.ttf');
+}
+
 .confirm-button {
   -fx-background-image: url("/images/confirmbtn.png");
   -fx-background-size: cover;
@@ -77,14 +82,12 @@ Rectangle:hover {
   -fx-background-color: #f1ece4;
   -fx-pref-width: 15;
   -fx-padding: 0;
-  /* Ensure no extra padding is added */
 }
 
 .scroll-bar:horizontal {
   -fx-background-color: #f1ece4;
   -fx-pref-height: 10;
   -fx-padding: 0;
-  /* Ensure no extra padding is added */
 }
 
 .scroll-bar:vertical .track {
@@ -135,4 +138,11 @@ Rectangle:hover {
 .scroll-bar:horizontal .decrement-button {
   -fx-pref-width: 0;
   -fx-opacity: 0;
+}
+
+#timerLabel {
+  -fx-font-size: 30;
+  -fx-text-fill: rgb(94, 63, 40);
+  -fx-font-family: 'Sono Medium', monospace;
+  -fx-font-weight: 800;
 }
