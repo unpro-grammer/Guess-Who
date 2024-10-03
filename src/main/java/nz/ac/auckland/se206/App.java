@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
+import nz.ac.auckland.se206.controllers.GuessingController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 import nz.ac.auckland.se206.states.GameState;
 
@@ -41,6 +42,7 @@ public class App extends Application {
   private static GameStateContext context = new GameStateContext();
   private static boolean talkedEnough = false;
   private static Set<String> cluesExplored = new HashSet<>();
+  private static GuessingController guessCtrl = null;
 
   private static String[] charactersToShow =
       new String[] {
@@ -68,7 +70,8 @@ public class App extends Application {
   private static boolean isChatOpen = false;
 
   public static boolean isInteractedEnough() {
-    return talkedEnough && cluesExplored.size() >= 1;
+    // return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
+    return true;
   }
 
   public static void clearChats() {
@@ -86,11 +89,13 @@ public class App extends Application {
   public static void resetGame() {
     // clear all variables and reset game state
     clearChats();
-    timer = new Timer(null, 300, () -> switchToGuessing());
+    // <TOCHANGE> 5 minute timer
+    timer = new Timer(null, 10, () -> switchToGuessing());
     guessTimer = null;
     feedback = "";
     userAnswer = "";
     userGuess = "";
+    guessCtrl = null;
     context.setState(context.getGameStartedState());
     // game completion progress to 0
     talkedEnough = false;
@@ -133,6 +138,10 @@ public class App extends Application {
     return context.getState();
   }
 
+  public static void setGuessCtrl(GuessingController guessCtrl) {
+    App.guessCtrl = guessCtrl;
+  }
+
   private static void switchToGuessing() {
 
     pauseGameTimer();
@@ -150,7 +159,11 @@ public class App extends Application {
 
     // update scene IF ENOUGH INTERACTIONS
     try {
-      App.setRoot("guessing");
+      // App.setRoot("guessing");
+      FXMLLoader guessLoader = new FXMLLoader(App.class.getResource("/fxml/guessing.fxml"));
+      Parent guessRoot = guessLoader.load();
+      guessCtrl = guessLoader.getController();
+      scene.setRoot(guessRoot);
       System.out.println("Switching to guessing");
     } catch (IOException e) {
       e.printStackTrace();
@@ -164,7 +177,10 @@ public class App extends Application {
       // NEED MORE LOGIC TO HANDLE WHETHER A GUESS HAS BEEN CLICKED (selectesuspect in
       // gameovercontroller) // actually wait this is already done because suspect will be null.
       // Thankfully I have unified the gameover screen for any sort of time running out.
+
+      guessCtrl.setUserExplanation();
       App.setRoot("gameover");
+
       System.out.println("Switching to game over from switchToGameOver");
 
     } catch (IOException e) {
@@ -242,6 +258,10 @@ public class App extends Application {
    */
   public static void setRoot(String fxml) throws IOException {
     scene.setRoot(loadFxml(fxml));
+  }
+
+  public static void setRoot(Parent root) {
+    scene.setRoot(root);
   }
 
   /**
