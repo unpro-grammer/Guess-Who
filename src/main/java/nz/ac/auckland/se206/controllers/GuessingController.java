@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.Timer;
 
@@ -38,6 +39,8 @@ public class GuessingController {
     timer.setLabel(timerLabel);
     timer.startTimer();
     confimGuessingButton.setDisable(true);
+    Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/handwritingFont.ttf"), 27);
+    System.out.println("Font Loaded: " + font.getName());
     Media speech = new Media(App.class.getResource("/sounds/guess.mp3").toExternalForm());
     speaker = new MediaPlayer(speech);
     // set volume

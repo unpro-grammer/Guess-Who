@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -37,12 +38,18 @@
             <Image url="@../images/notepad.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="explanationField" layoutX="120.0" layoutY="339.0" prefHeight="253.0" prefWidth="570.0" promptText="Explain why you think the chosen suspect is the thief." style="-fx-background-color: transparent; -fx-control-inner-background: transparent; -fx-text-fill: #45281a; -fx-border-color: transparent; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" wrapText="true">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
+      <TextArea fx:id="explanationField" layoutX="120.0" layoutY="331.0" prefHeight="275.0" prefWidth="555.0" promptText="Explain why you think the chosen suspect is the thief." wrapText="true">
+        <cursor>
+          <Cursor fx:constant="TEXT" />
+        </cursor>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <font>
+            <Font size="27.0" />
+         </font>
       </TextArea>
-      <Rectangle fx:id="leadScientist" arcHeight="5.0" arcWidth="5.0" fill="#726ec3" height="175.0" layoutX="120.0" layoutY="90.0" onMouseClicked="#selectSuspect" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="176.0">
+      <Rectangle fx:id="leadScientist" arcHeight="5.0" arcWidth="5.0" fill="#726ec3" height="175.0" layoutX="117.0" layoutY="90.0" onMouseClicked="#selectSuspect" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="179.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -52,19 +59,11 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Rectangle>
-      <Rectangle fx:id="scholar" arcHeight="5.0" arcWidth="5.0" fill="#726ec3" height="175.0" layoutX="525.0" layoutY="90.0" onMouseClicked="#selectSuspect" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="176.0">
+      <Rectangle fx:id="scholar" arcHeight="5.0" arcWidth="5.0" fill="#726ec3" height="175.0" layoutX="523.0" layoutY="90.0" onMouseClicked="#selectSuspect" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="178.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Rectangle>
-      <Button fx:id="confimGuessingButton" layoutX="609.0" layoutY="519.0" mnemonicParsing="false" onAction="#onConfirmGuessing" prefHeight="47.5" prefWidth="122.0" styleClass="confirm-button">
-         <font>
-            <Font size="29.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
       <ImageView fitHeight="70.0" fitWidth="183.0" layoutX="11.0" layoutY="10.0">
          <image>
             <Image url="@../images/timer.png" />
@@ -74,5 +73,18 @@
          <font>
             <Font size="31.0" />
          </font></Label>
+      <ImageView fitHeight="605.0" fitWidth="645.0" layoutX="60.0">
+         <image>
+            <Image url="@../images/ruledlines.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="confimGuessingButton" layoutX="660.0" layoutY="528.0" mnemonicParsing="false" onAction="#onConfirmGuessing" prefHeight="47.5" prefWidth="122.0" styleClass="confirm-button">
+         <font>
+            <Font size="29.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

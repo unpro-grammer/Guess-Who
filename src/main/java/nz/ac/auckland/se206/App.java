@@ -246,7 +246,7 @@ public class App extends Application {
 
   public static Timer startGuessTimer() {
     // 60 sec timer <TOCHANGE>
-    guessTimer = new Timer(null, 10, () -> switchToGameOver());
+    guessTimer = new Timer(null, 60, () -> switchToGameOver());
     return guessTimer;
   }
 
