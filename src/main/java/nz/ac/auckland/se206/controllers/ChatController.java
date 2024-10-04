@@ -401,18 +401,28 @@ public class ChatController {
    *
    * @param msg the chat message to append
    */
-  private void appendChatMessage(
-      ChatMessage msg) { // Appends the chat message to the chat text area
-    name = msg.getRole().equals("assistant") ? profession : "You";
+  private void appendChatMessage(ChatMessage msg) {
+    // Determine the name to display: 'assistant' or 'You'
+    String name = msg.getRole().equals("assistant") ? profession : "You";
     String messageText = name + ": " + msg.getContent() + "\n\n";
-    saveChatToFile(msg.getContent() + "\n"); // Save the chat message to the file
+
+    // Save the chat message to the file
+    saveChatToFile(msg.getContent() + "\n");
+
+    // Append the message to the chat text area
     txtaChat.appendText(messageText);
-    ArrayList history =
-        chatHistories.getOrDefault(
-            profession, new ArrayList<String>()); // Add the chat message to the chat history
+
+    // Get the chat history for the current profession, or create a new one if none exists
+    ArrayList<String> history = chatHistories.getOrDefault(profession, new ArrayList<>());
+
+    // Add the new message to the chat history
     history.add(messageText);
     chatHistories.put(profession, history); // Update the chat history
-    System.out.println(chatHistories.get(profession));
+
+    // Update the displayedChat variable to reflect the most recent message
+    ChatController.displayedChat.put(profession, history.size());
+
+    // Debugging purposes: print the updated chat history for the current profession
   }
 
   /**
@@ -541,18 +551,29 @@ public class ChatController {
    */
   @FXML
   private void onNextClicked(ActionEvent event) throws ApiProxyException, IOException {
-    if (displayedChat.getOrDefault(profession, 0)
-        == 0) { // Show the next message in the chat history
-      txtInput.setVisible(true);
-      btnSend.setVisible(true);
-      updateChatTexts();
-    } else { // Update the chat history and display the next message
+    // Check if there are chat histories available and if we haven't reached the last message
+    if (!chatHistories.get(profession).isEmpty()
+        && displayedChat.getOrDefault(profession, 0) < chatHistories.get(profession).size() - 1) {
+
+      // Increment the displayed chat count for the current profession
       ChatController.displayedChat.put(
           profession, ChatController.displayedChat.getOrDefault(profession, 0) + 1);
+
+      // Update the text area with the new message
       txtaChat.setText(
           chatHistories
               .get(profession)
-              .get(chatTexts.size() + displayedChat.getOrDefault(profession, 0) - 1));
+              .get(displayedChat.get(profession))); // Get the next message from the history
+
+      // Hide the input field and send button if we're still in history mode
+      txtInput.setVisible(false);
+      btnSend.setVisible(false);
+    }
+
+    // If we reach the end of the chat history, show the input and send button
+    if (displayedChat.get(profession) == chatHistories.get(profession).size() - 1) {
+      txtInput.setVisible(true); // Make the input field visible
+      btnSend.setVisible(true); // Make the send button visible
     }
   }
 
@@ -572,7 +593,7 @@ public class ChatController {
    * <p>If the user has previously clicked the "Next" button to see future messages, this method
    * allows them to go back one message in the chat history.
    *
-   * <p>- Decreases `displayedChat` to show the previous message. - Hides the input and send button
+   * <p>- Decreases displayedChat to show the previous message. - Hides the input and send button
    * when navigating backward through chat history.
    *
    * @param event The action event triggered by the "Last" button.
@@ -581,24 +602,22 @@ public class ChatController {
    */
   @FXML
   private void onLastClicked(ActionEvent event) throws ApiProxyException, IOException {
-    if (!chatHistories.get(profession).isEmpty() // Show the previous message in the chat history
-        && -1 * displayedChat.getOrDefault(profession, 0) < chatTexts.size()) {
+    // Check if there are chat histories available and if we haven't reached the first message
+    if (!chatHistories.get(profession).isEmpty() && displayedChat.getOrDefault(profession, 0) > 0) {
+
+      // Decrement the displayed chat count for the current profession
       ChatController.displayedChat.put(
           profession, ChatController.displayedChat.getOrDefault(profession, 0) - 1);
+
+      // Update the text area with the previous message
       txtaChat.setText(
           chatHistories
               .get(profession)
-              .get(
-                  chatHistories.get(profession).size()
-                      + displayedChat.getOrDefault(profession, 0))); // Update the chat history
+              .get(displayedChat.get(profession))); // Get the previous message from the history
+
+      // Hide the input field and send button when navigating backward
       txtInput.setVisible(false);
-      btnSend.setVisible(false); // Hide the input field and send button when navigating backward
-    }
-    if (-1 * displayedChat.getOrDefault(profession, 0)
-        == chatHistories
-            .get(profession)
-            .size()) { // Hide the input field and send button when navigating backward
-      displayedChat.put(profession, displayedChat.getOrDefault(profession, 0) + 1);
+      btnSend.setVisible(false);
     }
   }
 
