@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -460,6 +461,7 @@ public class App extends Application {
     scene = new Scene(root);
     stage.setScene(scene);
     stage.setResizable(false);
+    stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
     stage.show();
     stage.setOnCloseRequest(event -> handleWindowClose(event));
     root.requestFocus();
