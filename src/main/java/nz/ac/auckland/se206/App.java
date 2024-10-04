@@ -71,8 +71,8 @@ public class App extends Application {
   private static boolean isChatOpen = false;
 
   public static boolean isInteractedEnough() {
-    // return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
-    return true;
+    return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
+    // return true;
   }
 
   public static void clearChats() {
@@ -105,6 +105,10 @@ public class App extends Application {
 
   public static void setTalkedEnough(boolean talkedEnough) {
     App.talkedEnough = talkedEnough;
+  }
+
+  public static boolean getTalkedEnough() {
+    return talkedEnough;
   }
 
   public static void addClueExplored(String clue) {

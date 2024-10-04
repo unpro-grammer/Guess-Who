@@ -24,7 +24,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Rectangle>
-      <Button fx:id="btnGuess" layoutX="338.0" layoutY="28.0" mnemonicParsing="false" onAction="#onHandleGuessClick" onMouseEntered="#onGuessRequirements" onMouseExited="#onGuessRequirementsExit" prefHeight="54.0" prefWidth="138.0" styleClass="guess-button">
+      <Button fx:id="btnGuess" layoutX="338.0" layoutY="28.0" mnemonicParsing="false" onAction="#onHandleGuessClick" prefHeight="54.0" prefWidth="138.0" styleClass="guess-button">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -86,5 +86,6 @@
          </cursor>
       </Button>
       <ImageView fx:id="guessRequirementImg" fitHeight="150.0" fitWidth="200.0" layoutX="377.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="beforeGuess" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="339.0" layoutY="30.0" onMouseEntered="#onGuessRequirements" onMouseExited="#onGuessRequirementsExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="136.0" />
    </children>
 </Pane>

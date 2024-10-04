@@ -77,6 +77,7 @@ public class RoomController {
   @FXML private Rectangle rectLeadScientist;
   @FXML private Rectangle rectLocker;
   @FXML private ImageView guessRequirementImg;
+  @FXML private Rectangle beforeGuess;
 
   protected Timer timer;
 
@@ -359,10 +360,17 @@ public class RoomController {
 
   @FXML
   protected void onGuessRequirements() {
-    
-    guessRequirementImg.setImage(moreClue);
-    guessRequirementImg.setImage(moreTalk);
+    if (App.isInteractedEnough()) {
+      beforeGuess.setDisable(true);
+      return;
+    }
+    beforeGuess.setDisable(false);
 
+    if (!App.getTalkedEnough()) {
+      guessRequirementImg.setImage(moreTalk);
+    } else {
+      guessRequirementImg.setImage(moreClue);
+    }
     guessRequirementImg.setVisible(true);
   }
 

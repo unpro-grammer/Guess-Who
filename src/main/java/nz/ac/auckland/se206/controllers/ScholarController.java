@@ -6,11 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.App;
+import javafx.scene.shape.Rectangle;
 
 public class ScholarController extends RoomController {
   @FXML private ImageView scholar;
   @FXML private ImageView scholarturned;
   @FXML private Label timerLabel;
+  @FXML private ImageView guessRequirementImg;
+  @FXML private Rectangle beforeGuess;
 
   @FXML
   public void initialize() {
@@ -32,6 +35,16 @@ public class ScholarController extends RoomController {
       scholar.setVisible(true);
       scholarturned.setVisible(false);
     }
+  }
+
+  @FXML
+  protected void onGuessRequirements() {
+    super.onGuessRequirements();
+  }
+
+  @FXML
+  protected void onGuessRequirementsExit() {
+    super.onGuessRequirementsExit();
   }
 
   @FXML
