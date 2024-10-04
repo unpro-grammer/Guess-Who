@@ -404,7 +404,13 @@ public class ChatController {
   private void appendChatMessage(
       ChatMessage msg) { // Appends the chat message to the chat text area
     name = msg.getRole().equals("assistant") ? profession : "You";
-    String messageText = name + ": " + msg.getContent() + "\n\n";
+    String messageText;
+    if (name.equals("You")) {
+      messageText = name + ": " + msg.getContent() + "\n\n";
+    } else {
+      messageText = name + ": " + msg.getContent();
+    }
+    System.out.println("Message is " + messageText);
     saveChatToFile(msg.getContent() + "\n"); // Save the chat message to the file
     txtaChat.appendText(messageText);
     ArrayList history =

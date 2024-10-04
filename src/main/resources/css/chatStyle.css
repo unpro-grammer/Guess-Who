@@ -1,0 +1,57 @@
+@font-face {
+  font-family: 'A.Casual.Handwritten.Pen';
+  src: url('/fonts/handwritingFont.ttf');
+}
+
+#txtaChat {
+  -fx-font-size: 23px;
+  -fx-background-color: #f5eeff !important;
+  -fx-text-fill: rgb(38, 33, 100) !important;
+  -fx-control-inner-background: #f5eeff !important;
+  -fx-border-width: 0;
+  -fx-border-color: #f5eeff !important;
+  -fx-focus-color: #f5eeff !important;
+  -fx-faint-focus-color: #f5eeff !important;
+  -fx-display-caret: true;
+  -fx-highlight-fill: #9e98cd;
+  -fx-font-family: 'A.Casual.Handwritten.Pen';
+  -fx-effect: null;
+  -fx-background-insets: 0;
+}
+
+#txtInput {
+  -fx-font-size: 20px;
+  -fx-font-family: 'A.Casual.Handwritten.Pen';
+  -fx-text-fill: rgb(68, 51, 130) !important;
+  -fx-highlight-fill: #9e98cd;
+}
+
+
+.scroll-pane {
+  -fx-background-color: #e9e4f1;
+}
+
+.scroll-bar:vertical {
+  -fx-background-color: #e9e4f1;
+  -fx-pref-width: 15;
+  -fx-padding: 0;
+}
+
+.scroll-bar:horizontal {
+  -fx-background-color: #e9e4f1;
+  -fx-pref-height: 10;
+  -fx-padding: 0;
+}
+
+.scroll-bar:vertical .track {
+  -fx-background-color: #e9e4f1;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+  -fx-pref-width: 30;
+}
+
+.scroll-bar:horizontal .track {
+  -fx-background-color: #e9e4f1;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+}

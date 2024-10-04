@@ -39,7 +39,7 @@
          </cursor></Rectangle>
       <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="19.0" prefHeight="51.0" prefWidth="125.0" text="0 : 00" textAlignment="CENTER">
          <font>
-            <Font size="31.0" />
+            <Font size="50.0" />
          </font></Label>
       <ImageView fx:id="pauseButton" fitHeight="38.0" fitWidth="33.0" layoutX="585.0" layoutY="40.0" onMouseClicked="#onPauseClick" pickOnBounds="true" preserveRatio="true">
          <image>

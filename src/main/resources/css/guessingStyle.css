@@ -13,6 +13,15 @@ Rectangle:hover {
   -fx-opacity: 0.3;
 }
 
+@font-face {
+  font-family: 'A.Casual.Handwritten.Pen';
+  src: url('/fonts/handwritingFont.ttf');
+}
+
+@font-face {
+  font-family: 'Sono Medium';
+  src: url('/fonts/sonoMedium.ttf');
+}
 
 .confirm-button {
   -fx-background-image: url("/images/confirmbtn.png");
@@ -46,4 +55,109 @@ Rectangle:hover {
   -fx-padding: 0;
   -fx-border-color: transparent;
   -fx-border-width: 0;
+}
+
+
+#explanationField {
+  -fx-font-size: 27px;
+  -fx-background-color: #f1ece4 !important;
+  -fx-text-fill: rgb(126, 77, 31) !important;
+  -fx-highlight-text-fill: rgb(66, 41, 17);
+  -fx-control-inner-background: #f1ece4 !important;
+  -fx-border-width: 0;
+  -fx-border-color: #f1ece4 !important;
+  -fx-focus-color: #f1ece4 !important;
+  -fx-faint-focus-color: #f1ece4 !important;
+  -fx-display-caret: true;
+  -fx-highlight-fill: #d8ccb7;
+  -fx-font-family: 'A.Casual.Handwritten.Pen';
+  -fx-caret-color: transparent;
+
+}
+
+#explanationField .text-area .content .caret {
+  -fx-background-color: rgb(59, 31, 126);
+  -fx-min-height: 20px;
+  -fx-max-height: 20px;
+  -fx-width: 2px;
+}
+
+.text-area .caret {
+  -fx-background-color: rgb(255, 0, 251);
+  -fx-min-height: 5px;
+  -fx-max-height: 5px;
+  -fx-width: 2px;
+}
+
+.scroll-pane {
+  -fx-background-color: #f1ece4;
+}
+
+.scroll-bar:vertical {
+  -fx-background-color: #f1ece4;
+  -fx-pref-width: 15;
+  -fx-padding: 0;
+}
+
+.scroll-bar:horizontal {
+  -fx-background-color: #f1ece4;
+  -fx-pref-height: 10;
+  -fx-padding: 0;
+}
+
+.scroll-bar:vertical .track {
+  -fx-background-color: #f1ece4;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+  -fx-pref-width: 30;
+}
+
+.scroll-bar:horizontal .track {
+  -fx-background-color: #f1ece4;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+}
+
+.scroll-bar:vertical .thumb {
+  -fx-background-color: #d8ccb7;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+  -fx-background-radius: 10;
+}
+
+.scroll-bar:horizontal .thumb {
+  -fx-background-color: #d8ccb7;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+  -fx-background-radius: 10;
+}
+
+.scroll-bar:vertical .thumb:hover {
+  -fx-background-color: #d1c0a3;
+  -fx-cursor: hand;
+}
+
+.scroll-bar:horizontal .thumb:hover {
+  -fx-background-color: #d1c0a3;
+  -fx-cursor: hand;
+}
+
+/* hide the arrows */
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+  -fx-pref-height: 0;
+  -fx-opacity: 0;
+}
+
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+  -fx-pref-width: 0;
+  -fx-opacity: 0;
+}
+
+#timerLabel {
+  -fx-font-size: 30;
+  -fx-text-fill: rgb(94, 63, 40);
+  -fx-font-family: 'Sono Medium', monospace;
+  -fx-font-weight: 800;
 }

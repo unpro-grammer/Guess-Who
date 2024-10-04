@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
 import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
@@ -27,6 +28,7 @@ public class GameOverController {
   @FXML private ImageView incorrectScientist;
   @FXML private ImageView correctScholar;
   @FXML private ImageView outOfTime;
+  @FXML private Rectangle purpLine;
 
   private String userAnswer;
   private ChatCompletionRequest chatCompletionRequest;
@@ -47,6 +49,7 @@ public class GameOverController {
     playAgainButton1.setVisible(false);
     playAgainButton2.setVisible(false);
     outOfTime.setVisible(false);
+    purpLine.setVisible(false);
     App.pauseGuessTimer();
 
     // depending on the player guessing result, display the correct image and related button
@@ -61,6 +64,7 @@ public class GameOverController {
         break;
       case "Scholar":
         // only the Scholar one is correct and have feedback generated
+        purpLine.setVisible(true);
         correctScholar.setVisible(true);
         feedbackDisplay.setVisible(true);
         getFeedback(userAnswer);
@@ -86,7 +90,7 @@ public class GameOverController {
 
   /**
    * Displays the feedback based on the player's explaination during guessing
-   * 
+   *
    * @param useranswer the explaination typed in by the user during guessing
    */
   public void getFeedback(String useranswer) {
@@ -101,7 +105,7 @@ public class GameOverController {
                       .setN(1)
                       .setTemperature(0.2)
                       .setTopP(0.5)
-                      .setMaxTokens(100);
+                      .setMaxTokens(130);
               // runs ChatGPT to generate a feedback based on the model answer
               runGpt(new ChatMessage("system", getSystemPrompt()));
               Platform.runLater(
@@ -129,7 +133,7 @@ public class GameOverController {
 
   /**
    * Runs ChatGPT to generate a feedback based on the model answer given
-   * 
+   *
    * @param msg The model answer preset
    * @return resulting message from generating
    * @throws ApiProxyException if there is API error
