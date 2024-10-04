@@ -363,6 +363,7 @@ public class App extends Application {
     // but at least buttons won't freeze.
     try {
       ChatController.stopSounds();
+      App.closeChat();
       switch (roomButtonId) {
         case "clueSceneBtn":
           System.out.println("Switching to clue scene");
@@ -392,6 +393,10 @@ public class App extends Application {
 
   public static boolean isChatOpen() {
     return isChatOpen;
+  }
+
+  public static void closeChat() {
+    isChatOpen = false;
   }
 
   public static boolean gameResult(String suspectName) {
