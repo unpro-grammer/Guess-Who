@@ -71,7 +71,22 @@ Rectangle:hover {
   -fx-display-caret: true;
   -fx-highlight-fill: #d8ccb7;
   -fx-font-family: 'A.Casual.Handwritten.Pen';
+  -fx-caret-color: transparent;
 
+}
+
+#explanationField .text-area .content .caret {
+  -fx-background-color: rgb(59, 31, 126);
+  -fx-min-height: 20px;
+  -fx-max-height: 20px;
+  -fx-width: 2px;
+}
+
+.text-area .caret {
+  -fx-background-color: rgb(255, 0, 251);
+  -fx-min-height: 5px;
+  -fx-max-height: 5px;
+  -fx-width: 2px;
 }
 
 .scroll-pane {

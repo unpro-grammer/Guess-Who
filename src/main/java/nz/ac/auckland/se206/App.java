@@ -31,7 +31,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE>
-  private static Timer timer = new Timer(null, 10, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 100, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Parent chatView = null;
@@ -90,7 +90,7 @@ public class App extends Application {
     // clear all variables and reset game state
     clearChats();
     // <TOCHANGE> 5 minute timer
-    timer = new Timer(null, 10, () -> switchToGuessing());
+    timer = new Timer(null, 100, () -> switchToGuessing());
     guessTimer = null;
     feedback = "";
     userAnswer = "";

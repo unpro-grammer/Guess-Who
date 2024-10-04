@@ -33,6 +33,21 @@
             <Image url="@../images/scholarpfp.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="selectScientist" fitHeight="181.0" fitWidth="183.0" layoutX="115.0" layoutY="87.0">
+         <image>
+            <Image url="@../images/selectscientist.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="selectLabtech" fitHeight="181.0" fitWidth="183.0" layoutX="319.0" layoutY="87.0">
+         <image>
+            <Image url="@../images/selectlabtech.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="selectScholar" fitHeight="181.0" fitWidth="183.0" layoutX="521.0" layoutY="87.0">
+         <image>
+            <Image url="@../images/selectscholar.png" />
+         </image>
+      </ImageView>
       <ImageView fitHeight="605.0" fitWidth="789.0" layoutX="15.0">
          <image>
             <Image url="@../images/notepad.png" />

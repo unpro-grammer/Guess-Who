@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -22,6 +23,9 @@ public class GuessingController {
   @FXML private Rectangle scholar;
   @FXML private Button confimGuessingButton;
   @FXML private Label timerLabel;
+  @FXML private ImageView selectScientist;
+  @FXML private ImageView selectLabtech;
+  @FXML private ImageView selectScholar;
 
   private static String userAnswer;
   private String userGuess;
@@ -34,6 +38,7 @@ public class GuessingController {
 
   @FXML
   void initialize() {
+    hideSelects();
     App.pauseGameTimer();
     timer = App.startGuessTimer();
     timer.setLabel(timerLabel);
@@ -93,12 +98,18 @@ public class GuessingController {
     confimGuessingButton.setDisable(false);
     switch (selected.getId()) {
       case "leadScientist":
+        hideSelects();
+        selectScientist.setVisible(true);
         userGuess = "Lead Scientist";
         break;
       case "labTechnician":
+        hideSelects();
+        selectLabtech.setVisible(true);
         userGuess = "Lab Technician";
         break;
       case "scholar":
+        hideSelects();
+        selectScholar.setVisible(true);
         userGuess = "Scholar";
         break;
     }
@@ -106,5 +117,11 @@ public class GuessingController {
     // Update status in App
     App.setUserGuess(userGuess);
     System.out.println(userGuess);
+  }
+
+  private void hideSelects() {
+    selectScientist.setVisible(false);
+    selectLabtech.setVisible(false);
+    selectScholar.setVisible(false);
   }
 }

@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="818.0" stylesheets="@../css/buttonStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.GameOverController">
@@ -25,7 +26,6 @@
             <Image url="@../images/incorrect_labtech.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="feedbackDisplay" editable="false" layoutX="81.0" layoutY="234.0" prefHeight="243.0" prefWidth="402.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Evaluating your explanation..." wrapText="true" />
       <ImageView fx:id="outOfTime" fitHeight="625.0" fitWidth="818.0">
          <image>
             <Image url="@../images/outoftime.png" />
@@ -55,5 +55,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <TextArea fx:id="feedbackDisplay" editable="false" layoutX="81.0" layoutY="234.0" prefHeight="243.0" prefWidth="402.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Evaluating your explanation..." wrapText="true" />
+      <Rectangle fx:id="purpLine" arcHeight="5.0" arcWidth="5.0" fill="#e9e4f0" height="9.0" layoutX="81.0" layoutY="235.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="402.0" />
    </children>
 </AnchorPane>
