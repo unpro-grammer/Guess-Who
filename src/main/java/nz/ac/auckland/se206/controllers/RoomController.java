@@ -364,8 +364,7 @@ public class RoomController {
       beforeGuess.setDisable(true);
       return;
     }
-    beforeGuess.setDisable(false);
-
+    guessRequirementImg.setDisable(false);
     if (!App.getTalkedEnough()) {
       guessRequirementImg.setImage(moreTalk);
     } else {
@@ -377,6 +376,7 @@ public class RoomController {
   @FXML
   protected void onGuessRequirementsExit() {
     guessRequirementImg.setVisible(false);
+    guessRequirementImg.setDisable(true);
   }
 
 }
