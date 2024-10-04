@@ -76,11 +76,15 @@ public class RoomController {
   @FXML private Rectangle rectScholar;
   @FXML private Rectangle rectLeadScientist;
   @FXML private Rectangle rectLocker;
+  @FXML private ImageView guessRequirementImg;
+  @FXML private Rectangle beforeGuess;
 
   protected Timer timer;
 
   private Image pauseImage = new Image("/images/pauseButton.png");
   private Image playImage = new Image("/images/play-button.png");
+  private Image moreClue = new Image("/images/clue.png");
+  private Image moreTalk = new Image("/images/talk.png");
 
   /**
    * Initializes the room controller. This method sets up the timer, hides the map overlay, disables
@@ -160,12 +164,14 @@ public class RoomController {
     leadScientistSceneButton.setVisible(true);
     labTechnicianSceneButton.setVisible(true);
     scholarSceneButton.setVisible(true);
+    beforeGuess.setDisable(true);
   }
 
   /** Closes the map overlay by calling the `hideMap()` method. */
   @FXML
   protected void closeMap() {
     ChatController.resetDisplayedChat();
+    beforeGuess.setDisable(false);
     hideMap();
   }
 
@@ -352,4 +358,26 @@ public class RoomController {
       rectLeadScientist.setDisable(false);
     }
   }
+
+  @FXML
+  protected void onGuessRequirements() {
+    if (App.isInteractedEnough()) {
+      beforeGuess.setDisable(true);
+      return;
+    }
+    guessRequirementImg.setDisable(false);
+    if (!App.getTalkedEnough()) {
+      guessRequirementImg.setImage(moreTalk);
+    } else {
+      guessRequirementImg.setImage(moreClue);
+    }
+    guessRequirementImg.setVisible(true);
+  }
+
+  @FXML
+  protected void onGuessRequirementsExit() {
+    guessRequirementImg.setVisible(false);
+    guessRequirementImg.setDisable(true);
+  }
+
 }

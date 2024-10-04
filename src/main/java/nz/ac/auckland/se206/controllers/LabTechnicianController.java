@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import nz.ac.auckland.se206.App;
+import javafx.scene.shape.Rectangle;
 
 public class LabTechnicianController extends RoomController {
   @FXML private ImageView labtechnician;
@@ -14,6 +15,8 @@ public class LabTechnicianController extends RoomController {
   @FXML private ImageView pauseButton;
   @FXML private ImageView suspectThinking;
   @FXML private ImageView suspectSpeaking;
+  @FXML private ImageView guessRequirementImg;
+  @FXML private Rectangle beforeGuess;
 
   @FXML
   public void initialize() {
@@ -51,6 +54,16 @@ public class LabTechnicianController extends RoomController {
       labtechnician.setVisible(true);
       labtechnicianturned.setVisible(false);
     }
+  }
+
+  @FXML
+  protected void onGuessRequirements() {
+    super.onGuessRequirements();
+  }
+
+  @FXML
+  protected void onGuessRequirementsExit() {
+    super.onGuessRequirementsExit();
   }
 
   @FXML

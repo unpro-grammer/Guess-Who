@@ -94,5 +94,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <ImageView fx:id="guessRequirementImg" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="384.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="beforeGuess" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="339.0" layoutY="31.0" onMouseEntered="#onGuessRequirements" onMouseExited="#onGuessRequirementsExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="136.0" />
    </children>
 </AnchorPane>
