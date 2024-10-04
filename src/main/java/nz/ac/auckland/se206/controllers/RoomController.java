@@ -76,11 +76,14 @@ public class RoomController {
   @FXML private Rectangle rectScholar;
   @FXML private Rectangle rectLeadScientist;
   @FXML private Rectangle rectLocker;
+  @FXML private ImageView guessRequirementImg;
 
   protected Timer timer;
 
   private Image pauseImage = new Image("/images/pauseButton.png");
   private Image playImage = new Image("/images/play-button.png");
+  private Image moreClue = new Image("/images/clue.png");
+  private Image moreTalk = new Image("/images/talk.png");
 
   /**
    * Initializes the room controller. This method sets up the timer, hides the map overlay, disables
@@ -353,4 +356,19 @@ public class RoomController {
       rectLeadScientist.setDisable(false);
     }
   }
+
+  @FXML
+  protected void onGuessRequirements() {
+    
+    guessRequirementImg.setImage(moreClue);
+    guessRequirementImg.setImage(moreTalk);
+
+    guessRequirementImg.setVisible(true);
+  }
+
+  @FXML
+  protected void onGuessRequirementsExit() {
+    guessRequirementImg.setVisible(false);
+  }
+
 }
