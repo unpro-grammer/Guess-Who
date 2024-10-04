@@ -22,7 +22,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5eeff" height="5.0" layoutX="605.0" layoutY="128.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="86.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5eeff" height="3.0" layoutX="607.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="86.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5eeff" height="5.0" layoutX="691.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-    <TextField fx:id="txtInput" layoutX="119.0" layoutY="130.0" prefHeight="26.0" prefWidth="487.0" style="-fx-background-color: #FFFFFF;" />
+    <TextField fx:id="txtInput" layoutX="119.0" layoutY="130.0" prefHeight="26.0" prefWidth="487.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 60px;" />
     <Button fx:id="btnSend" layoutX="620.0" layoutY="130.0" mnemonicParsing="false" onAction="#onSendMessage" prefHeight="27.0" prefWidth="69.0" styleClass="send-button">
          <cursor>
             <Cursor fx:constant="HAND" />
