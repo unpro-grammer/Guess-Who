@@ -165,12 +165,14 @@ public class RoomController {
     leadScientistSceneButton.setVisible(true);
     labTechnicianSceneButton.setVisible(true);
     scholarSceneButton.setVisible(true);
+    beforeGuess.setDisable(true);
   }
 
   /** Closes the map overlay by calling the `hideMap()` method. */
   @FXML
   protected void closeMap() {
     ChatController.resetDisplayedChat();
+    beforeGuess.setDisable(false);
     hideMap();
   }
 
