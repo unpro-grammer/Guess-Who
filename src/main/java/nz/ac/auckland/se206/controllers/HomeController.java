@@ -28,11 +28,12 @@ public class HomeController {
 
     timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
     App.getTimer().setLabel(timerLabel);
-    App.getTimer().startTimer();
-
+    
     Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/sonoMedium.ttf"), 27);
     System.out.println(font);
     timerLabel.setFont(font);
+    
+    App.getTimer().startTimer();
   }
 
   @FXML

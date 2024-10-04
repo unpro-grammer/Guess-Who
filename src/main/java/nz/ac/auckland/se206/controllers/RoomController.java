@@ -121,7 +121,6 @@ public class RoomController {
 
       // Start the timer and play background music
       isFirstTimeInit = false;
-      App.getTimer().startTimer();
       MusicPlayer.playAudio("/sounds/lofifocusbeat.mp3");
 
     } else {
