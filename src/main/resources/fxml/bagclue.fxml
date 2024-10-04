@@ -40,6 +40,10 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+      <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="19.0" prefHeight="51.0" prefWidth="125.0" text="0 : 00" textAlignment="CENTER">
+         <font>
+            <Font size="50.0" />
+         </font></Label>
       <ImageView fx:id="zoomedBagStuff" fitHeight="605.0" fitWidth="792.0" onMouseClicked="#closeBagStuff">
          <image>
             <Image url="@../images/thinginbag.png" />
@@ -48,9 +52,5 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="19.0" prefHeight="51.0" prefWidth="125.0" text="0 : 00" textAlignment="CENTER">
-         <font>
-            <Font size="31.0" />
-         </font></Label>
    </children>
 </AnchorPane>

@@ -22,7 +22,7 @@
          </cursor></Button>
       <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="19.0" prefHeight="51.0" prefWidth="125.0" text="Label" textAlignment="CENTER">
          <font>
-            <Font size="31.0" />
+            <Font size="50.0" />
          </font></Label>
       <ImageView fx:id="leadscientist" fitHeight="322.0" fitWidth="205.0" layoutX="9.0" layoutY="234.0">
          <image>

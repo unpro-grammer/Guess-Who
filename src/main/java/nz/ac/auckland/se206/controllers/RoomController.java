@@ -2,7 +2,6 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.MusicPlayer;
@@ -94,13 +94,17 @@ public class RoomController {
     timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
     App.getTimer().setLabel(timerLabel);
 
+    Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/sonoMedium.ttf"), 27);
+    System.out.println(font);
+    timerLabel.setFont(font);
+
     hideMap();
 
     // Enable or disable the guess button based on interaction progress
     if (App.isInteractedEnough()) {
       btnGuess.setDisable(false);
     } else {
-      btnGuess.setDisable(true);
+      btnGuess.setDisable(true); // IMPORTANT: CHANGE VALUE TO TRUE AFTER TESTING
     }
 
     // First-time initialization logic

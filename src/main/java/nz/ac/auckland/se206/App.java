@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.controllers.ChatController;
+import nz.ac.auckland.se206.controllers.GuessingController;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
 import nz.ac.auckland.se206.states.GameState;
 
@@ -30,7 +32,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE>
-  private static Timer timer = new Timer(null, 300, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 100, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Parent chatView = null;
@@ -41,6 +43,7 @@ public class App extends Application {
   private static GameStateContext context = new GameStateContext();
   private static boolean talkedEnough = false;
   private static Set<String> cluesExplored = new HashSet<>();
+  private static GuessingController guessCtrl = null;
 
   private static String[] charactersToShow =
       new String[] {
@@ -68,7 +71,8 @@ public class App extends Application {
   private static boolean isChatOpen = false;
 
   public static boolean isInteractedEnough() {
-    return talkedEnough && cluesExplored.size() >= 1;
+    // return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
+    return true;
   }
 
   public static void clearChats() {
@@ -86,11 +90,13 @@ public class App extends Application {
   public static void resetGame() {
     // clear all variables and reset game state
     clearChats();
-    timer = new Timer(null, 300, () -> switchToGuessing());
+    // <TOCHANGE> 5 minute timer
+    timer = new Timer(null, 100, () -> switchToGuessing());
     guessTimer = null;
     feedback = "";
     userAnswer = "";
     userGuess = "";
+    guessCtrl = null;
     context.setState(context.getGameStartedState());
     // game completion progress to 0
     talkedEnough = false;
@@ -133,6 +139,10 @@ public class App extends Application {
     return context.getState();
   }
 
+  public static void setGuessCtrl(GuessingController guessCtrl) {
+    App.guessCtrl = guessCtrl;
+  }
+
   private static void switchToGuessing() {
 
     pauseGameTimer();
@@ -150,7 +160,11 @@ public class App extends Application {
 
     // update scene IF ENOUGH INTERACTIONS
     try {
-      App.setRoot("guessing");
+      // App.setRoot("guessing");
+      FXMLLoader guessLoader = new FXMLLoader(App.class.getResource("/fxml/guessing.fxml"));
+      Parent guessRoot = guessLoader.load();
+      guessCtrl = guessLoader.getController();
+      scene.setRoot(guessRoot);
       System.out.println("Switching to guessing");
     } catch (IOException e) {
       e.printStackTrace();
@@ -164,7 +178,10 @@ public class App extends Application {
       // NEED MORE LOGIC TO HANDLE WHETHER A GUESS HAS BEEN CLICKED (selectesuspect in
       // gameovercontroller) // actually wait this is already done because suspect will be null.
       // Thankfully I have unified the gameover screen for any sort of time running out.
+
+      guessCtrl.setUserExplanation();
       App.setRoot("gameover");
+
       System.out.println("Switching to game over from switchToGameOver");
 
     } catch (IOException e) {
@@ -242,6 +259,10 @@ public class App extends Application {
    */
   public static void setRoot(String fxml) throws IOException {
     scene.setRoot(loadFxml(fxml));
+  }
+
+  public static void setRoot(Parent root) {
+    scene.setRoot(root);
   }
 
   /**
@@ -343,6 +364,7 @@ public class App extends Application {
     // but at least buttons won't freeze.
     try {
       ChatController.stopSounds();
+      App.closeChat();
       switch (roomButtonId) {
         case "clueSceneBtn":
           System.out.println("Switching to clue scene");
@@ -372,6 +394,10 @@ public class App extends Application {
 
   public static boolean isChatOpen() {
     return isChatOpen;
+  }
+
+  public static void closeChat() {
+    isChatOpen = false;
   }
 
   public static boolean gameResult(String suspectName) {
@@ -435,6 +461,7 @@ public class App extends Application {
     scene = new Scene(root);
     stage.setScene(scene);
     stage.setResizable(false);
+    stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
     stage.show();
     stage.setOnCloseRequest(event -> handleWindowClose(event));
     root.requestFocus();
