@@ -457,7 +457,7 @@ public class App extends Application {
     }
 
     // Fade homescreen out
-    FadeTransition fadeHome = new FadeTransition(Duration.millis(300), scene.getRoot());
+    FadeTransition fadeHome = new FadeTransition(Duration.millis(230), scene.getRoot());
     scene.setRoot(stackPane);
     stackPane.setStyle("-fx-background-color: #c5c7e1;");
     fadeHome.setFromValue(1);
@@ -475,7 +475,7 @@ public class App extends Application {
           }
 
           // Fade clue room in
-          FadeTransition fadeClue = new FadeTransition(Duration.millis(300), clueRoot);
+          FadeTransition fadeClue = new FadeTransition(Duration.millis(230), clueRoot);
           fadeClue.setFromValue(0);
           fadeClue.setToValue(1);
           fadeClue.play();
@@ -529,13 +529,5 @@ public class App extends Application {
 
   public void setGuessTimerLabel(Label timerLabel) {
     guessTimer.setLabel(timerLabel);
-  }
-
-  public static void fadeOut(Node node) {
-    node.setOpacity(1);
-    FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), node);
-    fadeTransition.setFromValue(1);
-    fadeTransition.setToValue(0);
-    fadeTransition.play();
   }
 }

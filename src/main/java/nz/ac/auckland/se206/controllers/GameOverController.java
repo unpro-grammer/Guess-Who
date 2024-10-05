@@ -17,6 +17,7 @@ import nz.ac.auckland.apiproxy.chat.openai.Choice;
 import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.MusicPlayer;
 import nz.ac.auckland.se206.prompts.PromptEngineering;
 
 public class GameOverController {
@@ -51,6 +52,9 @@ public class GameOverController {
     outOfTime.setVisible(false);
     purpLine.setVisible(false);
     App.pauseGuessTimer();
+
+    // stop music
+    MusicPlayer.stopAudio();
 
     // depending on the player guessing result, display the correct image and related button
     switch (App.getUserGuess()) {
