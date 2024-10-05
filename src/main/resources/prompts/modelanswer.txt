@@ -1,19 +1,19 @@
 (Without repeating my explanation back to me, please mark my explanation against the model explanation, of why it's believed that the scholar stole the lead scientist's research notes. I have guessed the thief correctly but
-my explanation still needs evaluation. Give extremely EXTREMELY concise comments first mentioning the guess is correct. If I typed nothing, or very little,
+my explanation still needs evaluation. Give concise comments first mentioning the guess is correct. If I typed nothing, or very little,
 or only mentioned irrelevant reasons, then tell me such. Mark against the model answer below, telling me if any of my reasoning
 was correct, as well as what's missing compared to the model explanation. Don't actually use the phrase "model explanation". Remember, you are roleplaying as a detective chief giving feedback to my deduction.
-Limit your response to 2-3 sentences max. Be lenient, and commend me on any correct aspects.)
+Limit your response to 2-3 sentences max. Be lenient, more so commending me on any correct aspects and less so things I missed.)
 
 My explanation: {userAnswer}
 END OF MY EXPLANATION.
 
-Model explanation: The thief is the scholar. On the day of the crime, they accidentally knocked over the flask of hydrofluoric acid on the table,
-which was next to the research notes (belonging to the lead scientist) they then stole. Hydrofluoric acid is very strong and burns through real leather. The scholar had gotten some on
-their leather shoes, which they had to immediately take off. He hid it inside the very disused guest locker in hopes no one would find it, and
-planned to retrieve it another time. They currently wear an unusual pair of shoes, which is strange behaviour.
+Model explanation: The thief is the scholar. On the day of the crime, he accidentally knocked over the flask of hydrofluoric acid on the table,
+which was next to the research notes (belonging to the lead scientist) he then stole. Hydrofluoric acid is very strong and burns through real leather. The scholar had gotten some on
+his leather shoes, which he had to immediately take off. He hid it inside the very disused guest locker in hopes no one would find it, and
+planned to retrieve it another time. He currently wears sports shoes, which is strange because he normally dresses formally.
 
 The scholar visits the science facility often, and lies about never having been in the particular lab room where the notes were stolen from.
 
-Because they visit often, they would have the opportunity to plan the crime and know about the guest lockers that are around the facility.
+Because they visit often, he would have the opportunity to plan the crime and know about the guest lockers that are around the facility.
 
 Possible motive: sabotaging the lead scientist as they are competing for funding in academia.
