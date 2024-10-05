@@ -404,11 +404,15 @@ public class ChatController {
   private void appendChatMessage(ChatMessage msg) {
     // Determine the name to display: 'assistant' or 'You'
     String name = msg.getRole().equals("assistant") ? profession : "You";
-    String messageText = name + ": " + msg.getContent() + "\n\n";
+    String messageText = name + ": " + msg.getContent();
 
     // Save the chat message to the file
     saveChatToFile(msg.getContent() + "\n");
 
+    // If the chat area has text, add a new line before appending the message
+    if (!txtaChat.getText().isEmpty()) {
+      txtaChat.appendText("\n\n");
+    }
     // Append the message to the chat text area
     txtaChat.appendText(messageText);
 
