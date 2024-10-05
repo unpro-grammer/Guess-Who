@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.controllers;
 import java.io.IOException;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -20,6 +21,8 @@ public class HomeController {
   @FXML private ImageView homeImage;
   @FXML private Button startBtn;
 
+  private boolean homescreenGone = false;
+
   @FXML
   void initialize() {
     // backstory.setVisible(false);
@@ -29,6 +32,22 @@ public class HomeController {
 
   @FXML
   void showFolders() {
+
+    Task<Void> backgroundCounter =
+        new Task<Void>() {
+
+          @Override
+          protected Void call() throws Exception {
+
+            Thread.sleep(1160);
+            homescreenGone = true;
+
+            return null;
+          }
+        };
+    Thread backgroundThread = new Thread(backgroundCounter);
+    backgroundThread.start();
+
     startBtn.setDisable(true);
     ParallelTransition parallelTransition = new ParallelTransition();
     parallelTransition
@@ -63,18 +82,21 @@ public class HomeController {
       Node reference, Node toMove, double duration) {
     TranslateTransition transition = new TranslateTransition(Duration.millis(duration), toMove);
     transition.setByY(-reference.getLayoutY() - reference.getBoundsInParent().getHeight());
+
     return transition;
   }
 
   @FXML
   private void onStart() {
-    try {
+    if (homescreenGone) {
+      try {
 
-      App.actuallyStart();
+        App.actuallyStart();
 
-    } catch (IOException e) {
-      e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      System.out.println("Starting game");
     }
-    System.out.println("Starting game");
   }
 }
