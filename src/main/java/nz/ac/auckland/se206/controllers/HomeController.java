@@ -1,7 +1,8 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.IOException;
-import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -21,19 +22,29 @@ public class HomeController {
 
   @FXML
   void initialize() {
-    backstory.setVisible(false);
-    timerLabel.setVisible(false);
-    timer.setVisible(false);
+    // backstory.setVisible(false);
+    // timerLabel.setVisible(false);
+    // timer.setVisible(false);
   }
 
   @FXML
   void showFolders() {
+    startBtn.setDisable(true);
+    ParallelTransition parallelTransition = new ParallelTransition();
+    parallelTransition
+        .getChildren()
+        .addAll(
+            createTranslateTransition(homeImage, homeImage, 1500),
+            createTranslateTransition(homeImage, startBtn, 1500));
+    parallelTransition.setOnFinished(
+        event -> {
+          homeImage.setVisible(false);
+          startBtn.setVisible(false);
+        });
+    parallelTransition.play();
 
-    fadeInNode(backstory);
-    fadeInNode(timerLabel);
-    fadeInNode(timer);
-    startBtn.setVisible(false);
-    homeImage.setVisible(false);
+    // startBtn.setVisible(false);
+    // homeImage.setVisible(false);
     backstory.setVisible(true);
     timerLabel.setVisible(true);
     timer.setVisible(true);
@@ -48,13 +59,11 @@ public class HomeController {
     App.getTimer().startTimer();
   }
 
-  private void fadeInNode(Node node) {
-    node.setOpacity(0);
-    node.setVisible(true);
-    FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), node);
-    fadeTransition.setFromValue(0);
-    fadeTransition.setToValue(1);
-    fadeTransition.play();
+  private TranslateTransition createTranslateTransition(
+      Node reference, Node toMove, double duration) {
+    TranslateTransition transition = new TranslateTransition(Duration.millis(duration), toMove);
+    transition.setByY(-reference.getLayoutY() - reference.getBoundsInParent().getHeight());
+    return transition;
   }
 
   @FXML

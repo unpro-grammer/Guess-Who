@@ -53,7 +53,7 @@
             <Image url="@../images/notepad.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="explanationField" layoutX="120.0" layoutY="331.0" prefHeight="275.0" prefWidth="555.0" promptText="Explain why you think the chosen suspect is the thief." wrapText="true">
+      <TextArea fx:id="explanationField" layoutX="120.0" layoutY="331.0" prefHeight="275.0" prefWidth="555.0" wrapText="true">
         <cursor>
           <Cursor fx:constant="TEXT" />
         </cursor>

@@ -33,8 +33,8 @@ import nz.ac.auckland.se206.states.GameState;
  * application.
  */
 public class App extends Application {
-  // 5 minute timer <TOCHANGE>
-  private static Timer timer = new Timer(null, 300, () -> switchToGuessing());
+  // 5 minute timer <TOCHANGE> 301 secs cause of transition
+  private static Timer timer = new Timer(null, 301, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Parent chatView = null;
@@ -96,8 +96,8 @@ public class App extends Application {
   public static void resetGame() {
     // clear all variables and reset game state
     clearChats();
-    // <TOCHANGE> 5 minute timer
-    timer = new Timer(null, 300, () -> switchToGuessing());
+    // <TOCHANGE> 5 minute timer. 301 secs cause of transition
+    timer = new Timer(null, 301, () -> switchToGuessing());
     guessTimer = null;
     feedback = "";
     userAnswer = "";
@@ -457,7 +457,7 @@ public class App extends Application {
     }
 
     // Fade homescreen out
-    FadeTransition fadeHome = new FadeTransition(Duration.millis(230), scene.getRoot());
+    FadeTransition fadeHome = new FadeTransition(Duration.millis(250), scene.getRoot());
     scene.setRoot(stackPane);
     stackPane.setStyle("-fx-background-color: #c5c7e1;");
     fadeHome.setFromValue(1);
@@ -475,7 +475,7 @@ public class App extends Application {
           }
 
           // Fade clue room in
-          FadeTransition fadeClue = new FadeTransition(Duration.millis(230), clueRoot);
+          FadeTransition fadeClue = new FadeTransition(Duration.millis(250), clueRoot);
           fadeClue.setFromValue(0);
           fadeClue.setToValue(1);
           fadeClue.play();
