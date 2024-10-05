@@ -379,5 +379,4 @@ public class RoomController {
     guessRequirementImg.setVisible(false);
     guessRequirementImg.setDisable(true);
   }
-
 }

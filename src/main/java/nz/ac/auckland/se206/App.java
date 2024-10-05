@@ -17,7 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
@@ -71,8 +73,12 @@ public class App extends Application {
   private static boolean isChatOpen = false;
 
   public static boolean isInteractedEnough() {
-    return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
-    // return true;
+    // return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
+    return true; // for testing
+  }
+
+  public static boolean exploredEnoughClues() {
+    return cluesExplored.size() >= 1;
   }
 
   public static void clearChats() {
@@ -413,11 +419,42 @@ public class App extends Application {
   }
 
   public static void actuallyStart() throws IOException {
+    // App.setRoot("room");
     Parent clueRoot = loadFxml("room");
 
-    StackPane stackPane = new StackPane(scene.getRoot(), clueRoot);
+    // Extract the timer and timerLabel from the home scene
+    Node timerHome = scene.lookup("#timer");
+    Node timerLabelHome = (Label) scene.lookup("#timerLabel");
+
+    // Extract the timer and timerLabel from the clueRoot scene
+    Node timerClue = clueRoot.lookup("#timer");
+    Node timerLabelClue = clueRoot.lookup("#timerLabel");
+
+    timerClue.setOpacity(1);
+    timerLabelClue.setOpacity(1);
+
+    Pane timerPane = new Pane();
+    timerPane.getChildren().addAll(timerHome, timerLabelHome);
+
+    // Maintain original positions of the timer and timerLabel
+    timerHome.setLayoutX(timerHome.getLayoutX());
+    timerHome.setLayoutY(timerHome.getLayoutY());
+    timerLabelHome.setLayoutX(timerLabelHome.getLayoutX());
+    timerLabelHome.setLayoutY(timerLabelHome.getLayoutY());
+
+    // Create a StackPane to hold the current and new scenes
+    StackPane stackPane = new StackPane(scene.getRoot(), clueRoot, timerPane);
 
     clueRoot.setOpacity(0);
+
+    Font font = Font.loadFont(App.class.getResourceAsStream("/fonts/sonoMedium.ttf"), 29.9);
+
+    if (timerLabelHome != null) {
+      Label homeLabel = (Label) timerLabelHome;
+      homeLabel.setFont(font);
+      homeLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
+      App.getTimer().setLabel(homeLabel);
+    }
 
     // Fade homescreen out
     FadeTransition fadeHome = new FadeTransition(Duration.millis(300), scene.getRoot());
@@ -428,13 +465,28 @@ public class App extends Application {
 
     fadeHome.setOnFinished(
         event -> {
-          stackPane.getChildren().remove(0);
+          stackPane.getChildren().remove(scene.getRoot());
+
+          if (timerLabelClue != null) {
+            Label roomLabel = (Label) timerLabelClue;
+            roomLabel.setFont(font);
+            roomLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
+            App.getTimer().setLabel(roomLabel);
+          }
 
           // Fade clue room in
           FadeTransition fadeClue = new FadeTransition(Duration.millis(300), clueRoot);
           fadeClue.setFromValue(0);
           fadeClue.setToValue(1);
           fadeClue.play();
+
+          fadeClue.setOnFinished(
+              fadeEvent -> {
+                stackPane.getChildren().remove(timerHome);
+                stackPane.getChildren().remove(timerLabelHome);
+                // Hide timerPane
+                timerPane.setVisible(false);
+              });
         });
 
     fadeHome.play();
@@ -477,5 +529,13 @@ public class App extends Application {
 
   public void setGuessTimerLabel(Label timerLabel) {
     guessTimer.setLabel(timerLabel);
+  }
+
+  public static void fadeOut(Node node) {
+    node.setOpacity(1);
+    FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), node);
+    fadeTransition.setFromValue(1);
+    fadeTransition.setToValue(0);
+    fadeTransition.play();
   }
 }

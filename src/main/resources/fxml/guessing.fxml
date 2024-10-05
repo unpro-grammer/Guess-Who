@@ -79,7 +79,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Rectangle>
-      <ImageView fitHeight="58.0" fitWidth="150.0" layoutX="27.0" layoutY="17.0">
+      <ImageView fitHeight="59.0" fitWidth="153.0" layoutX="28.5" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/timer.png" />
          </image>
