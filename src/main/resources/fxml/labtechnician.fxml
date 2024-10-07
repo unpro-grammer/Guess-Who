@@ -60,7 +60,7 @@
          </image>
       </ImageView>
 
-      <AnchorPane fx:id="chatPane" layoutY="430.0" prefHeight="134.0" prefWidth="785.0" />
+      <AnchorPane fx:id="chatPane" layoutY="428.0" prefHeight="173.0" prefWidth="750.0" />
       <ImageView fx:id="mapIcon" fitHeight="78.0" fitWidth="78.0" layoutX="701.0" layoutY="14.0" onMouseClicked="#showMap">
          <image>
             <Image url="@../images/map.png" />

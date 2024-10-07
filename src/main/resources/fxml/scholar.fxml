@@ -57,7 +57,7 @@
             <Image url="@../images/scholar_thinking.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="chatPane" layoutX="-2.0" layoutY="426.0" prefHeight="173.0" prefWidth="786.0" />
+      <AnchorPane fx:id="chatPane" layoutY="428.0" prefHeight="173.0" prefWidth="744.0" />
       <ImageView fx:id="mapIcon" fitHeight="78.0" fitWidth="78.0" layoutX="702.0" layoutY="13.0" onMouseClicked="#showMap">
          <image>
             <Image url="@../images/map.png" />

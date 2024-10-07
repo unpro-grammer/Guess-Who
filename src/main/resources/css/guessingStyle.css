@@ -110,12 +110,14 @@ Rectangle:hover {
   -fx-background-insets: 0;
   -fx-padding: 0;
   -fx-pref-width: 30;
+  -fx-background-radius: 15;
 }
 
 .scroll-bar:horizontal .track {
   -fx-background-color: #f1ece4;
   -fx-background-insets: 0;
   -fx-padding: 0;
+  -fx-background-radius: 5;
 }
 
 .scroll-bar:vertical .thumb {
