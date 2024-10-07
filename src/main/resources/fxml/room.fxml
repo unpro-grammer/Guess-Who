@@ -47,7 +47,12 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Rectangle>
-      <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="19.0" prefHeight="51.0" prefWidth="125.0" text="0 : 00" textAlignment="CENTER">
+      <ImageView fx:id="timer" fitHeight="59.0" fitWidth="153.0" layoutX="28.5" layoutY="17.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/timer.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="19.0" prefHeight="51.0" prefWidth="125.0" text="0 : 00" textAlignment="CENTER" textFill="#5e3f28">
          <font>
             <Font size="50.0" />
          </font></Label>

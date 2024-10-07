@@ -53,4 +53,8 @@ public class MusicPlayer {
   public static void unPauseAudio() {
     mediaPlayer.play();
   }
+
+  public static void stopAudio() {
+    mediaPlayer.stop();
+  }
 }
