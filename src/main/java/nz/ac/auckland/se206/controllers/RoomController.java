@@ -78,6 +78,8 @@ public class RoomController {
   @FXML private Rectangle rectLocker;
   @FXML private ImageView guessRequirementImg;
   @FXML private Rectangle beforeGuess;
+  @FXML private ImageView biggerbag;
+  @FXML private ImageView tiltedchem;
 
   protected Timer timer;
 
@@ -121,7 +123,7 @@ public class RoomController {
 
       // Use Text-to-Speech to provide instructions
       TextToSpeech.speak(
-          "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
+          "Chat with the three suspects, and guess who is the " + context.getProfessionToGuess());
 
       // Start the timer and play background music
       isFirstTimeInit = false;
@@ -135,7 +137,10 @@ public class RoomController {
         pauseButton.setImage(playImage);
       }
     }
-    hideOpen(); // Hides any open elements initially
+    hideOpen(); // Hides open locker initially
+    shrinkBag();
+    untiltChem();
+
     ctrl = this; // Store the controller instance
   }
 
@@ -280,7 +285,7 @@ public class RoomController {
 
   /**
    * Displays the open locker by making it visible on the screen. This is used when the player
-   * interacts with a locker in the game.
+   * interacts with the locker in the game.
    */
   @FXML
   protected void showOpen() {
@@ -297,6 +302,34 @@ public class RoomController {
   protected void hideOpen() {
     if (openLocker != null) {
       openLocker.setVisible(false);
+    }
+  }
+
+  @FXML
+  protected void enlargeBag() {
+    if (biggerbag != null) {
+      biggerbag.setVisible(true);
+    }
+  }
+
+  @FXML
+  protected void shrinkBag() {
+    if (biggerbag != null) {
+      biggerbag.setVisible(false);
+    }
+  }
+
+  @FXML
+  protected void tiltChem() {
+    if (tiltedchem != null) {
+      tiltedchem.setVisible(true);
+    }
+  }
+
+  @FXML
+  protected void untiltChem() {
+    if (tiltedchem != null) {
+      tiltedchem.setVisible(false);
     }
   }
 
@@ -366,10 +399,11 @@ public class RoomController {
       return;
     }
     guessRequirementImg.setDisable(false);
-    if (!App.getTalkedEnough()) {
-      guessRequirementImg.setImage(moreTalk);
-    } else {
+    if (!App.exploredEnoughClues()) {
+      // show clue requirement by default because they interact with the crime scene first oops
       guessRequirementImg.setImage(moreClue);
+    } else {
+      guessRequirementImg.setImage(moreTalk);
     }
     guessRequirementImg.setVisible(true);
   }
@@ -379,5 +413,4 @@ public class RoomController {
     guessRequirementImg.setVisible(false);
     guessRequirementImg.setDisable(true);
   }
-
 }

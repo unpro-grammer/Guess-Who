@@ -16,11 +16,21 @@
             <Image url="@../images/clue_scene_4now.png" />
          </image>
       </ImageView>
-      <Rectangle fx:id="rectChemicalClue" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="51.0" layoutX="108.0" layoutY="369.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="57.0">
+      <ImageView fx:id="biggerbag" fitHeight="78.0" fitWidth="67.0" layoutX="258.0" layoutY="351.0">
+         <image>
+            <Image url="@../images/biggerbag.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tiltedchem" fitHeight="79.0" fitWidth="69.0" layoutX="104.0" layoutY="356.0">
+         <image>
+            <Image url="@../images/tiltedchem.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="rectChemicalClue" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="51.0" layoutX="108.0" layoutY="369.0" onMouseClicked="#handleRectangleClick" onMouseEntered="#tiltChem" onMouseExited="#untiltChem" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="57.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Rectangle>
-      <Rectangle fx:id="rectBagClue" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="67.0" layoutX="259.0" layoutY="358.0" onMouseClicked="#handleRectangleClick" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="57.0">
+      <Rectangle fx:id="rectBagClue" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="67.0" layoutX="259.0" layoutY="358.0" onMouseClicked="#handleRectangleClick" onMouseEntered="#enlargeBag" onMouseExited="#shrinkBag" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="57.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Rectangle>
@@ -57,7 +67,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="mapOverlay" fitHeight="605.0" fitWidth="792.0" layoutX="-1.0" onMouseClicked="#closeMap">
+      <ImageView fx:id="mapOverlay" fitHeight="605.0" fitWidth="792.0" layoutY="1.0" onMouseClicked="#closeMap">
          <image>
             <Image url="@../images/map_clueroom.png" />
          </image>
@@ -85,7 +95,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ImageView fx:id="guessRequirementImg" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="377.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="guessRequirementImg" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="341.5" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
       <Rectangle fx:id="beforeGuess" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="339.0" layoutY="30.0" onMouseEntered="#onGuessRequirements" onMouseExited="#onGuessRequirementsExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="136.0" />
    </children>
 </Pane>

@@ -31,11 +31,6 @@
             <Cursor fx:constant="V_RESIZE" />
          </cursor>
       </Rectangle>
-      <Rectangle fx:id="clickInto" arcHeight="5.0" arcWidth="5.0" fill="#194f7b" focusTraversable="true" height="116.0" layoutX="509.0" layoutY="304.0" onMouseClicked="#onOpenBag" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="19.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Rectangle>
       <Button fx:id="btnExit" layoutX="620.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitClue" prefHeight="60.0" prefWidth="153.3" styleClass="back-button">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -44,6 +39,16 @@
          <font>
             <Font size="50.0" />
          </font></Label>
+      <ImageView fx:id="sparkles" fitHeight="39.0" fitWidth="29.0" layoutX="511.3" layoutY="341.0">
+         <image>
+            <Image url="@../images/sparkles.png" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="clickInto" arcHeight="5.0" arcWidth="5.0" fill="#194f7b" focusTraversable="true" height="116.0" layoutX="509.0" layoutY="304.0" onMouseClicked="#onOpenBag" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="19.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Rectangle>
       <ImageView fx:id="zoomedBagStuff" fitHeight="605.0" fitWidth="792.0" onMouseClicked="#closeBagStuff">
          <image>
             <Image url="@../images/thinginbag.png" />

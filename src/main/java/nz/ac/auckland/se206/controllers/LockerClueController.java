@@ -13,6 +13,7 @@ public class LockerClueController extends ClueController {
   @FXML private ImageView chinesetakeaway;
   @FXML private ImageView bottle;
   @FXML private ImageView shoes;
+  @FXML private ImageView candy;
 
   @FXML private ImageView zoomedShoes;
 
@@ -21,6 +22,7 @@ public class LockerClueController extends ClueController {
   @FXML private Rectangle rectChineseTakeaway;
   @FXML private Rectangle rectBottle;
   @FXML private Rectangle rectShoes;
+  @FXML private Rectangle rectCandy;
   @FXML private Rectangle rectBoundary;
 
   private double offsetX = 0;
@@ -36,6 +38,7 @@ public class LockerClueController extends ClueController {
     setDrag(chinesetakeaway, rectChineseTakeaway);
     setDrag(bottle, rectBottle);
     setDrag(shoes, rectShoes);
+    setDrag(candy, rectCandy);
     zoomedShoes.setVisible(false);
   }
 
