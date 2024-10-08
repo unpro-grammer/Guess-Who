@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
-/** Bag Clue Controller class */
+/** Bag Clue Controller class in which the bag clue exists!!!. */
 public class BagClueController extends ClueController {
 
   @FXML private ImageView bagzipper;
@@ -55,7 +55,6 @@ public class BagClueController extends ClueController {
           // set new positions, with rectangle lower than the start of the zipper.
           bagzipper.setLayoutY(newY);
           rectZipper.setLayoutY(newY + 230);
-          // System.out.println("newY: " + newY);
 
           if (newY <= 60) {
             clickInto.setVisible(true);
@@ -68,25 +67,25 @@ public class BagClueController extends ClueController {
   }
 
   /**
-   * Opens the bag and displays the contents.
+   * Opens the bag and displays the zoomed in contents.
    *
-   * @throws IOException
+   * @throws IOException if the bag fxml file is not found.
    */
   @FXML
   private void onOpenBag() throws IOException {
     zoomedBagStuff.setVisible(true);
   }
 
-  /** Hides bag contents. */
+  /** Hides the zoomed in bag contents. */
   @FXML
   private void closeBagStuff() {
     zoomedBagStuff.setVisible(false);
   }
 
   /**
-   * Exits the locker clue.
+   * Exits the bag clue and returns to room.
    *
-   * @throws IOException
+   * @throws IOException if the room fxml file is not found.
    */
   @FXML
   private void onExitClue() throws IOException {

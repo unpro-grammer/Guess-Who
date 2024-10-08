@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.Timer;
 
+/** Controller for the guessing scene. This scene is where the player guesses the suspect. */
 public class GuessingController {
 
   private static MediaPlayer speaker;
@@ -33,7 +34,7 @@ public class GuessingController {
   @FXML private ImageView selectLabtech;
   @FXML private ImageView selectScholar;
 
-  /** Set user's explanation for their guess in the App */
+  /** Set user's explanation for their guess in the App. */
   public void setUserExplanation() {
     userAnswer = explanationField.getText();
     App.setUserAnswer(userAnswer);
@@ -65,9 +66,9 @@ public class GuessingController {
   }
 
   /**
-   * Confirms the player's guess and runs it through AI
+   * Confirms the player's guess and runs it through AI.
    *
-   * @throws IOException
+   * @throws IOException if there is I/O error
    */
   @FXML
   private void onConfirmGuessing() throws IOException {
@@ -90,7 +91,7 @@ public class GuessingController {
   }
 
   /**
-   * Runs when player is selecting a suspect to be guessed during guessing state
+   * Runs when player is selecting a suspect to be guessed during guessing state.
    *
    * @param event mouse event triggered by clicking on the suspect rectangle
    * @throws IOException if there is I/O error
@@ -128,7 +129,7 @@ public class GuessingController {
     System.out.println(userGuess);
   }
 
-  /** Unselect all three suspects */
+  /** Unselect all three of the suspects. */
   private void hideSelects() {
     selectScientist.setVisible(false);
     selectLabtech.setVisible(false);

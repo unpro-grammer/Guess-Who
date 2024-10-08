@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.App;
 
+/** Controller for the home scene. This scene is where the player starts the game. */
 public class HomeController {
 
   @FXML private ImageView backstory;
@@ -31,12 +32,14 @@ public class HomeController {
   @FXML
   void showFolders() {
 
+    // Background thread to check when the home screen is gone.
     Task<Void> backgroundCounter =
         new Task<Void>() {
 
           @Override
           protected Void call() throws Exception {
 
+            // Arbitrary duration (good enough)
             Thread.sleep(1160);
             homescreenGone = true;
 
@@ -46,6 +49,7 @@ public class HomeController {
     Thread backgroundThread = new Thread(backgroundCounter);
     backgroundThread.start();
 
+    // Transition the home screen out of view
     startBtn.setDisable(true);
     ParallelTransition parallelTransition = new ParallelTransition();
     parallelTransition
@@ -60,13 +64,16 @@ public class HomeController {
         });
     parallelTransition.play();
 
+    // Show the profiles of the suspects
     backstory.setVisible(true);
     timerLabel.setVisible(true);
     timer.setVisible(true);
 
+    // Start the timer
     timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
     App.getTimer().setLabel(timerLabel);
 
+    // Set the font of the timer
     Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/sonoMedium.ttf"), 27);
     System.out.println(font);
     timerLabel.setFont(font);
@@ -80,7 +87,7 @@ public class HomeController {
    * @param reference node for position reference
    * @param toMove node that is experiencing transition
    * @param duration duration of the transition
-   * @return
+   * @return the translate transition
    */
   private TranslateTransition createTranslateTransition(
       Node reference, Node toMove, double duration) {

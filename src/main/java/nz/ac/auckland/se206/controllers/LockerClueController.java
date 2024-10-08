@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
+/** Controller for the locker clue scene. This scene is where the player solves the locker clue. */
 public class LockerClueController extends ClueController {
 
   @FXML private ImageView trash;

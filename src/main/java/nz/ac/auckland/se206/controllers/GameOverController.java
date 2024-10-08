@@ -20,6 +20,9 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.MusicPlayer;
 import nz.ac.auckland.se206.prompts.PromptEngineering;
 
+/**
+ * Controller for the game over scene. This scene is where the player is taken when the game ends.
+ */
 public class GameOverController {
   @FXML private TextArea feedbackDisplay;
   @FXML private Button playAgainButton; // used for correct guess (Scholar)
@@ -39,7 +42,7 @@ public class GameOverController {
   /**
    * Initialises the GameOverController for the game over scene.
    *
-   * @throws ApiProxyException
+   * @throws ApiProxyException if there is an API error
    */
   @FXML
   public void initialize() throws ApiProxyException {
@@ -90,7 +93,7 @@ public class GameOverController {
   /**
    * Returns the player to the home screen to play again.
    *
-   * @throws IOException
+   * @throws IOException if there is an I/O error
    */
   @FXML
   private void onPlayAgain() throws IOException {
@@ -103,7 +106,7 @@ public class GameOverController {
   }
 
   /**
-   * Displays the feedback based on the player's explaination during guessing
+   * Displays the feedback based on the player's explaination during guessing.
    *
    * @param useranswer the explaination typed in by the user during guessing
    */
@@ -140,7 +143,7 @@ public class GameOverController {
   }
 
   /**
-   * Returns the system prompt for the AI to generate feedback
+   * Returns the system prompt for the AI to generate feedback.
    *
    * @return the system prompt for the AI
    */
@@ -151,7 +154,7 @@ public class GameOverController {
   }
 
   /**
-   * Runs ChatGPT to generate a feedback based on the model answer given
+   * Runs ChatGPT to generate a feedback based on the model answer given.
    *
    * @param msg The model answer preset
    * @return resulting message from generating

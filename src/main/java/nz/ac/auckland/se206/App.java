@@ -336,7 +336,7 @@ public class App extends Application {
   }
 
   /**
-   * Gets the game timer.
+   * Gets the game timer and grabs it.
    *
    * @return the game timer
    */
@@ -345,7 +345,7 @@ public class App extends Application {
   }
 
   /**
-   * Starts the game timer.
+   * Starts the game timer and hence it starts.
    *
    * @return the game timer
    */
@@ -526,7 +526,7 @@ public class App extends Application {
     return isChatOpen;
   }
 
-  /** Closes the chat view. */
+  /** Closes the chat view - well, makes sure it's flagged as closed. */
   public static void closeChat() {
     isChatOpen = false;
   }

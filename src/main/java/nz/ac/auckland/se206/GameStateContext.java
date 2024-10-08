@@ -65,7 +65,7 @@ public class GameStateContext {
     gameState = gameStartedState;
   }
 
-  /** Sets the guessing state. */
+  /** Sets the guessing state in which you make a guess!!!. */
   public void setGuessingState() {
     gameState = guessingState;
   }
@@ -85,7 +85,7 @@ public class GameStateContext {
   }
 
   /**
-   * Gets the guessing state.
+   * Gets the guessing state, a game state.
    *
    * @return the guessing state
    */
@@ -94,7 +94,7 @@ public class GameStateContext {
   }
 
   /**
-   * Gets the game over state.
+   * Gets the game over state, a game state.
    *
    * @return the game over state
    */
