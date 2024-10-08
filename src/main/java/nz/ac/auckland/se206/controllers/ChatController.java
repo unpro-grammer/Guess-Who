@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -37,12 +38,11 @@ public class ChatController {
 
   // Static Fields
   private static Map<String, Boolean> firstInteraction = new HashMap<>();
-  private static Map<String, ArrayList<String>> chatHistories = new HashMap<>();
+  private static Map<String, ArrayList<ArrayList<String>>> chatHistories = new HashMap<>();
   private static boolean talked = false;
   private static RoomController roomController;
   private static MediaPlayer mediaPlayerChat;
   private static boolean stillTalking = false;
-  private static ArrayList<String> chatTexts = new ArrayList<>();
   private static Boolean first;
   private static HashMap<String, Integer> displayedChat = new HashMap<>();
   private static boolean canSend = true;
@@ -64,11 +64,22 @@ public class ChatController {
    * state indicators to their default values, preparing the game for a new session.
    */
   public static void resetGame() {
+
     firstInteraction.put("Lab Technician", true); // Reset the game state
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
     chatHistories = new HashMap<>();
-    chatTexts = new ArrayList<>();
+    // Create the Map where each key is the character's profession and the value is a List of two
+    // ArrayLists
+
+    // Initialize the chat histories for each character
+    chatHistories.put(
+        "Lab Technician", new ArrayList<>(Arrays.asList(new ArrayList<>(), new ArrayList<>())));
+    chatHistories.put(
+        "Lead Scientist", new ArrayList<>(Arrays.asList(new ArrayList<>(), new ArrayList<>())));
+    chatHistories.put(
+        "Scholar", new ArrayList<>(Arrays.asList(new ArrayList<>(), new ArrayList<>())));
+
     canSend = true;
     stillTalking = false;
     talked = false;
@@ -208,6 +219,16 @@ public class ChatController {
     firstInteraction.put("Scholar", true);
     txtaChat.getStyleClass().add("no-highlight");
     resetDisplayedChat();
+    // Create the Map where each key is the character's profession and the value is a List of two
+    // ArrayLists
+
+    // Initialize the chat histories for each character
+    chatHistories.put(
+        "Lab Technician", new ArrayList<>(Arrays.asList(new ArrayList<>(), new ArrayList<>())));
+    chatHistories.put(
+        "Lead Scientist", new ArrayList<>(Arrays.asList(new ArrayList<>(), new ArrayList<>())));
+    chatHistories.put(
+        "Scholar", new ArrayList<>(Arrays.asList(new ArrayList<>(), new ArrayList<>())));
 
     txtInput.setOnKeyPressed(
         event -> {
@@ -261,6 +282,7 @@ public class ChatController {
             } catch (ApiProxyException e) {
               e.printStackTrace();
             }
+            chatHistories.get(profession).get(1).add("");
             return null;
           }
         };
@@ -402,29 +424,35 @@ public class ChatController {
    * @param msg the chat message to append
    */
   private void appendChatMessage(ChatMessage msg) {
+    String messageText;
     // Determine the name to display: 'assistant' or 'You'
     String name = msg.getRole().equals("assistant") ? profession : "You";
-    String messageText = name + ": " + msg.getContent();
+    // If text area has chat messages and it's the character speaking, need new lines.
+    if (!name.equals("You") && !txtaChat.getText().isEmpty()) {
+      messageText = "\n\n" + name + ": " + msg.getContent();
+    } else {
+      messageText = name + ": " + msg.getContent();
+    }
 
     // Save the chat message to the file
     saveChatToFile(msg.getContent() + "\n");
 
-    // If the chat area has text, add a new line before appending the message
-    if (!txtaChat.getText().isEmpty()) {
-      txtaChat.appendText("\n\n");
-    }
     // Append the message to the chat text area
     txtaChat.appendText(messageText);
 
     // Get the chat history for the current profession, or create a new one if none exists
-    ArrayList<String> history = chatHistories.getOrDefault(profession, new ArrayList<>());
 
     // Add the new message to the chat history
-    history.add(messageText);
-    chatHistories.put(profession, history); // Update the chat history
 
+    if (msg.getRole().equals("assistant")) {
+
+      chatHistories.get(profession).get(0).add(messageText);
+
+    } else {
+      chatHistories.get(profession).get(1).add(messageText);
+    }
     // Update the displayedChat variable to reflect the most recent message
-    ChatController.displayedChat.put(profession, history.size());
+    ChatController.displayedChat.put(profession, chatHistories.get(profession).get(0).size() - 1);
 
     // Debugging purposes: print the updated chat history for the current profession
   }
@@ -450,7 +478,6 @@ public class ChatController {
     try {
       canSend = false; // Disable the send button while the GPT model is processing
       btnSend.setDisable(true);
-
       playSound(profession, first);
       firstInteraction.put(profession, false);
       ChatCompletionResult chatCompletionResult =
@@ -462,12 +489,13 @@ public class ChatController {
       if (stillTalking) { // Show the suspect speaking animation if they are still talking
         RoomController.getRoomController().showSuspectSpeaking();
       }
-      chatTexts.add(profession + ": " + result.getChatMessage().getContent());
       canSend = true;
       btnSend.setDisable(false);
+      btnSend.setVisible(true);
       return result.getChatMessage();
     } catch (ApiProxyException e) { // Handle any API proxy exceptions
       e.printStackTrace();
+      System.out.println(e.getMessage());
       return null;
     }
   }
@@ -515,7 +543,7 @@ public class ChatController {
     if (message.isEmpty()) { // Send the message to the GPT model
       return;
     }
-    chatTexts.add("You: " + message);
+    // chatHistories.get(profession).get(1).add("You: " + message);
 
     txtInput.clear(); // Clear the input field after sending the message
     ChatMessage msg = new ChatMessage("user", message);
@@ -556,8 +584,9 @@ public class ChatController {
   @FXML
   private void onNextClicked(ActionEvent event) throws ApiProxyException, IOException {
     // Check if there are chat histories available and if we haven't reached the last message
-    if (!chatHistories.get(profession).isEmpty()
-        && displayedChat.getOrDefault(profession, 0) < chatHistories.get(profession).size() - 1) {
+    if (chatHistories.get(profession) != null
+        && displayedChat.getOrDefault(profession, 0)
+            < chatHistories.get(profession).get(0).size() - 1) {
 
       // Increment the displayed chat count for the current profession
       ChatController.displayedChat.put(
@@ -565,9 +594,11 @@ public class ChatController {
 
       // Update the text area with the new message
       txtaChat.setText(
-          chatHistories
-              .get(profession)
-              .get(displayedChat.get(profession))); // Get the next message from the history
+          chatHistories.get(profession).get(1).get(displayedChat.get(profession))
+              + chatHistories
+                  .get(profession)
+                  .get(0)
+                  .get(displayedChat.get(profession))); // Get the next message from the history
 
       // Hide the input field and send button if we're still in history mode
       txtInput.setVisible(false);
@@ -575,7 +606,7 @@ public class ChatController {
     }
 
     // If we reach the end of the chat history, show the input and send button
-    if (displayedChat.get(profession) == chatHistories.get(profession).size() - 1) {
+    if (displayedChat.get(profession) == chatHistories.get(profession).get(0).size() - 1) {
       txtInput.setVisible(true); // Make the input field visible
       btnSend.setVisible(true); // Make the send button visible
     }
@@ -607,7 +638,9 @@ public class ChatController {
   @FXML
   private void onLastClicked(ActionEvent event) throws ApiProxyException, IOException {
     // Check if there are chat histories available and if we haven't reached the first message
-    if (!chatHistories.get(profession).isEmpty() && displayedChat.getOrDefault(profession, 0) > 0) {
+    if (chatHistories.get(profession) != null
+        && !chatHistories.get(profession).get(0).isEmpty()
+        && displayedChat.getOrDefault(profession, 0) > 0) {
 
       // Decrement the displayed chat count for the current profession
       ChatController.displayedChat.put(
@@ -615,9 +648,11 @@ public class ChatController {
 
       // Update the text area with the previous message
       txtaChat.setText(
-          chatHistories
-              .get(profession)
-              .get(displayedChat.get(profession))); // Get the previous message from the history
+          chatHistories.get(profession).get(1).get(displayedChat.get(profession))
+              + chatHistories
+                  .get(profession)
+                  .get(0)
+                  .get(displayedChat.get(profession))); // Get the previous message from the history
 
       // Hide the input field and send button when navigating backward
       txtInput.setVisible(false);
