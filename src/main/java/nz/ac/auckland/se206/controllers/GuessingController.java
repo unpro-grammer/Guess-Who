@@ -16,8 +16,14 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.Timer;
 
 public class GuessingController {
-  @FXML private TextArea explanationField;
+
   private static MediaPlayer speaker;
+  private static String userAnswer;
+
+  private String userGuess;
+  private Timer timer;
+
+  @FXML private TextArea explanationField;
   @FXML private Rectangle leadScientist;
   @FXML private Rectangle labTechnician;
   @FXML private Rectangle scholar;
@@ -26,10 +32,6 @@ public class GuessingController {
   @FXML private ImageView selectScientist;
   @FXML private ImageView selectLabtech;
   @FXML private ImageView selectScholar;
-
-  private static String userAnswer;
-  private String userGuess;
-  private Timer timer;
 
   /** Set user's explanation for their guess in the App */
   public void setUserExplanation() {
