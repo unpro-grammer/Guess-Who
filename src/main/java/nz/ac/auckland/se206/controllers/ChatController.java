@@ -600,8 +600,7 @@ public class ChatController {
     }
 
     // If we reach the end of the chat history, show the input and send button
-    if (displayedChat.get(profession) == chatHistories.get(profession).get(0).size()) {
-      System.out.println(displayedChat.get(profession));
+    if (displayedChat.get(profession) == chatHistories.get(profession).get(0).size() - 1) {
       txtInput.setVisible(true); // Make the input field visible
       btnSend.setVisible(true); // Make the send button visible
     }
