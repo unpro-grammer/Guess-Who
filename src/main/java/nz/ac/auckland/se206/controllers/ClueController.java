@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import nz.ac.auckland.se206.App;
 
+/** Controller for the clue scene. This scene is where the player solves the various clues. */
 public abstract class ClueController {
 
   @FXML private Label timerLabel;

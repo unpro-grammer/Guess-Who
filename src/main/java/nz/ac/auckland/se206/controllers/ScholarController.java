@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
+/** Controller for the scholar scene. This scene is where the player interacts with the scholar. */
 public class ScholarController extends RoomController {
   @FXML private ImageView scholar;
   @FXML private ImageView scholarturned;

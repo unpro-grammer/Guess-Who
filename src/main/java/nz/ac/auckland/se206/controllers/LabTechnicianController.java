@@ -8,6 +8,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
+/**
+ * Controller for the lab technician scene. This scene is where the player interacts with the lab
+ * tech.
+ */
 public class LabTechnicianController extends RoomController {
   @FXML private ImageView labtechnician;
   @FXML private ImageView labtechnicianturned;

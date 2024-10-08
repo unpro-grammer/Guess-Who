@@ -8,6 +8,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
+/**
+ * Controller for the lead scientist scene. This scene is where the player interacts with the lead
+ * scientist.
+ */
 public class LeadScientistController extends RoomController {
   @FXML private static ImageView suspectThinking;
   @FXML private static ImageView suspectSpeaking;
