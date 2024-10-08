@@ -93,6 +93,12 @@ public class GameStarted implements GameState {
     context.setState(context.getGuessingState());
   }
 
+  /**
+   * Handles the event when the player makes a guess. Transition to guessing screen.
+   *
+   * @param button the guess button that was clicked
+   * @return true if the guess was handled, false otherwise
+   */
   public boolean handleGuess(Button button) {
     if (canGuess()) {
       try {
@@ -107,6 +113,11 @@ public class GameStarted implements GameState {
     return false;
   }
 
+  /**
+   * Check if there are enough clues to make a guess.
+   *
+   * @return true if there are enough clues, false otherwise
+   */
   private boolean checkEnoughClues() {
     if (cluesExplored.size() >= 1) {
       return true;
@@ -114,10 +125,21 @@ public class GameStarted implements GameState {
     return false;
   }
 
+  /**
+   * Check if the player can make a guess.
+   *
+   * @return true if the player can make a guess, false otherwise
+   */
   public boolean canGuess() {
     return checkEnoughClues() && ChatController.hasTalked();
   }
 
+  /**
+   * Handles the event when the player transitions to a different room.
+   *
+   * @param event the mouse event triggered by clicking a button
+   * @param buttonId the ID of the clicked button
+   */
   public void handleRoomTransition(MouseEvent event, String buttonId) {
     App.switchRoom(event, buttonId);
   }
