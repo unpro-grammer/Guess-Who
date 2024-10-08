@@ -81,10 +81,6 @@ public class App extends Application {
     return cluesExplored.size() >= 1;
   }
 
-  public static boolean exploredEnoughClues() {
-    return cluesExplored.size() >= 1;
-  }
-
   public static void clearChats() {
     // empty all chat history files
     replaceFileContent(
