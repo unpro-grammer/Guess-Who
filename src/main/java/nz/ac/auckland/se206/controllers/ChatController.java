@@ -37,7 +37,7 @@ public class ChatController {
 
   // Static Fields
   private static Map<String, Boolean> firstInteraction = new HashMap<>();
-  private static Map<String, ArrayList<String>> chatHistories = new HashMap<>();
+  private static Map<String, ArrayList<ArrayList<String>>> chatHistories = new HashMap<>();
   private static boolean talked = false;
   private static RoomController roomController;
   private static MediaPlayer mediaPlayerChat;
@@ -412,11 +412,19 @@ public class ChatController {
     txtaChat.appendText(messageText);
 
     // Get the chat history for the current profession, or create a new one if none exists
-    ArrayList<String> history = chatHistories.getOrDefault(profession, new ArrayList<>());
+    ArrayList<ArrayList<String>> history =
+        chatHistories.getOrDefault(profession, new ArrayList<>());
 
     // Add the new message to the chat history
-    history.add(messageText);
-    chatHistories.put(profession, history); // Update the chat history
+
+    if (msg.getRole().equals("assistant")) {
+      history.get(0).add(messageText);
+      chatHistories.get(profession).get(0).add(messageText);
+
+    } else {
+      history.get(1).add(messageText);
+      chatHistories.get(profession).get(1).add(messageText);
+    }
 
     // Update the displayedChat variable to reflect the most recent message
     ChatController.displayedChat.put(profession, history.size());
@@ -457,7 +465,10 @@ public class ChatController {
       if (stillTalking) { // Show the suspect speaking animation if they are still talking
         RoomController.getRoomController().showSuspectSpeaking();
       }
-      chatHistories.get(profession).add(profession + ": " + result.getChatMessage().getContent());
+      chatHistories
+          .get(profession)
+          .get(0)
+          .add(profession + ": " + result.getChatMessage().getContent());
       canSend = true;
       btnSend.setDisable(false);
       return result.getChatMessage();
@@ -510,7 +521,7 @@ public class ChatController {
     if (message.isEmpty()) { // Send the message to the GPT model
       return;
     }
-    chatHistories.get(profession).add("You: " + message);
+    chatHistories.get(profession).get(1).add("You: " + message);
 
     txtInput.clear(); // Clear the input field after sending the message
     ChatMessage msg = new ChatMessage("user", message);
@@ -562,6 +573,7 @@ public class ChatController {
       txtaChat.setText(
           chatHistories
               .get(profession)
+              .get(0)
               .get(displayedChat.get(profession))); // Get the next message from the history
 
       // Hide the input field and send button if we're still in history mode
@@ -612,6 +624,7 @@ public class ChatController {
       txtaChat.setText(
           chatHistories
               .get(profession)
+              .get(0)
               .get(displayedChat.get(profession))); // Get the previous message from the history
 
       // Hide the input field and send button when navigating backward
