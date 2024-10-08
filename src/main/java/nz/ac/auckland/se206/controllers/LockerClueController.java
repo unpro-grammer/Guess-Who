@@ -93,7 +93,7 @@ public class LockerClueController extends ClueController {
   /**
    * Exit the locker clue and return to the room.
    *
-   * @throws IOException
+   * @throws IOException if there is an I/O error
    */
   @FXML
   private void onExitClue() throws IOException {
