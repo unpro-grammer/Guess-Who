@@ -23,6 +23,7 @@ public class HomeController {
 
   private boolean homescreenGone = false;
 
+  /** Initialises the home controller for the home scene. */
   @FXML
   void initialize() {
     // backstory.setVisible(false);
@@ -30,6 +31,7 @@ public class HomeController {
     // timer.setVisible(false);
   }
 
+  /** Show the profiles of the suspects in which the timer begins. */
   @FXML
   void showFolders() {
 
@@ -78,6 +80,14 @@ public class HomeController {
     App.getTimer().startTimer();
   }
 
+  /**
+   * Creates a translate transition for the given node.
+   *
+   * @param reference node for position reference
+   * @param toMove node that is experiencing transition
+   * @param duration duration of the transition
+   * @return
+   */
   private TranslateTransition createTranslateTransition(
       Node reference, Node toMove, double duration) {
     TranslateTransition transition = new TranslateTransition(Duration.millis(duration), toMove);
@@ -86,6 +96,7 @@ public class HomeController {
     return transition;
   }
 
+  /** Starts the game by transitioning to the room scene. */
   @FXML
   private void onStart() {
     if (homescreenGone) {

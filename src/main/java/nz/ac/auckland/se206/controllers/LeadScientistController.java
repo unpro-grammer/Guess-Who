@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import nz.ac.auckland.se206.App;
 import javafx.scene.shape.Rectangle;
+import nz.ac.auckland.se206.App;
 
 public class LeadScientistController extends RoomController {
   @FXML private static ImageView suspectThinking;
@@ -18,16 +18,19 @@ public class LeadScientistController extends RoomController {
   @FXML private ImageView guessRequirementImg;
   @FXML private Rectangle beforeGuess;
 
+  /** Initialise the room in which the lead scientist is. */
   public void initialize() {
     super.initialize();
     hideTurned();
   }
 
+  /** Pause the music in the background. */
   @FXML
   public void onPauseClick(MouseEvent event) {
     super.onPauseClick(event);
   }
 
+  /** Show the lead scientist turned around. */
   @FXML
   public void showTurned() {
     if (!App.isChatOpen()) {
@@ -36,6 +39,7 @@ public class LeadScientistController extends RoomController {
     }
   }
 
+  /** Hide the lead scientist turned around. */
   @FXML
   public void hideTurned() {
     if (!App.isChatOpen()) {
@@ -44,16 +48,19 @@ public class LeadScientistController extends RoomController {
     }
   }
 
+  /** Show the guess requirements on hover. */
   @FXML
   protected void onGuessRequirements() {
     super.onGuessRequirements();
   }
 
+  /** Hide the guess requirements on exit. */
   @FXML
   protected void onGuessRequirementsExit() {
     super.onGuessRequirementsExit();
   }
 
+  /** Handle the rectangle click of the lead scientist. */
   @FXML
   @Override
   protected void handleRectangleClick(MouseEvent event) throws IOException {

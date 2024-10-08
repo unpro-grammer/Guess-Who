@@ -305,6 +305,7 @@ public class RoomController {
     }
   }
 
+  /** Show a slightly bigger version of the bag clue on hover. */
   @FXML
   protected void enlargeBag() {
     if (biggerbag != null) {
@@ -312,6 +313,7 @@ public class RoomController {
     }
   }
 
+  /** Hide the slightly bigger version of the bag clue on mouse exit. */
   @FXML
   protected void shrinkBag() {
     if (biggerbag != null) {
@@ -319,6 +321,7 @@ public class RoomController {
     }
   }
 
+  /** Show slightly tilted version of chemical clue on hover. */
   @FXML
   protected void tiltChem() {
     if (tiltedchem != null) {
@@ -326,6 +329,7 @@ public class RoomController {
     }
   }
 
+  /** Hide slightly tilted version of chemical clue on mouse exit. */
   @FXML
   protected void untiltChem() {
     if (tiltedchem != null) {
@@ -392,6 +396,7 @@ public class RoomController {
     }
   }
 
+  /** Show the requirements remaining for guessing. */
   @FXML
   protected void onGuessRequirements() {
     if (App.isInteractedEnough()) {
@@ -408,6 +413,7 @@ public class RoomController {
     guessRequirementImg.setVisible(true);
   }
 
+  /** Hide the requirements for guessing. */
   @FXML
   protected void onGuessRequirementsExit() {
     guessRequirementImg.setVisible(false);
