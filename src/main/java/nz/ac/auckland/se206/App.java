@@ -72,15 +72,27 @@ public class App extends Application {
 
   private static boolean isChatOpen = false;
 
+  /**
+   * Checks if the user has interacted enough with the characters and explored enough clues to make
+   * a guess.
+   *
+   * @return true if the user has interacted enough, false otherwise
+   */
   public static boolean isInteractedEnough() {
     // return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
     return true; // for testing
   }
 
+  /**
+   * Checks if the user has explored enough clues to make a guess.
+   *
+   * @return true if the user has explored enough clues, false otherwise
+   */
   public static boolean exploredEnoughClues() {
     return cluesExplored.size() >= 1;
   }
 
+  /** Clears all chat history files to reset the game. */
   public static void clearChats() {
     // empty all chat history files
     replaceFileContent(
@@ -93,6 +105,7 @@ public class App extends Application {
         "src/main/resources/prompts/emptyfile.txt", "src/main/resources/prompts/scholar_2.txt");
   }
 
+  /** Resets the game state to the initial state, directing player to home. */
   public static void resetGame() {
     // clear all variables and reset game state
     clearChats();
@@ -109,50 +122,93 @@ public class App extends Application {
     cluesExplored = new HashSet<>();
   }
 
+  /**
+   * Sets the boolean value of whether the user has talked enough to make a guess.
+   *
+   * @param talkedEnough the boolean value to set
+   */
   public static void setTalkedEnough(boolean talkedEnough) {
     App.talkedEnough = talkedEnough;
   }
 
+  /**
+   * Gets the boolean value of whether the user has talked enough to make a guess.
+   *
+   * @return the boolean value of whether the user has talked enough to make a guess
+   */
   public static boolean getTalkedEnough() {
     return talkedEnough;
   }
 
+  /**
+   * Adds a clue to the set of clues explored.
+   *
+   * @param clue the clue to add
+   */
   public static void addClueExplored(String clue) {
     cluesExplored.add(clue);
   }
 
+  /**
+   * Gets the Game State Context at present.
+   *
+   * @return the Game State Context at present
+   */
   public static GameStateContext getContext() {
     return context;
   }
 
+  /**
+   * Sets the Game State Context.
+   *
+   * @param context the Game State Context to set
+   */
   public static void setContext(GameStateContext context) {
     App.context = context;
   }
 
+  /** Pauses the game timer for playing. */
   public static void pauseGameTimer() {
     if (timer != null) {
       timer.pauseTimer();
     }
   }
 
+  /** Pauses the guess timer for guessing. */
   public static void pauseGuessTimer() {
     if (guessTimer != null) {
       guessTimer.pauseTimer();
     }
   }
 
+  /**
+   * Gets the user's guess if applicable.
+   *
+   * @return the user's guess of who the suspect is.
+   */
   public static String getUserGuess() {
     return userGuess;
   }
 
+  /**
+   * Gets the current game state of the game state context.
+   *
+   * @return the current game state of the game state context
+   */
   public static GameState getCurrentState() {
     return context.getState();
   }
 
+  /**
+   * Sets the guess controller variable.
+   *
+   * @param guessCtrl the guess controller to set
+   */
   public static void setGuessCtrl(GuessingController guessCtrl) {
     App.guessCtrl = guessCtrl;
   }
 
+  /** Switches the game state to the guessing state. */
   private static void switchToGuessing() {
 
     pauseGameTimer();
@@ -181,6 +237,7 @@ public class App extends Application {
     }
   }
 
+  /** Switches the game state to the game over state. */
   private static void switchToGameOver() {
 
     context.setGameOverState();
@@ -201,14 +258,29 @@ public class App extends Application {
 
   }
 
+  /**
+   * Sets the user's guess of who the suspect is.
+   *
+   * @param userGuess guessed suspect by player
+   */
   public static void setUserGuess(String userGuess) {
     App.userGuess = userGuess;
   }
 
+  /**
+   * Gets the user's answer to why they guessed the suspect.
+   *
+   * @return the user's explanation for their guess
+   */
   public static String getUserAnswer() {
     return userAnswer;
   }
 
+  /**
+   * Sets the user's answer to why they guessed the suspect.
+   *
+   * @param userAnswer the user's explanation for their guess
+   */
   public static void setUserAnswer(String userAnswer) {
     App.userAnswer = userAnswer;
   }
@@ -223,6 +295,12 @@ public class App extends Application {
     launch();
   }
 
+  /**
+   * Replaces the content of the destination file with the content of the source file.
+   *
+   * @param sourceFilePath the path of the source file
+   * @param destinationFilePath the path of the destination file
+   */
   public static void replaceFileContent(String sourceFilePath, String destinationFilePath) {
     Path sourcePath = Paths.get(sourceFilePath);
     Path destinationPath = Paths.get(destinationFilePath);
@@ -238,6 +316,12 @@ public class App extends Application {
     }
   }
 
+  /**
+   * Appends the content to the specified file.
+   *
+   * @param content the content to append
+   * @param filePath the path of the file to append to
+   */
   public static void appendToFile(String content, String filePath) {
     Path path = Paths.get(filePath);
 
@@ -251,10 +335,20 @@ public class App extends Application {
     }
   }
 
+  /**
+   * Gets the game timer.
+   *
+   * @return the game timer
+   */
   public static Timer getTimer() {
     return timer;
   }
 
+  /**
+   * Starts the game timer.
+   *
+   * @return the game timer
+   */
   public static Timer startGuessTimer() {
     // 60 sec timer <TOCHANGE>
     guessTimer = new Timer(null, 60, () -> switchToGameOver());
@@ -330,6 +424,11 @@ public class App extends Application {
     }
   }
 
+  /**
+   * Hides the character in the scene.
+   *
+   * @param character the character to hide
+   */
   private static void hideCharacter(Node character) {
     if (character != null) {
       character.setVisible(false);
@@ -337,6 +436,11 @@ public class App extends Application {
     }
   }
 
+  /**
+   * Shows the character in the scene.
+   *
+   * @param character the character to show
+   */
   private static void showCharacter(Node character) {
     if (character != null) {
       character.setVisible(true);
@@ -344,6 +448,11 @@ public class App extends Application {
     }
   }
 
+  /**
+   * Hides the chat view and shows the characters in the scene.
+   *
+   * @throws IOException if the FXML file is not found
+   */
   public static void hideChat() throws IOException {
     Parent root = scene.getRoot();
     if (root instanceof AnchorPane) {
@@ -364,6 +473,12 @@ public class App extends Application {
     }
   }
 
+  /**
+   * Switches the room based on the room button clicked.
+   *
+   * @param event the mouse event that triggered the method
+   * @param roomButtonId the id of the room button clicked
+   */
   public static void switchRoom(MouseEvent event, String roomButtonId) {
 
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -402,14 +517,26 @@ public class App extends Application {
     stage.show();
   }
 
+  /**
+   * Checks if the chat view is open.
+   *
+   * @return true if the chat view is open, false otherwise
+   */
   public static boolean isChatOpen() {
     return isChatOpen;
   }
 
+  /** Closes the chat view. */
   public static void closeChat() {
     isChatOpen = false;
   }
 
+  /**
+   * Checks whether the game was won or lost.
+   *
+   * @param suspectName the name of the suspect guessed by the player
+   * @return true if the player correctly guessed the scholar, false otherwise
+   */
   public static boolean gameResult(String suspectName) {
     if (suspectName.equals("Scholar")) {
       return true;
@@ -418,6 +545,11 @@ public class App extends Application {
     }
   }
 
+  /**
+   * Actually starts the game by fading out the home screen and fading in the clue room.
+   *
+   * @throws IOException if the "src/main/resources/fxml/room.fxml" file is not found
+   */
   public static void actuallyStart() throws IOException {
     // App.setRoot("room");
     Parent clueRoot = loadFxml("room");
@@ -492,15 +624,30 @@ public class App extends Application {
     fadeHome.play();
   }
 
+  /**
+   * Handles the window close event by clearing the chat history and deallocating the synthesizer.
+   *
+   * @param event the window event that triggered the method
+   */
   private void handleWindowClose(WindowEvent event) {
     clearChats();
     FreeTextToSpeech.deallocateSynthesizer();
   }
 
+  /**
+   * Sets the feedback message to display to the user.
+   *
+   * @param feedbackmsg the feedback message to display
+   */
   public static void setFeedback(String feedbackmsg) {
     feedback = feedbackmsg;
   }
 
+  /**
+   * Gets the feedback message to display to the user.
+   *
+   * @return the feedback message to display
+   */
   public static String getFeedback() {
     return feedback;
   }
@@ -523,10 +670,20 @@ public class App extends Application {
     root.requestFocus();
   }
 
+  /**
+   * Sets the label of the timer.
+   *
+   * @param timerLabel the label to set
+   */
   public void setLabel(Label timerLabel) {
     timer.setLabel(timerLabel);
   }
 
+  /**
+   * Sets the label of the guess timer.
+   *
+   * @param timerLabel the label to set
+   */
   public void setGuessTimerLabel(Label timerLabel) {
     guessTimer.setLabel(timerLabel);
   }

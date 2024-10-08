@@ -28,6 +28,7 @@ public class LockerClueController extends ClueController {
   private double offsetX = 0;
   private ImageView currentImage;
 
+  /** Initialises the locker clue controller as soon as the clue is clicked. */
   @FXML
   @Override
   protected void initialize() {
@@ -42,16 +43,19 @@ public class LockerClueController extends ClueController {
     zoomedShoes.setVisible(false);
   }
 
+  /** Zoom in on the shoe clue. */
   @FXML
   private void zoomOnShoes() {
     zoomedShoes.setVisible(true);
   }
 
+  /** Close the zoomed in shoe clue. */
   @FXML
   private void closeShoes() {
     zoomedShoes.setVisible(false);
   }
 
+  /** Pair each image with corresponding rectangle which handles drag. */
   private void setDrag(ImageView image, Rectangle rectSelection) {
     // pressing of mouse
     rectSelection.setOnMousePressed(
@@ -85,6 +89,11 @@ public class LockerClueController extends ClueController {
         });
   }
 
+  /**
+   * Exit the locker clue and return to the room.
+   *
+   * @throws IOException
+   */
   @FXML
   private void onExitClue() throws IOException {
     App.setRoot("room");

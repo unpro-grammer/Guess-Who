@@ -36,6 +36,11 @@ public class GameOverController {
   private String profession;
   private String feedback;
 
+  /**
+   * Initialises the GameOverController for the game over scene.
+   *
+   * @throws ApiProxyException
+   */
   @FXML
   public void initialize() throws ApiProxyException {
     // Any required initialization code can be placed here
@@ -82,6 +87,11 @@ public class GameOverController {
     }
   }
 
+  /**
+   * Returns the player to the home screen to play again.
+   *
+   * @throws IOException
+   */
   @FXML
   private void onPlayAgain() throws IOException {
 
@@ -129,6 +139,11 @@ public class GameOverController {
     backgroundResponseThread.start();
   }
 
+  /**
+   * Returns the system prompt for the AI to generate feedback
+   *
+   * @return the system prompt for the AI
+   */
   public String getSystemPrompt() {
     Map<String, String> map = new HashMap<>();
     map.put("userAnswer", userAnswer);

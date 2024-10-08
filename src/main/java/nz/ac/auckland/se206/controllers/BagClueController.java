@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
+/** Bag Clue Controller class */
 public class BagClueController extends ClueController {
 
   @FXML private ImageView bagzipper;
@@ -16,6 +17,7 @@ public class BagClueController extends ClueController {
 
   private double offsetY = 0;
 
+  /** Initialises the bag clue controller as soon as the clue is clicked. */
   @FXML
   @Override
   protected void initialize() {
@@ -65,16 +67,27 @@ public class BagClueController extends ClueController {
         });
   }
 
+  /**
+   * Opens the bag and displays the contents.
+   *
+   * @throws IOException
+   */
   @FXML
   private void onOpenBag() throws IOException {
     zoomedBagStuff.setVisible(true);
   }
 
+  /** Hides bag contents. */
   @FXML
   private void closeBagStuff() {
     zoomedBagStuff.setVisible(false);
   }
 
+  /**
+   * Exits the locker clue.
+   *
+   * @throws IOException
+   */
   @FXML
   private void onExitClue() throws IOException {
     App.setRoot("room");

@@ -9,6 +9,7 @@ public class ChemicalClueController extends ClueController {
 
   @FXML private ImageView chemicalLabel;
 
+  /** Initialise chemical clue screen. */
   @FXML
   @Override
   void initialize() {
@@ -16,16 +17,27 @@ public class ChemicalClueController extends ClueController {
     chemicalLabel.setVisible(false);
   }
 
+  /**
+   * Display label of chemical.
+   *
+   * @throws IOException
+   */
   @FXML
   private void onOpenLabel() throws IOException {
     chemicalLabel.setVisible(true);
   }
 
+  /** Hide label of chemical. */
   @FXML
   private void closeLabel() {
     chemicalLabel.setVisible(false);
   }
 
+  /**
+   * Exit chemical clue.
+   *
+   * @throws IOException
+   */
   @FXML
   private void onExitClue() throws IOException {
     App.setRoot("room");

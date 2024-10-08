@@ -9,6 +9,7 @@ public abstract class ClueController {
 
   @FXML private Label timerLabel;
 
+  /** Initialises the clue controller for any clue scene. */
   @FXML
   void initialize() {
     timerLabel.setText(App.getTimer().formatTime(App.getTimer().getCurrentTime()));
