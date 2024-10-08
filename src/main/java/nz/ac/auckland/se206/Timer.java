@@ -99,6 +99,9 @@ public class Timer {
   /** Pauses the countdown timer. */
   public void pauseTimer() {
     isPaused = true;
+    if (timerThread != null) {
+      timerThread.interrupt(); // Interrupt the timer thread if it's running
+    }
   }
 
   /**
