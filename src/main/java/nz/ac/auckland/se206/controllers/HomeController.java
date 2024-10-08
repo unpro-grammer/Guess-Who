@@ -25,11 +25,7 @@ public class HomeController {
 
   /** Initialises the home controller for the home scene. */
   @FXML
-  void initialize() {
-    // backstory.setVisible(false);
-    // timerLabel.setVisible(false);
-    // timer.setVisible(false);
-  }
+  void initialize() {}
 
   /** Show the profiles of the suspects in which the timer begins. */
   @FXML
@@ -64,8 +60,6 @@ public class HomeController {
         });
     parallelTransition.play();
 
-    // startBtn.setVisible(false);
-    // homeImage.setVisible(false);
     backstory.setVisible(true);
     timerLabel.setVisible(true);
     timer.setVisible(true);
