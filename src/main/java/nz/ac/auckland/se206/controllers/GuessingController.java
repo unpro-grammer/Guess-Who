@@ -31,11 +31,13 @@ public class GuessingController {
   private String userGuess;
   private Timer timer;
 
+  /** Set user's explanation for their guess in the App */
   public void setUserExplanation() {
     userAnswer = explanationField.getText();
     App.setUserAnswer(userAnswer);
   }
 
+  /** Initialises the guessing controller for the guessing scene. */
   @FXML
   void initialize() {
     hideSelects();
@@ -60,6 +62,11 @@ public class GuessingController {
         });
   }
 
+  /**
+   * Confirms the player's guess and runs it through AI
+   *
+   * @throws IOException
+   */
   @FXML
   private void onConfirmGuessing() throws IOException {
 
@@ -119,6 +126,7 @@ public class GuessingController {
     System.out.println(userGuess);
   }
 
+  /** Unselect all three suspects */
   private void hideSelects() {
     selectScientist.setVisible(false);
     selectLabtech.setVisible(false);
