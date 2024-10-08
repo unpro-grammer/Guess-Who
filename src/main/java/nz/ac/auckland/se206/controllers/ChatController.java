@@ -42,7 +42,6 @@ public class ChatController {
   private static RoomController roomController;
   private static MediaPlayer mediaPlayerChat;
   private static boolean stillTalking = false;
-  private static ArrayList<String> chatTexts = new ArrayList<>();
   private static Boolean first;
   private static HashMap<String, Integer> displayedChat = new HashMap<>();
   private static boolean canSend = true;
@@ -64,11 +63,11 @@ public class ChatController {
    * state indicators to their default values, preparing the game for a new session.
    */
   public static void resetGame() {
+
     firstInteraction.put("Lab Technician", true); // Reset the game state
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
     chatHistories = new HashMap<>();
-    chatTexts = new ArrayList<>();
     canSend = true;
     stillTalking = false;
     talked = false;
@@ -458,7 +457,7 @@ public class ChatController {
       if (stillTalking) { // Show the suspect speaking animation if they are still talking
         RoomController.getRoomController().showSuspectSpeaking();
       }
-      chatTexts.add(profession + ": " + result.getChatMessage().getContent());
+      chatHistories.get(profession).add(profession + ": " + result.getChatMessage().getContent());
       canSend = true;
       btnSend.setDisable(false);
       return result.getChatMessage();
@@ -511,7 +510,7 @@ public class ChatController {
     if (message.isEmpty()) { // Send the message to the GPT model
       return;
     }
-    chatTexts.add("You: " + message);
+    chatHistories.get(profession).add("You: " + message);
 
     txtInput.clear(); // Clear the input field after sending the message
     ChatMessage msg = new ChatMessage("user", message);
