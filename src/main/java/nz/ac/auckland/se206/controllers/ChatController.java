@@ -284,6 +284,7 @@ public class ChatController {
             } catch (ApiProxyException e) {
               e.printStackTrace();
             }
+            chatHistories.get(profession).get(1).add("");
             return null;
           }
         };
@@ -472,8 +473,7 @@ public class ChatController {
     chatCompletionRequest.addMessage(msg);
     try {
       canSend = false; // Disable the send button while the GPT model is processing
-      btnSend.setDisable(false);
-
+      btnSend.setDisable(true);
       playSound(profession, first);
       firstInteraction.put(profession, false);
       ChatCompletionResult chatCompletionResult =
@@ -485,10 +485,6 @@ public class ChatController {
       if (stillTalking) { // Show the suspect speaking animation if they are still talking
         RoomController.getRoomController().showSuspectSpeaking();
       }
-      // chatHistories
-      //     .get(profession)
-      //     .get(0)
-      //     .add(profession + ": " + result.getChatMessage().getContent());
       canSend = true;
       btnSend.setDisable(false);
       btnSend.setVisible(true);
@@ -594,11 +590,11 @@ public class ChatController {
 
       // Update the text area with the new message
       txtaChat.setText(
-          chatHistories.get(profession).get(0).get(displayedChat.get(profession))
+          chatHistories.get(profession).get(1).get(displayedChat.get(profession))
               + chatHistories
                   .get(profession)
                   .get(0)
-                  .get(0)); // Get the next message from the history
+                  .get(displayedChat.get(profession))); // Get the next message from the history
 
       // Hide the input field and send button if we're still in history mode
       txtInput.setVisible(false);
@@ -648,10 +644,10 @@ public class ChatController {
 
       // Update the text area with the previous message
       txtaChat.setText(
-          chatHistories.get(profession).get(0).get(displayedChat.get(profession))
+          chatHistories.get(profession).get(1).get(displayedChat.get(profession))
               + chatHistories
                   .get(profession)
-                  .get(1)
+                  .get(0)
                   .get(displayedChat.get(profession))); // Get the previous message from the history
 
       // Hide the input field and send button when navigating backward
