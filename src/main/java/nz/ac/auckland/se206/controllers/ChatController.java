@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javafx.application.Platform;
@@ -72,7 +71,6 @@ public class ChatController {
     chatHistories = new HashMap<>();
     // Create the Map where each key is the character's profession and the value is a List of two
     // ArrayLists
-    Map<String, List<List<String>>> chatHistories = new HashMap<>();
 
     // Initialize the chat histories for each character
     chatHistories.put(
