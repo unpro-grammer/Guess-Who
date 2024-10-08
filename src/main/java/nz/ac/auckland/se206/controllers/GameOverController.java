@@ -17,6 +17,7 @@ import nz.ac.auckland.apiproxy.chat.openai.Choice;
 import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.MusicPlayer;
 import nz.ac.auckland.se206.prompts.PromptEngineering;
 
 public class GameOverController {
@@ -35,6 +36,11 @@ public class GameOverController {
   private String profession;
   private String feedback;
 
+  /**
+   * Initialises the GameOverController for the game over scene.
+   *
+   * @throws ApiProxyException
+   */
   @FXML
   public void initialize() throws ApiProxyException {
     // Any required initialization code can be placed here
@@ -51,6 +57,9 @@ public class GameOverController {
     outOfTime.setVisible(false);
     purpLine.setVisible(false);
     App.pauseGuessTimer();
+
+    // stop music
+    MusicPlayer.stopAudio();
 
     // depending on the player guessing result, display the correct image and related button
     switch (App.getUserGuess()) {
@@ -78,6 +87,11 @@ public class GameOverController {
     }
   }
 
+  /**
+   * Returns the player to the home screen to play again.
+   *
+   * @throws IOException
+   */
   @FXML
   private void onPlayAgain() throws IOException {
 
@@ -125,6 +139,11 @@ public class GameOverController {
     backgroundResponseThread.start();
   }
 
+  /**
+   * Returns the system prompt for the AI to generate feedback
+   *
+   * @return the system prompt for the AI
+   */
   public String getSystemPrompt() {
     Map<String, String> map = new HashMap<>();
     map.put("userAnswer", userAnswer);

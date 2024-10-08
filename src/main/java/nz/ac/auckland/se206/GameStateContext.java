@@ -51,18 +51,26 @@ public class GameStateContext {
     this.gameState = state;
   }
 
+  /**
+   * Gets the current state of the game.
+   *
+   * @return the current state of the game
+   */
   public GameState getState() {
     return gameState;
   }
 
+  /** Sets the game started state. */
   public void setGameStartedState() {
     gameState = gameStartedState;
   }
 
+  /** Sets the guessing state. */
   public void setGuessingState() {
     gameState = guessingState;
   }
 
+  /** Sets the game over state. */
   public void setGameOverState() {
     gameState = gameOverState;
   }
@@ -142,6 +150,13 @@ public class GameStateContext {
     gameState.handleGuessClick();
   }
 
+  /**
+   * Handles the event when a rectangle is clicked. Depending on the clicked rectangle, will
+   * transition to the corresponding room.
+   *
+   * @param event the mouse event triggered by clicking a rectangle
+   * @param clickedId the ID of the clicked rectangle
+   */
   public void handleRoomTransition(MouseEvent event, String clickedId) {
     if (gameState instanceof GameStarted) {
       gameStartedState.handleRoomTransition(event, clickedId);

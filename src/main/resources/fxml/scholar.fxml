@@ -57,7 +57,7 @@
             <Image url="@../images/scholar_thinking.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="chatPane" layoutX="-2.0" layoutY="426.0" prefHeight="173.0" prefWidth="786.0" />
+      <AnchorPane fx:id="chatPane" layoutY="428.0" prefHeight="173.0" prefWidth="744.0" />
       <ImageView fx:id="mapIcon" fitHeight="78.0" fitWidth="78.0" layoutX="702.0" layoutY="13.0" onMouseClicked="#showMap">
          <image>
             <Image url="@../images/map.png" />
@@ -94,5 +94,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <ImageView fx:id="guessRequirementImg" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="341.5" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="beforeGuess" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="339.0" layoutY="31.0" onMouseEntered="#onGuessRequirements" onMouseExited="#onGuessRequirementsExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="136.0" />
    </children>
 </AnchorPane>

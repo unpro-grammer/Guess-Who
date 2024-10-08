@@ -16,8 +16,14 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.Timer;
 
 public class GuessingController {
-  @FXML private TextArea explanationField;
+
   private static MediaPlayer speaker;
+  private static String userAnswer;
+
+  private String userGuess;
+  private Timer timer;
+
+  @FXML private TextArea explanationField;
   @FXML private Rectangle leadScientist;
   @FXML private Rectangle labTechnician;
   @FXML private Rectangle scholar;
@@ -27,15 +33,13 @@ public class GuessingController {
   @FXML private ImageView selectLabtech;
   @FXML private ImageView selectScholar;
 
-  private static String userAnswer;
-  private String userGuess;
-  private Timer timer;
-
+  /** Set user's explanation for their guess in the App */
   public void setUserExplanation() {
     userAnswer = explanationField.getText();
     App.setUserAnswer(userAnswer);
   }
 
+  /** Initialises the guessing controller for the guessing scene. */
   @FXML
   void initialize() {
     hideSelects();
@@ -60,6 +64,11 @@ public class GuessingController {
         });
   }
 
+  /**
+   * Confirms the player's guess and runs it through AI
+   *
+   * @throws IOException
+   */
   @FXML
   private void onConfirmGuessing() throws IOException {
 
@@ -119,6 +128,7 @@ public class GuessingController {
     System.out.println(userGuess);
   }
 
+  /** Unselect all three suspects */
   private void hideSelects() {
     selectScientist.setVisible(false);
     selectLabtech.setVisible(false);

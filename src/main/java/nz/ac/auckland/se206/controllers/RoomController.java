@@ -76,11 +76,17 @@ public class RoomController {
   @FXML private Rectangle rectScholar;
   @FXML private Rectangle rectLeadScientist;
   @FXML private Rectangle rectLocker;
+  @FXML private ImageView guessRequirementImg;
+  @FXML private Rectangle beforeGuess;
+  @FXML private ImageView biggerbag;
+  @FXML private ImageView tiltedchem;
 
   protected Timer timer;
 
   private Image pauseImage = new Image("/images/pauseButton.png");
   private Image playImage = new Image("/images/play-button.png");
+  private Image moreClue = new Image("/images/clue.png");
+  private Image moreTalk = new Image("/images/talk.png");
 
   /**
    * Initializes the room controller. This method sets up the timer, hides the map overlay, disables
@@ -117,11 +123,10 @@ public class RoomController {
 
       // Use Text-to-Speech to provide instructions
       TextToSpeech.speak(
-          "Chat with the three customers, and guess who is the " + context.getProfessionToGuess());
+          "Chat with the three suspects, and guess who is the " + context.getProfessionToGuess());
 
       // Start the timer and play background music
       isFirstTimeInit = false;
-      App.getTimer().startTimer();
       MusicPlayer.playAudio("/sounds/lofifocusbeat.mp3");
 
     } else {
@@ -132,7 +137,10 @@ public class RoomController {
         pauseButton.setImage(playImage);
       }
     }
-    hideOpen(); // Hides any open elements initially
+    hideOpen(); // Hides open locker initially
+    shrinkBag();
+    untiltChem();
+
     ctrl = this; // Store the controller instance
   }
 
@@ -161,12 +169,14 @@ public class RoomController {
     leadScientistSceneButton.setVisible(true);
     labTechnicianSceneButton.setVisible(true);
     scholarSceneButton.setVisible(true);
+    beforeGuess.setDisable(true);
   }
 
   /** Closes the map overlay by calling the `hideMap()` method. */
   @FXML
   protected void closeMap() {
     ChatController.resetDisplayedChat();
+    beforeGuess.setDisable(false);
     hideMap();
   }
 
@@ -275,7 +285,7 @@ public class RoomController {
 
   /**
    * Displays the open locker by making it visible on the screen. This is used when the player
-   * interacts with a locker in the game.
+   * interacts with the locker in the game.
    */
   @FXML
   protected void showOpen() {
@@ -292,6 +302,38 @@ public class RoomController {
   protected void hideOpen() {
     if (openLocker != null) {
       openLocker.setVisible(false);
+    }
+  }
+
+  /** Show a slightly bigger version of the bag clue on hover. */
+  @FXML
+  protected void enlargeBag() {
+    if (biggerbag != null) {
+      biggerbag.setVisible(true);
+    }
+  }
+
+  /** Hide the slightly bigger version of the bag clue on mouse exit. */
+  @FXML
+  protected void shrinkBag() {
+    if (biggerbag != null) {
+      biggerbag.setVisible(false);
+    }
+  }
+
+  /** Show slightly tilted version of chemical clue on hover. */
+  @FXML
+  protected void tiltChem() {
+    if (tiltedchem != null) {
+      tiltedchem.setVisible(true);
+    }
+  }
+
+  /** Hide slightly tilted version of chemical clue on mouse exit. */
+  @FXML
+  protected void untiltChem() {
+    if (tiltedchem != null) {
+      tiltedchem.setVisible(false);
     }
   }
 
@@ -352,5 +394,29 @@ public class RoomController {
     if (anchor.getChildren().contains(rectLeadScientist)) {
       rectLeadScientist.setDisable(false);
     }
+  }
+
+  /** Show the requirements remaining for guessing. */
+  @FXML
+  protected void onGuessRequirements() {
+    if (App.isInteractedEnough()) {
+      beforeGuess.setDisable(true);
+      return;
+    }
+    guessRequirementImg.setDisable(false);
+    if (!App.exploredEnoughClues()) {
+      // show clue requirement by default because they interact with the crime scene first oops
+      guessRequirementImg.setImage(moreClue);
+    } else {
+      guessRequirementImg.setImage(moreTalk);
+    }
+    guessRequirementImg.setVisible(true);
+  }
+
+  /** Hide the requirements for guessing. */
+  @FXML
+  protected void onGuessRequirementsExit() {
+    guessRequirementImg.setVisible(false);
+    guessRequirementImg.setDisable(true);
   }
 }

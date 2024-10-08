@@ -44,7 +44,7 @@
             <Image url="@../images/scientist_speaking.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="chatPane" layoutY="428.0" prefHeight="173.0" prefWidth="748.0" />
+      <AnchorPane fx:id="chatPane" layoutY="428.0" prefHeight="173.0" prefWidth="750.0" />
       <Rectangle fx:id="rectLeadScientist" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" focusTraversable="true" height="252.0" layoutX="87.0" layoutY="266.0" onMouseClicked="#handleRectangleClick" onMouseEntered="#showTurned" onMouseExited="#hideTurned" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="56.0">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -93,5 +93,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <ImageView fx:id="guessRequirementImg" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="341.5" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="beforeGuess" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="339.0" layoutY="30.0" onMouseEntered="#onGuessRequirements" onMouseExited="#onGuessRequirementsExit" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="136.0" />
    </children>
 </AnchorPane>
