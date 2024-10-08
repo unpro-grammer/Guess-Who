@@ -102,6 +102,7 @@ public class HomeController {
     if (homescreenGone) {
       try {
 
+        // Set the root to the room scene
         App.actuallyStart();
 
       } catch (IOException e) {
