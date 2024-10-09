@@ -120,7 +120,7 @@ public class GameOverController {
               chatCompletionRequest =
                   new ChatCompletionRequest(config)
                       .setN(1)
-                      .setTemperature(0.2)
+                      .setTemperature(0.1)
                       .setTopP(0.5)
                       .setMaxTokens(130);
               // runs ChatGPT to generate a feedback based on the model answer
@@ -150,6 +150,7 @@ public class GameOverController {
   public String getSystemPrompt() {
     Map<String, String> map = new HashMap<>();
     map.put("userAnswer", userAnswer);
+    System.out.println(userAnswer);
     return PromptEngineering.getPrompt("modelanswer.txt", map);
   }
 
