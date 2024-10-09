@@ -32,7 +32,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE>
-  private static Timer timer = new Timer(null, 100, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 300, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Parent chatView = null;
@@ -71,8 +71,7 @@ public class App extends Application {
   private static boolean isChatOpen = false;
 
   public static boolean isInteractedEnough() {
-    // return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
-    return true;
+    return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
   }
 
   public static void clearChats() {
@@ -91,7 +90,7 @@ public class App extends Application {
     // clear all variables and reset game state
     clearChats();
     // <TOCHANGE> 5 minute timer
-    timer = new Timer(null, 100, () -> switchToGuessing());
+    timer = new Timer(null, 300, () -> switchToGuessing());
     guessTimer = null;
     feedback = "";
     userAnswer = "";
