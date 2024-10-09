@@ -53,7 +53,7 @@
             <Image url="@../images/notepad.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="explanationField" layoutX="120.0" layoutY="331.0" prefHeight="275.0" prefWidth="555.0" wrapText="true">
+      <TextArea fx:id="explanationField" layoutX="120.0" layoutY="331.0" prefHeight="245.0" prefWidth="555.0" wrapText="true">
         <cursor>
           <Cursor fx:constant="TEXT" />
         </cursor>
@@ -101,5 +101,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f1ece4" height="7.0" layoutX="120.0" layoutY="331.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="535.0" />
    </children>
 </AnchorPane>
