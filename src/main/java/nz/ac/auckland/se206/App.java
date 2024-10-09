@@ -79,8 +79,7 @@ public class App extends Application {
    * @return true if the user has interacted enough, false otherwise
    */
   public static boolean isInteractedEnough() {
-    // return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
-    return true; // for testing
+    return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
   }
 
   /**
