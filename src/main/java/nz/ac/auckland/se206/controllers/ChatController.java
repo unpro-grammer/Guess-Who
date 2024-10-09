@@ -40,7 +40,6 @@ public class ChatController {
   private static Map<String, Boolean> firstInteraction = new HashMap<>();
   private static Map<String, ArrayList<ArrayList<String>>> chatHistories = new HashMap<>();
   private static boolean talked = false;
-  private static RoomController roomController;
   private static MediaPlayer mediaPlayerChat;
   private static boolean stillTalking = false;
   private static Boolean first;
@@ -88,6 +87,12 @@ public class ChatController {
     resetDisplayedChat();
   }
 
+  /**
+   * Clears up everything that the player talked to the suspects during the game round to start
+   * off brand new.
+   * 
+   * <p>This method modifies the displayedchat to as if it's the start of a new game round.
+   */
   public static void resetDisplayedChat() { // Reset the displayed chat messages
     displayedChat.put("Lab Technician", 0);
     displayedChat.put("Lead Scientist", 0);
@@ -143,18 +148,6 @@ public class ChatController {
   }
 
   /**
-   * Sets the room controller for managing the suspect interaction.
-   *
-   * <p>This method assigns a RoomController instance to the class and initializes the
-   * LabTechnicianController as the current room controller.
-   *
-   * @param roomContrl the RoomController instance to manage room activities
-   */
-  public static void setRoomController(RoomController roomContrl) {
-    roomController = roomContrl; // Set the room controller
-  }
-
-  /**
    * Reads the content of a text file and returns it as a string.
    *
    * <p>This method reads a file from the provided file path, line by line, and returns the content
@@ -193,7 +186,6 @@ public class ChatController {
   // Instance Fields
   private String profession;
   private String filePath;
-  private String name = "Speaker";
   @FXML private TextArea txtaChat;
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
@@ -326,7 +318,8 @@ public class ChatController {
   private String getSystemPrompt() { // Generate the system prompt based on the profession
     Map<String, String> map = new HashMap<>();
     map.put("profession", profession);
-    String firstFile, secondFile;
+    String firstFile;
+    String secondFile;
 
     System.out.println(firstInteraction);
     switch (profession) { // Select the appropriate files based on the profession
@@ -509,7 +502,8 @@ public class ChatController {
    */
   private void saveChatToFile(String chatContent) {
     try {
-      Files.writeString( // Write the chat content to the file
+      // Write the chat content to the file
+      Files.writeString(
           Paths.get(filePath),
           chatContent + "\n",
           StandardOpenOption.CREATE, // Create the file if it doesn't exist
@@ -543,7 +537,6 @@ public class ChatController {
     if (message.isEmpty()) { // Send the message to the GPT model
       return;
     }
-    // chatHistories.get(profession).get(1).add("You: " + message);
 
     txtInput.clear(); // Clear the input field after sending the message
     ChatMessage msg = new ChatMessage("user", message);
