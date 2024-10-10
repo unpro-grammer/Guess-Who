@@ -50,11 +50,13 @@ public class GuessingController {
   @FXML
   void initialize() {
     hideSelects();
+    // switch timer to guess timer
     App.pauseGameTimer();
     timer = App.startGuessTimer();
     timer.setLabel(timerLabel);
     timer.startTimer();
     confimGuessingButton.setDisable(true);
+    // load the custom font
     Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/handwritingFont.ttf"), 27);
     System.out.println("Font Loaded: " + font.getName());
     Font.loadFont(getClass().getResourceAsStream("/fonts/sonoMedium.ttf"), 27);
@@ -63,6 +65,7 @@ public class GuessingController {
     // set volume
     speaker.setVolume(0.8);
 
+    // set music icon accordingly
     if (MusicPlayer.isPlaying()) {
       pauseButton.setImage(pauseImage);
     } else {
