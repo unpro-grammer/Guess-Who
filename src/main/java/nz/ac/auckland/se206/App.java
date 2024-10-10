@@ -34,7 +34,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE> 301 secs cause of transition
-  private static Timer timer = new Timer(null, 50, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 301, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Parent chatView = null;
@@ -109,7 +109,7 @@ public class App extends Application {
     // clear all variables and reset game state
     clearChats();
     // <TOCHANGE> 5 minute timer. 301 secs cause of transition
-    timer = new Timer(null, 50, () -> switchToGuessing());
+    timer = new Timer(null, 301, () -> switchToGuessing());
     guessTimer = null;
     feedback = "";
     userAnswer = "";
@@ -354,7 +354,7 @@ public class App extends Application {
    */
   public static Timer startGuessTimer() {
     // 60 sec timer <TOCHANGE>
-    guessTimer = new Timer(null, 10, () -> switchToGameOver());
+    guessTimer = new Timer(null, 60, () -> switchToGameOver());
     return guessTimer;
   }
 
