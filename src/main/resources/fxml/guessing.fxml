@@ -101,6 +101,14 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <ImageView fx:id="pauseButton" fitHeight="38.0" fitWidth="33.0" layoutX="622.0" layoutY="29.0" onMouseClicked="#onPauseClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/pauseButton.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f1ece4" height="7.0" layoutX="120.0" layoutY="331.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="535.0" />
    </children>
 </AnchorPane>
