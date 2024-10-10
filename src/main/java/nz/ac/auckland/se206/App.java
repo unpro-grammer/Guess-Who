@@ -211,6 +211,7 @@ public class App extends Application {
   private static void switchToGuessing() {
 
     pauseGameTimer();
+    System.out.println("Paused game timer");
     // if insufficient interactions, switch to game over
 
     if (!isInteractedEnough()) {
@@ -240,12 +241,15 @@ public class App extends Application {
   private static void switchToGameOver() {
 
     context.setGameOverState();
+    System.out.println("Switching to game over from switchToGameOver");
     try {
       // NEED MORE LOGIC TO HANDLE WHETHER A GUESS HAS BEEN CLICKED (selectesuspect in
       // gameovercontroller) // actually wait this is already done because suspect will be null.
       // Thankfully I have unified the gameover screen for any sort of time running out.
 
-      guessCtrl.setUserExplanation();
+      if (guessCtrl != null) {
+        guessCtrl.setUserExplanation();
+      }
       App.setRoot("gameover");
 
       System.out.println("Switching to game over from switchToGameOver");

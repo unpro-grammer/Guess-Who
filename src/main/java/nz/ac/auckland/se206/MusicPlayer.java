@@ -57,6 +57,8 @@ public class MusicPlayer {
 
   /** Stops the currently playing audio. */
   public static void stopAudio() {
-    mediaPlayer.stop();
+    if (mediaPlayer != null) {
+      mediaPlayer.stop();
+    }
   }
 }

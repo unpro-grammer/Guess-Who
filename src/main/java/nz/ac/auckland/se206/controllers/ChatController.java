@@ -88,9 +88,9 @@ public class ChatController {
   }
 
   /**
-   * Clears up everything that the player talked to the suspects during the game round to start
-   * off brand new.
-   * 
+   * Clears up everything that the player talked to the suspects during the game round to start off
+   * brand new.
+   *
    * <p>This method modifies the displayedchat to as if it's the start of a new game round.
    */
   public static void resetDisplayedChat() { // Reset the displayed chat messages
@@ -225,8 +225,10 @@ public class ChatController {
     txtInput.setOnKeyPressed(
         event -> {
           if (event.getCode() == KeyCode.ENTER
+              && stillTalking
               && canSend) { // Send the message when the Enter key is pressed
             try {
+              System.out.println("txtInput enter pressed");
               onSendMessage(new ActionEvent());
             } catch (ApiProxyException | IOException e) {
               e.printStackTrace();
@@ -527,6 +529,7 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
+    System.out.println("Send message");
     if (txtInput.getText().trim().isEmpty()) { // if the input is empty,
       return;
     }
