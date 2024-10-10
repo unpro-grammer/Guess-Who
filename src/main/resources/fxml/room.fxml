@@ -80,22 +80,22 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Button fx:id="clueSceneBtn" layoutX="108.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="C">
+      <Button fx:id="clueSceneBtn" layoutX="112.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="C">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="leadScientistSceneButton" layoutX="414.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="LS">
+      <Button fx:id="leadScientistSceneButton" layoutX="419.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="LS">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="labTechnicianSceneButton" layoutX="414.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="LT">
+      <Button fx:id="labTechnicianSceneButton" layoutX="419.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="LT">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="scholarSceneButton" layoutX="108.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="S">
+      <Button fx:id="scholarSceneButton" layoutX="109.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#handleRoomTransition" opacity="0.0" prefHeight="173.0" prefWidth="275.0" text="S">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
