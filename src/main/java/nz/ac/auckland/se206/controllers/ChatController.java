@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
 import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
@@ -206,6 +207,7 @@ public class ChatController {
   @FXML
   public void initialize() throws ApiProxyException {
     System.out.println("Chat initialized");
+    Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/handwritingFont.ttf"), 27);
     firstInteraction.put("Lab Technician", true); // Initialize the interaction flags
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);

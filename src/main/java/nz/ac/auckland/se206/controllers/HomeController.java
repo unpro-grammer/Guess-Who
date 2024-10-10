@@ -26,7 +26,11 @@ public class HomeController {
 
   /** Initialises the home controller for the home scene. */
   @FXML
-  void initialize() {}
+  void initialize() {
+    Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/sonoMedium.ttf"), 27);
+    System.out.println(font);
+    timerLabel.setFont(font);
+  }
 
   /** Show the profiles of the suspects in which the timer begins. */
   @FXML
