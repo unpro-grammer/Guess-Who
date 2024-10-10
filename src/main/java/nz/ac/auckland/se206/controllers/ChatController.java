@@ -207,7 +207,7 @@ public class ChatController {
   @FXML
   public void initialize() throws ApiProxyException {
     System.out.println("Chat initialized");
-    Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/handwritingFont.ttf"), 27);
+    Font.loadFont(getClass().getResourceAsStream("/fonts/handwritingFont.ttf"), 27);
     firstInteraction.put("Lab Technician", true); // Initialize the interaction flags
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
