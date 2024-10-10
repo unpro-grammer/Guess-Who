@@ -34,7 +34,7 @@ import nz.ac.auckland.se206.states.GameState;
  */
 public class App extends Application {
   // 5 minute timer <TOCHANGE> 301 secs cause of transition
-  private static Timer timer = new Timer(null, 301, () -> switchToGuessing());
+  private static Timer timer = new Timer(null, 50, () -> switchToGuessing());
   private static Timer guessTimer;
   private static Scene scene;
   private static Parent chatView = null;
@@ -109,7 +109,7 @@ public class App extends Application {
     // clear all variables and reset game state
     clearChats();
     // <TOCHANGE> 5 minute timer. 301 secs cause of transition
-    timer = new Timer(null, 301, () -> switchToGuessing());
+    timer = new Timer(null, 50, () -> switchToGuessing());
     guessTimer = null;
     feedback = "";
     userAnswer = "";
@@ -211,6 +211,7 @@ public class App extends Application {
   private static void switchToGuessing() {
 
     pauseGameTimer();
+    System.out.println("Paused game timer");
     // if insufficient interactions, switch to game over
 
     if (!isInteractedEnough()) {
@@ -240,12 +241,15 @@ public class App extends Application {
   private static void switchToGameOver() {
 
     context.setGameOverState();
+    System.out.println("Switching to game over from switchToGameOver");
     try {
       // NEED MORE LOGIC TO HANDLE WHETHER A GUESS HAS BEEN CLICKED (selectesuspect in
       // gameovercontroller) // actually wait this is already done because suspect will be null.
       // Thankfully I have unified the gameover screen for any sort of time running out.
 
-      guessCtrl.setUserExplanation();
+      if (guessCtrl != null) {
+        guessCtrl.setUserExplanation();
+      }
       App.setRoot("gameover");
 
       System.out.println("Switching to game over from switchToGameOver");
@@ -350,7 +354,7 @@ public class App extends Application {
    */
   public static Timer startGuessTimer() {
     // 60 sec timer <TOCHANGE>
-    guessTimer = new Timer(null, 60, () -> switchToGameOver());
+    guessTimer = new Timer(null, 10, () -> switchToGameOver());
     return guessTimer;
   }
 

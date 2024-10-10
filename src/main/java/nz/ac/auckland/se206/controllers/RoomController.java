@@ -266,6 +266,7 @@ public class RoomController {
    */
   @FXML
   protected void onHandleGuessClick() throws IOException {
+    System.out.println("Guess button triggered");
     context.handleGuessClick();
   }
 
