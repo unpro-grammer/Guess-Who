@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
@@ -13,6 +14,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.MusicPlayer;
 import nz.ac.auckland.se206.Timer;
 
 /** Controller for the guessing scene. This scene is where the player guesses the suspect. */
@@ -33,6 +35,10 @@ public class GuessingController {
   @FXML private ImageView selectScientist;
   @FXML private ImageView selectLabtech;
   @FXML private ImageView selectScholar;
+  @FXML private ImageView pauseButton;
+
+  private Image pauseImage = new Image("/images/pauseButton.png");
+  private Image playImage = new Image("/images/play-button.png");
 
   /** Set user's explanation for their guess in the App. */
   public void setUserExplanation() {
@@ -57,12 +63,36 @@ public class GuessingController {
     // set volume
     speaker.setVolume(0.8);
 
+    if (MusicPlayer.isPlaying()) {
+      pauseButton.setImage(pauseImage);
+    } else {
+      pauseButton.setImage(playImage);
+    }
+
     System.out.println(speaker);
 
     Platform.runLater(
         () -> {
           speaker.play();
         });
+  }
+
+  /**
+   * Handles the click event on the pause button for music playback. Toggles between play and pause
+   * for the background music and updates the button icon accordingly.
+   *
+   * @param event the mouse event triggered by clicking the pause button
+   */
+  @FXML
+  public void onPauseClick(MouseEvent event) {
+    // toggle between play and pause, alongside icons
+    if (MusicPlayer.isPlaying()) {
+      MusicPlayer.pauseAudio();
+      pauseButton.setImage(playImage);
+    } else {
+      MusicPlayer.unPauseAudio();
+      pauseButton.setImage(pauseImage);
+    }
   }
 
   /**
