@@ -217,12 +217,14 @@
   -fx-background-insets: 0;
   -fx-padding: 0;
   -fx-pref-width: 30;
+  -fx-background-radius: 15;
 }
 
 .scroll-bar:horizontal .track {
   -fx-background-color: #e4e6f1;
   -fx-background-insets: 0;
   -fx-padding: 0;
+  -fx-background-radius: 5;
 }
 
 .scroll-bar:vertical .thumb {
@@ -267,7 +269,7 @@
   -fx-font-size: 24px;
   -fx-background-color: #e9e4f0 !important;
   -fx-text-fill: rgb(38, 33, 100) !important;
-  -fx-highlight-text-fill: rgb(66, 41, 17);
+  -fx-highlight-text-fill: rgb(38, 33, 100);
   -fx-control-inner-background: #e9e4f0 !important;
   -fx-border-width: 0;
   -fx-border-color: #e9e4f0 !important;

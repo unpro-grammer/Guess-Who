@@ -6,15 +6,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
+/** Bag Clue Controller class in which the bag clue exists!!!. */
 public class BagClueController extends ClueController {
 
   @FXML private ImageView bagzipper;
   @FXML private Rectangle rectZipper;
   @FXML private Rectangle clickInto;
   @FXML private ImageView zoomedBagStuff;
+  @FXML private ImageView sparkles;
 
   private double offsetY = 0;
 
+  /** Initialises the bag clue controller as soon as the clue is clicked. */
   @FXML
   @Override
   protected void initialize() {
@@ -24,6 +27,7 @@ public class BagClueController extends ClueController {
 
     // clicking into not available until dragged
     clickInto.setVisible(false);
+    sparkles.setVisible(false);
 
     // pair zipper with small rectangle which handles drag
 
@@ -52,20 +56,37 @@ public class BagClueController extends ClueController {
           bagzipper.setLayoutY(newY);
           rectZipper.setLayoutY(newY + 230);
 
-          clickInto.setVisible(true);
+          if (newY <= 60) {
+            clickInto.setVisible(true);
+            sparkles.setVisible(true);
+          } else {
+            clickInto.setVisible(false);
+            sparkles.setVisible(false);
+          }
         });
   }
 
+  /**
+   * Opens the bag and displays the zoomed in contents.
+   *
+   * @throws IOException if the bag fxml file is not found.
+   */
   @FXML
   private void onOpenBag() throws IOException {
     zoomedBagStuff.setVisible(true);
   }
 
+  /** Hides the zoomed in bag contents. */
   @FXML
   private void closeBagStuff() {
     zoomedBagStuff.setVisible(false);
   }
 
+  /**
+   * Exits the bag clue and returns to room.
+   *
+   * @throws IOException if the room fxml file is not found.
+   */
   @FXML
   private void onExitClue() throws IOException {
     App.setRoot("room");

@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionRequest;
 import nz.ac.auckland.apiproxy.chat.openai.ChatCompletionResult;
 import nz.ac.auckland.apiproxy.chat.openai.ChatMessage;
@@ -40,7 +41,6 @@ public class ChatController {
   private static Map<String, Boolean> firstInteraction = new HashMap<>();
   private static Map<String, ArrayList<ArrayList<String>>> chatHistories = new HashMap<>();
   private static boolean talked = false;
-  private static RoomController roomController;
   private static MediaPlayer mediaPlayerChat;
   private static boolean stillTalking = false;
   private static Boolean first;
@@ -88,6 +88,12 @@ public class ChatController {
     resetDisplayedChat();
   }
 
+  /**
+   * Clears up everything that the player talked to the suspects during the game round to start off
+   * brand new.
+   *
+   * <p>This method modifies the displayedchat to as if it's the start of a new game round.
+   */
   public static void resetDisplayedChat() { // Reset the displayed chat messages
     displayedChat.put("Lab Technician", 0);
     displayedChat.put("Lead Scientist", 0);
@@ -143,18 +149,6 @@ public class ChatController {
   }
 
   /**
-   * Sets the room controller for managing the suspect interaction.
-   *
-   * <p>This method assigns a RoomController instance to the class and initializes the
-   * LabTechnicianController as the current room controller.
-   *
-   * @param roomContrl the RoomController instance to manage room activities
-   */
-  public static void setRoomController(RoomController roomContrl) {
-    roomController = roomContrl; // Set the room controller
-  }
-
-  /**
    * Reads the content of a text file and returns it as a string.
    *
    * <p>This method reads a file from the provided file path, line by line, and returns the content
@@ -193,7 +187,6 @@ public class ChatController {
   // Instance Fields
   private String profession;
   private String filePath;
-  private String name = "Speaker";
   @FXML private TextArea txtaChat;
   @FXML private TextField txtInput;
   @FXML private Button btnSend;
@@ -214,6 +207,7 @@ public class ChatController {
   @FXML
   public void initialize() throws ApiProxyException {
     System.out.println("Chat initialized");
+    Font.loadFont(getClass().getResourceAsStream("/fonts/handwritingFont.ttf"), 27);
     firstInteraction.put("Lab Technician", true); // Initialize the interaction flags
     firstInteraction.put("Lead Scientist", true);
     firstInteraction.put("Scholar", true);
@@ -233,8 +227,10 @@ public class ChatController {
     txtInput.setOnKeyPressed(
         event -> {
           if (event.getCode() == KeyCode.ENTER
+              && stillTalking
               && canSend) { // Send the message when the Enter key is pressed
             try {
+              System.out.println("txtInput enter pressed");
               onSendMessage(new ActionEvent());
             } catch (ApiProxyException | IOException e) {
               e.printStackTrace();
@@ -326,7 +322,8 @@ public class ChatController {
   private String getSystemPrompt() { // Generate the system prompt based on the profession
     Map<String, String> map = new HashMap<>();
     map.put("profession", profession);
-    String firstFile, secondFile;
+    String firstFile;
+    String secondFile;
 
     System.out.println(firstInteraction);
     switch (profession) { // Select the appropriate files based on the profession
@@ -424,9 +421,15 @@ public class ChatController {
    * @param msg the chat message to append
    */
   private void appendChatMessage(ChatMessage msg) {
+    String messageText;
     // Determine the name to display: 'assistant' or 'You'
     String name = msg.getRole().equals("assistant") ? profession : "You";
-    String messageText = name + ": " + msg.getContent() + "\n\n";
+    // If text area has chat messages and it's the character speaking, need new lines.
+    if (!name.equals("You") && !txtaChat.getText().isEmpty()) {
+      messageText = "\n\n" + name + ": " + msg.getContent();
+    } else {
+      messageText = name + ": " + msg.getContent();
+    }
 
     // Save the chat message to the file
     saveChatToFile(msg.getContent() + "\n");
@@ -506,7 +509,8 @@ public class ChatController {
    */
   private void saveChatToFile(String chatContent) {
     try {
-      Files.writeString( // Write the chat content to the file
+      // Write the chat content to the file
+      Files.writeString(
           Paths.get(filePath),
           chatContent + "\n",
           StandardOpenOption.CREATE, // Create the file if it doesn't exist
@@ -530,6 +534,7 @@ public class ChatController {
    */
   @FXML
   private void onSendMessage(ActionEvent event) throws ApiProxyException, IOException {
+    System.out.println("Send message");
     if (txtInput.getText().trim().isEmpty()) { // if the input is empty,
       return;
     }
@@ -540,7 +545,6 @@ public class ChatController {
     if (message.isEmpty()) { // Send the message to the GPT model
       return;
     }
-    // chatHistories.get(profession).get(1).add("You: " + message);
 
     txtInput.clear(); // Clear the input field after sending the message
     ChatMessage msg = new ChatMessage("user", message);

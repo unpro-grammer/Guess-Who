@@ -5,8 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
+/**
+ * Controller for the lab technician scene. This scene is where the player interacts with the lab
+ * tech.
+ */
 public class LabTechnicianController extends RoomController {
   @FXML private ImageView labtechnician;
   @FXML private ImageView labtechnicianturned;
@@ -14,7 +19,10 @@ public class LabTechnicianController extends RoomController {
   @FXML private ImageView pauseButton;
   @FXML private ImageView suspectThinking;
   @FXML private ImageView suspectSpeaking;
+  @FXML private ImageView guessRequirementImg;
+  @FXML private Rectangle beforeGuess;
 
+  /** Initialise the scene in which the lab technician is. */
   @FXML
   public void initialize() {
     super.initialize();
@@ -22,21 +30,25 @@ public class LabTechnicianController extends RoomController {
     hideTurned();
   }
 
+  /** Pause the music in the background. */
   @FXML
   public void onPauseClick(MouseEvent event) {
     super.onPauseClick(event);
   }
 
+  /** Show the lab technician thinking. */
   @FXML
   public void showSuspectThinking() {
     super.showSuspectThinking();
   }
 
+  /** Show the lab technician speaking. */
   @FXML
   public void showSuspectSpeaking() {
     super.showSuspectSpeaking();
   }
 
+  /** Show the lab tech when turned around. */
   @FXML
   public void showTurned() {
     if (!App.isChatOpen()) {
@@ -45,6 +57,7 @@ public class LabTechnicianController extends RoomController {
     }
   }
 
+  /** Hide the turned around version of the lab tech. */
   @FXML
   public void hideTurned() {
     if (!App.isChatOpen()) {
@@ -53,6 +66,19 @@ public class LabTechnicianController extends RoomController {
     }
   }
 
+  /** Show the requirements for guessing. */
+  @FXML
+  protected void onGuessRequirements() {
+    super.onGuessRequirements();
+  }
+
+  /** Hide the requirements for guessing. */
+  @FXML
+  protected void onGuessRequirementsExit() {
+    super.onGuessRequirementsExit();
+  }
+
+  /** Handle the click of the rectangle for the lab tech. */
   @FXML
   @Override
   protected void handleRectangleClick(MouseEvent event) throws IOException {

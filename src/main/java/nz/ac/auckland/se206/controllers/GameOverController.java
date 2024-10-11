@@ -17,8 +17,12 @@ import nz.ac.auckland.apiproxy.chat.openai.Choice;
 import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.MusicPlayer;
 import nz.ac.auckland.se206.prompts.PromptEngineering;
 
+/**
+ * Controller for the game over scene. This scene is where the player is taken when the game ends.
+ */
 public class GameOverController {
   @FXML private TextArea feedbackDisplay;
   @FXML private Button playAgainButton; // used for correct guess (Scholar)
@@ -35,6 +39,11 @@ public class GameOverController {
   private String profession;
   private String feedback;
 
+  /**
+   * Initialises the GameOverController for the game over scene.
+   *
+   * @throws ApiProxyException if there is an API error
+   */
   @FXML
   public void initialize() throws ApiProxyException {
     // Any required initialization code can be placed here
@@ -51,6 +60,9 @@ public class GameOverController {
     outOfTime.setVisible(false);
     purpLine.setVisible(false);
     App.pauseGuessTimer();
+
+    // stop music
+    MusicPlayer.stopAudio();
 
     // depending on the player guessing result, display the correct image and related button
     switch (App.getUserGuess()) {
@@ -78,6 +90,11 @@ public class GameOverController {
     }
   }
 
+  /**
+   * Returns the player to the home screen to play again.
+   *
+   * @throws IOException if there is an I/O error
+   */
   @FXML
   private void onPlayAgain() throws IOException {
 
@@ -89,7 +106,7 @@ public class GameOverController {
   }
 
   /**
-   * Displays the feedback based on the player's explaination during guessing
+   * Displays the feedback based on the player's explaination during guessing.
    *
    * @param useranswer the explaination typed in by the user during guessing
    */
@@ -103,7 +120,7 @@ public class GameOverController {
               chatCompletionRequest =
                   new ChatCompletionRequest(config)
                       .setN(1)
-                      .setTemperature(0.2)
+                      .setTemperature(0.1)
                       .setTopP(0.5)
                       .setMaxTokens(130);
               // runs ChatGPT to generate a feedback based on the model answer
@@ -125,14 +142,20 @@ public class GameOverController {
     backgroundResponseThread.start();
   }
 
+  /**
+   * Returns the system prompt for the AI to generate feedback.
+   *
+   * @return the system prompt for the AI
+   */
   public String getSystemPrompt() {
     Map<String, String> map = new HashMap<>();
     map.put("userAnswer", userAnswer);
+    System.out.println(userAnswer);
     return PromptEngineering.getPrompt("modelanswer.txt", map);
   }
 
   /**
-   * Runs ChatGPT to generate a feedback based on the model answer given
+   * Runs ChatGPT to generate a feedback based on the model answer given.
    *
    * @param msg The model answer preset
    * @return resulting message from generating

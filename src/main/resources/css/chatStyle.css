@@ -5,13 +5,13 @@
 
 #txtaChat {
   -fx-font-size: 23px;
-  -fx-background-color: #f5eeff !important;
+  -fx-background-color: #e9e4f0 !important;
   -fx-text-fill: rgb(38, 33, 100) !important;
-  -fx-control-inner-background: #f5eeff !important;
+  -fx-control-inner-background: #e9e4f0 !important;
   -fx-border-width: 0;
-  -fx-border-color: #f5eeff !important;
-  -fx-focus-color: #f5eeff !important;
-  -fx-faint-focus-color: #f5eeff !important;
+  -fx-border-color: #e9e4f0 !important;
+  -fx-focus-color: #e9e4f0 !important;
+  -fx-faint-focus-color: #e9e4f0 !important;
   -fx-display-caret: true;
   -fx-highlight-fill: #9e98cd;
   -fx-font-family: 'A.Casual.Handwritten.Pen';
@@ -44,14 +44,16 @@
 }
 
 .scroll-bar:vertical .track {
-  -fx-background-color: #e9e4f1;
+  -fx-background-color: #dedae3;
   -fx-background-insets: 0;
   -fx-padding: 0;
   -fx-pref-width: 30;
+  -fx-background-radius: 15;
 }
 
 .scroll-bar:horizontal .track {
-  -fx-background-color: #e9e4f1;
+  -fx-background-color: #dedae3;
   -fx-background-insets: 0;
   -fx-padding: 0;
+  -fx-background-radius: 5;
 }

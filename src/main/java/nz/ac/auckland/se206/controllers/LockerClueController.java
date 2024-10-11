@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.App;
 
+/** Controller for the locker clue scene. This scene is where the player solves the locker clue. */
 public class LockerClueController extends ClueController {
 
   @FXML private ImageView trash;
@@ -13,6 +14,7 @@ public class LockerClueController extends ClueController {
   @FXML private ImageView chinesetakeaway;
   @FXML private ImageView bottle;
   @FXML private ImageView shoes;
+  @FXML private ImageView candy;
 
   @FXML private ImageView zoomedShoes;
 
@@ -21,11 +23,13 @@ public class LockerClueController extends ClueController {
   @FXML private Rectangle rectChineseTakeaway;
   @FXML private Rectangle rectBottle;
   @FXML private Rectangle rectShoes;
+  @FXML private Rectangle rectCandy;
   @FXML private Rectangle rectBoundary;
 
   private double offsetX = 0;
   private ImageView currentImage;
 
+  /** Initialises the locker clue controller as soon as the clue is clicked. */
   @FXML
   @Override
   protected void initialize() {
@@ -36,19 +40,23 @@ public class LockerClueController extends ClueController {
     setDrag(chinesetakeaway, rectChineseTakeaway);
     setDrag(bottle, rectBottle);
     setDrag(shoes, rectShoes);
+    setDrag(candy, rectCandy);
     zoomedShoes.setVisible(false);
   }
 
+  /** Zoom in on the shoe clue. */
   @FXML
   private void zoomOnShoes() {
     zoomedShoes.setVisible(true);
   }
 
+  /** Close the zoomed in shoe clue. */
   @FXML
   private void closeShoes() {
     zoomedShoes.setVisible(false);
   }
 
+  /** Pair each image with corresponding rectangle which handles drag. */
   private void setDrag(ImageView image, Rectangle rectSelection) {
     // pressing of mouse
     rectSelection.setOnMousePressed(
@@ -82,6 +90,11 @@ public class LockerClueController extends ClueController {
         });
   }
 
+  /**
+   * Exit the locker clue and return to the room.
+   *
+   * @throws IOException if there is an I/O error
+   */
   @FXML
   private void onExitClue() throws IOException {
     App.setRoot("room");

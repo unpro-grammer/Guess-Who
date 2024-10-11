@@ -50,7 +50,15 @@ public class MusicPlayer {
     mediaPlayer.pause();
   }
 
+  /** Unpauses the currently paused audio. */
   public static void unPauseAudio() {
     mediaPlayer.play();
+  }
+
+  /** Stops the currently playing audio. */
+  public static void stopAudio() {
+    if (mediaPlayer != null) {
+      mediaPlayer.stop();
+    }
   }
 }

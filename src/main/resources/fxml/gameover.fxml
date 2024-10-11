@@ -56,6 +56,6 @@
          </cursor>
       </Button>
       <TextArea fx:id="feedbackDisplay" editable="false" layoutX="81.0" layoutY="234.0" prefHeight="243.0" prefWidth="402.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Evaluating your explanation..." wrapText="true" />
-      <Rectangle fx:id="purpLine" arcHeight="5.0" arcWidth="5.0" fill="#e9e4f0" height="9.0" layoutX="81.0" layoutY="235.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="402.0" />
+      <Rectangle fx:id="purpLine" arcHeight="5.0" arcWidth="5.0" fill="#e9e4f0" height="9.0" layoutX="81.0" layoutY="235.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="386.0" />
    </children>
 </AnchorPane>
