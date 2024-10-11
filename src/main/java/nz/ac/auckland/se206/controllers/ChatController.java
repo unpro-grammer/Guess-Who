@@ -432,7 +432,10 @@ public class ChatController {
     saveChatToFile(msg.getContent() + "\n");
 
     // Append the message to the chat text area
-    txtaChat.appendText(messageText);
+    Platform.runLater(
+        () -> {
+          txtaChat.appendText(msg.getContent() + "\n");
+        });
 
     // Get the chat history for the current profession, or create a new one if none exists
 
