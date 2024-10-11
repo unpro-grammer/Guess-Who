@@ -434,7 +434,7 @@ public class ChatController {
     // Append the message to the chat text area
     Platform.runLater(
         () -> {
-          txtaChat.appendText(msg.getContent() + "\n");
+          txtaChat.appendText(messageText);
         });
 
     // Get the chat history for the current profession, or create a new one if none exists
