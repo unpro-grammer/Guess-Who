@@ -33,8 +33,10 @@ import nz.ac.auckland.se206.states.GameState;
  * application.
  */
 public class App extends Application {
+
   // 5 minute timer <TOCHANGE> 301 secs cause of transition
   private static Timer timer = new Timer(null, 301, () -> switchToGuessing());
+
   private static Timer guessTimer;
   private static Scene scene;
   private static Parent chatView = null;
@@ -80,6 +82,7 @@ public class App extends Application {
    */
   public static boolean isInteractedEnough() {
     return talkedEnough && cluesExplored.size() >= 1; // <TOCHANGE> UNCOMMENT THIS
+
   }
 
   /**
@@ -89,6 +92,7 @@ public class App extends Application {
    */
   public static boolean exploredEnoughClues() {
     return cluesExplored.size() >= 1;
+
   }
 
   /** Clears all chat history files to reset the game. */
@@ -108,8 +112,10 @@ public class App extends Application {
   public static void resetGame() {
     // clear all variables and reset game state
     clearChats();
+
     // <TOCHANGE> 5 minute timer. 301 secs cause of transition
     timer = new Timer(null, 301, () -> switchToGuessing());
+
     guessTimer = null;
     feedback = "";
     userAnswer = "";
