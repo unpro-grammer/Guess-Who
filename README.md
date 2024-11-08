@@ -1,3 +1,8 @@
+# Guess Who
+
+A JavaFX game in which the player attempts to guess who is the culprit behind the lead scientist's research notes by interacting with clues and talking to suspects (who are all powered by AI-generated responses). You will need tokens from OpenAI for the chat feature to work (see "To setup the API to access Chat Completions and TTS" below).
+
+
 # Sample JavaFX application using Proxy API
 
 ## To setup the API to access Chat Completions and TTS
