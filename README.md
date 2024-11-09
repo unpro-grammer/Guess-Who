@@ -2,7 +2,10 @@
 
 A JavaFX game in which the player attempts to guess who is the culprit behind the lead scientist's research notes by interacting with clues and talking to suspects (who are all powered by AI-generated responses). You will need tokens from OpenAI for the chat feature to work (see "To setup the API to access Chat Completions and TTS" below).
 
-![Demo Video](src/main/resources/videos/crime.mp4)
+[Demo Video](https://github.com/user-attachments/assets/60295865-c310-434a-9f53-29d5ea09e149)
+
+Project made alongside @Jeraych and @iwah144.
+Illustrations by @unpro-grammer.
 
 
 # Sample JavaFX application using Proxy API
