@@ -4,8 +4,8 @@ A JavaFX game in which the player attempts to guess who is the culprit behind th
 
 [Demo Video](https://github.com/user-attachments/assets/60295865-c310-434a-9f53-29d5ea09e149)
 
-Project made alongside @Jeraych and @iwah144.
-Illustrations by @unpro-grammer.
+Project developed in collaboration with [@Jeraych](https://github.com/Jeraych) and [@iwah144](https://github.com/iwah144).
+Illustrations by [@unpro-grammer](https://github.com/unpro-grammer) (me).
 
 
 # Sample JavaFX application using Proxy API
