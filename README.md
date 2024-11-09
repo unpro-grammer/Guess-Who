@@ -5,6 +5,7 @@ A JavaFX game in which the player attempts to guess who is the culprit behind th
 # Demo Video
 > [!NOTE]
 > This video contains spoilers for the game.
+
 [Demo Video](https://github.com/user-attachments/assets/60295865-c310-434a-9f53-29d5ea09e149)
 
 # Credits
