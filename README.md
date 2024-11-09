@@ -2,8 +2,12 @@
 
 A JavaFX game in which the player attempts to guess who is the culprit behind the lead scientist's research notes by interacting with clues and talking to suspects (who are all powered by AI-generated responses). You will need tokens from OpenAI for the chat feature to work (see "To setup the API to access Chat Completions and TTS" below).
 
+# Demo Video
+> [!NOTE]
+> This video contains spoilers for the game.
 [Demo Video](https://github.com/user-attachments/assets/60295865-c310-434a-9f53-29d5ea09e149)
 
+# Credits
 Project developed in collaboration with [@Jeraych](https://github.com/Jeraych) and [@iwah144](https://github.com/iwah144).
 Illustrations by [@unpro-grammer](https://github.com/unpro-grammer) (me).
 
